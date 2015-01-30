@@ -2,29 +2,39 @@ package swim.swimmom;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ProfileAddActivity extends ActionBarActivity {
-
+    Spinner genderSpinner;
+    Spinner gradeSpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_add);
-
-       /* Spinner spinner = (Spinner) findViewById(R.id.genderSpinner);
+////Gender Spinner
+       Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.gender_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);*/
-    }
+        genderSpinner.setAdapter(adapter);
 
+////Grade Spinner
+        Spinner gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter adapter_1 = ArrayAdapter.createFromResource(this, R.array.grade_array, android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        gradeSpinner.setAdapter(adapter_1);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,4 +57,6 @@ public class ProfileAddActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
