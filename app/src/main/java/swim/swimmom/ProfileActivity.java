@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class ProfileActivity extends ActionBarActivity {
@@ -40,9 +41,8 @@ public class ProfileActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void goToProfileAdd()
+    public void goToProfileAdd(View v)
     {
-        Intent myintent = new Intent(ProfileActivity.this, ProfileAddActivity.class);
-        startActivity(myintent);
+        startActivity(new Intent(ProfileActivity.this, ProfileAddActivity.class));
     }
 }
