@@ -1,6 +1,7 @@
 package swim.swimmom;
 
 import android.content.Intent;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,10 +13,10 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,20 +39,33 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public void goToProfiles(View v)
     {
+        //Provides vibrating feedback when button is pressed
+        v.performHapticFeedback(9);
+
         startActivity(new Intent(MainActivity.this,ProfileActivity.class));
     }
     public void goToMeets(View v)
     {
+        //Provides vibrating feedback when button is pressed
+        v.performHapticFeedback(9);
+
         startActivity(new Intent(MainActivity.this,MeetActivity.class));
     }
     public void goToCutTimes(View v)
     {
+        //Provides vibrating feedback when button is pressed
+        v.performHapticFeedback(9);
+
         startActivity(new Intent(MainActivity.this,CutTimeActivity.class));
     }
     public void goToStatistics(View v)
     {
+        //Provides vibrating feedback when button is pressed
+        v.performHapticFeedback(9);
+
         startActivity(new Intent(MainActivity.this,StatisticActivity.class));
     }
 }

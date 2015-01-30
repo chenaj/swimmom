@@ -2,6 +2,7 @@ package swim.swimmom;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -43,6 +44,9 @@ public class ProfileActivity extends ActionBarActivity {
     }
     public void goToProfileAdd(View v)
     {
+        //Provides vibrating feedback when button is pressed
+        v.performHapticFeedback(9);
+
         startActivity(new Intent(ProfileActivity.this, ProfileAddActivity.class));
     }
 }
