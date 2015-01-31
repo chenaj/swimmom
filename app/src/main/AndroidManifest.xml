@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="swim.swimmom" >
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -36,8 +38,10 @@
             android:name=".ProfileAddActivity"
             android:label="@string/title_activity_profile_add" >
         </activity>
+        <activity
+            android:name=".ProfileEditActivity"
+            android:label="@string/title_activity_profile_edit" >
+        </activity>
     </application>
-
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 
 </manifest>

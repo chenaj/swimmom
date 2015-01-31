@@ -9,5 +9,6 @@
     <string name="title_activity_cut_time">CutTimeActivity</string>
     <string name="title_activity_statistic">StatisticActivity</string>
     <string name="title_activity_profile_add">ProfileAddActivity</string>
+    <string name="title_activity_profile_edit">ProfileEditActivity</string>
 
 </resources>
