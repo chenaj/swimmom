@@ -8,14 +8,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class ProfileAddActivity extends ActionBarActivity {
+public class ProfileAddActivity extends ActionBarActivity{
     Spinner genderSpinner;
     Spinner gradeSpinner;
+    EditText name, gender, grade, school;
+    String S_name, S_gender, S_grade, S_school;
+    //Button SAVE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,19 @@ public class ProfileAddActivity extends ActionBarActivity {
         ArrayAdapter adapter_1 = ArrayAdapter.createFromResource(this, R.array.grade_array, android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         gradeSpinner.setAdapter(adapter_1);
+
+
+        /*
+        setContentView(R.layout.activity_profile_add);
+
+        name = (EditText) findViewById(R.id.name);
+        //gender = (EditText) findViewById(R.id.genderSpinner);
+        school = (EditText) findViewById(R.id.school);
+
+        SAVE = (Button) findViewById(R.id.name)
+
+        S_name = name.toString();
+        S_school = school.toString();*/
 
     }
 
@@ -59,4 +77,13 @@ public class ProfileAddActivity extends ActionBarActivity {
     }
 
 
+    /*@Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }*/
 }

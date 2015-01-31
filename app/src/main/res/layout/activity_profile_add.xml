@@ -21,7 +21,8 @@
         android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-        android:id="@+id/profileAddForm">
+        android:id="@+id/profileAddForm"
+        android:layout_alignParentEnd="true">
 
         <TableRow>
 
@@ -87,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="High School"
+                android:text="School"
                 android:id="@+id/schoolLabel"
                 android:layout_column="0" />
 
@@ -99,4 +100,7 @@
                 android:inputType="textCapWords" /> // capitalize first letter of every word
         </TableRow>
     </TableLayout>
+
+
+
 </RelativeLayout>

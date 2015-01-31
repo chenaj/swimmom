@@ -45,7 +45,7 @@ public class ProfileActivity extends ActionBarActivity {
     public void goToProfileAdd(View v)
     {
         //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(9);
+        v.performHapticFeedback(10);
 
         startActivity(new Intent(ProfileActivity.this, ProfileAddActivity.class));
     }

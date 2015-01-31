@@ -1,12 +1,15 @@
 package swim.swimmom;
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.io.File;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -16,6 +19,23 @@ public class MainActivity extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(!doesDatabaseExist(MainActivity.this, "swimmomdb"))
+        {
+            DatabaseOperations dop = new DatabaseOperations(MainActivity.this);
+            Log.d("Database operations", "Database created bro!");
+        }
+        else {
+
+            Log.d("Database operations", "Database already exists bro!");
+        }
+
+    }
+
+    private static boolean doesDatabaseExist(Context context, String dbName)
+    {
+        File dbFile = context.getDatabasePath(dbName);
+        return dbFile.exists();
     }
 
     @Override
@@ -43,28 +63,28 @@ public class MainActivity extends ActionBarActivity {
     public void goToProfiles(View v)
     {
         //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(9);
+        v.performHapticFeedback(10);
 
         startActivity(new Intent(MainActivity.this,ProfileActivity.class));
     }
     public void goToMeets(View v)
     {
         //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(9);
+        v.performHapticFeedback(10);
 
         startActivity(new Intent(MainActivity.this,MeetActivity.class));
     }
     public void goToCutTimes(View v)
     {
         //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(9);
+        v.performHapticFeedback(10);
 
         startActivity(new Intent(MainActivity.this,CutTimeActivity.class));
     }
     public void goToStatistics(View v)
     {
         //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(9);
+        v.performHapticFeedback(10);
 
         startActivity(new Intent(MainActivity.this,StatisticActivity.class));
     }
