@@ -18,9 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class ProfileAddActivity extends ActionBarActivity {
+public class ProfileAddActivity extends ActionBarActivity{
     Spinner genderSpinner;
     Spinner gradeSpinner;
+    EditText name, gender, grade, school;
+    String S_name, S_gender, S_grade, S_school;
+    //Button SAVE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,7 @@ public class ProfileAddActivity extends ActionBarActivity {
         View v = getCurrentFocus();
         boolean ret = super.dispatchTouchEvent(event);
 
+
         if (v instanceof EditText) {
             View w = getCurrentFocus();
             int scrcoords[] = new int[2];
@@ -60,6 +65,21 @@ public class ProfileAddActivity extends ActionBarActivity {
             }
         }
         return ret;
+
+
+        /*
+        setContentView(R.layout.activity_profile_add);
+
+        name = (EditText) findViewById(R.id.name);
+        //gender = (EditText) findViewById(R.id.genderSpinner);
+        school = (EditText) findViewById(R.id.school);
+
+        SAVE = (Button) findViewById(R.id.name)
+
+        S_name = name.toString();
+        S_school = school.toString();*/
+
+
     }
 
     @Override
@@ -85,4 +105,13 @@ public class ProfileAddActivity extends ActionBarActivity {
     }
 
 
+    /*@Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }*/
 }
