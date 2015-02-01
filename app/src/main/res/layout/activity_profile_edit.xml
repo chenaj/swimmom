@@ -42,18 +42,17 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/editTextName"
             android:layout_alignParentLeft="true"
-            android:text="@string/name"
+            android:text="name"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editTextCity"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="28dp"
             android:onClick="run"
-            android:text="@string/save" />
+            android:text="save"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/textView2"
@@ -61,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/editTextEmail"
             android:layout_alignLeft="@+id/textView1"
-            android:text="@string/email"
+            android:text="email"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -70,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/editTextPhone"
             android:layout_alignLeft="@+id/textView1"
-            android:text="@string/phone"
+            android:text="phone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -79,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/editTextEmail"
             android:layout_alignLeft="@+id/textView5"
-            android:text="@string/street"
+            android:text="street"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
@@ -100,7 +99,7 @@
             android:layout_alignBottom="@+id/editTextCity"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/editTextEmail"
-            android:text="@string/country"
+            android:text="country"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText

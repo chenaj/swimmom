@@ -1,6 +1,7 @@
 package swim.swimmom;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.internal.widget.AdapterViewCompat;
@@ -29,6 +30,7 @@ public class ProfileAddActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_add);
+
 ////Gender Spinner
        Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -44,11 +46,11 @@ public class ProfileAddActivity extends ActionBarActivity{
         gradeSpinner.setAdapter(adapter_1);
     }
     @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
+    public boolean dispatchTouchEvent(MotionEvent event)
+    {
 
         View v = getCurrentFocus();
         boolean ret = super.dispatchTouchEvent(event);
-
 
         if (v instanceof EditText) {
             View w = getCurrentFocus();
@@ -66,7 +68,6 @@ public class ProfileAddActivity extends ActionBarActivity{
         }
         return ret;
 
-
         /*
         setContentView(R.layout.activity_profile_add);
 
@@ -78,8 +79,6 @@ public class ProfileAddActivity extends ActionBarActivity{
 
         S_name = name.toString();
         S_school = school.toString();*/
-
-
     }
 
     @Override
@@ -104,6 +103,15 @@ public class ProfileAddActivity extends ActionBarActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    public void goToProfiles(View v) //navigate back to profile page when save is pressed
+    {
+        //When save button is pressed, retrieve values from fields and insert them to database
+
+
+        new RumbleAction(v);
+        new MessagePrinter(ProfileAddActivity.this, "Swimmer Saved!");
+        startActivity(new Intent(ProfileAddActivity.this,ProfileActivity.class));
+    }
 
     /*@Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

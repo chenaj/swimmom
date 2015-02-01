@@ -1,3 +1,4 @@
+/*
 package swim.swimmom;
 
 import android.os.Bundle;
@@ -46,11 +47,13 @@ public class DisplayContact extends Activity {
                 Cursor rs = mydb.getData(Value);
                 id_To_Update = Value;
                 rs.moveToFirst();
-                String nam = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_NAME));
-                String phon = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_PHONE));
-                String emai = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_EMAIL));
-                String stree = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_STREET));
-                String plac = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_CITY));
+
+                String id = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_ID));
+                String nam = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_NAME));
+                String gen = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_GENDER));
+                String grad = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_GRADE));
+                String schoo = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_SCHOOL));
+
                 if (!rs.isClosed())
                 {
                     rs.close();
@@ -58,25 +61,25 @@ public class DisplayContact extends Activity {
                 Button b = (Button)findViewById(R.id.button1);
                 b.setVisibility(View.INVISIBLE);
 
+                place.setText((CharSequence)id);
+                place.setFocusable(false);
+                place.setClickable(false);
+
                 name.setText((CharSequence)nam);
                 name.setFocusable(false);
                 name.setClickable(false);
 
-                phone.setText((CharSequence)phon);
+                phone.setText((CharSequence)gen);
                 phone.setFocusable(false);
                 phone.setClickable(false);
 
-                email.setText((CharSequence)emai);
+                email.setText((CharSequence)grad);
                 email.setFocusable(false);
                 email.setClickable(false);
 
-                street.setText((CharSequence)stree);
+                street.setText((CharSequence)schoo);
                 street.setFocusable(false);
                 street.setClickable(false);
-
-                place.setText((CharSequence)plac);
-                place.setFocusable(false);
-                place.setClickable(false);
             }
         }
     }
@@ -88,10 +91,10 @@ public class DisplayContact extends Activity {
         {
             int Value = extras.getInt("id");
             if(Value>0){
-                getMenuInflater().inflate(R.menu.display_contact, menu);
+                getMenuInflater().inflate(R.menu.menu_profile_edit, menu);
             }
             else{
-                getMenuInflater().inflate(R.menu.main, menu);
+                getMenuInflater().inflate(R.menu.menu_main, menu);
             }
         }
         return true;
@@ -183,3 +186,5 @@ public class DisplayContact extends Activity {
         }
     }
 }
+
+*/

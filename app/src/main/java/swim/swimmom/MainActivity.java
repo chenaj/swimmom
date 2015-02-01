@@ -1,7 +1,9 @@
 package swim.swimmom;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,20 +22,27 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(!doesDatabaseExist(MainActivity.this, "swimmomdb"))
-        {
-            DatabaseOperations dop = new DatabaseOperations(MainActivity.this);
-            Log.d("Database operations", "Database created bro!");
-        }
-        else {
+        /*
+        if(doesDatabaseExist(MainActivity.this, "swimmomdb"))
+            new MessagePrinter(MainActivity.this, "Database exists on device!");
+         else
+            new MessagePrinter(MainActivity.this, "Database does not exist on device!");*/
 
-            Log.d("Database operations", "Database already exists bro!");
-        }
+        DatabaseOperations dop = new DatabaseOperations(MainActivity.this);
+        SQLiteDatabase db = dop.getWritableDatabase();
 
+        /*
+        //!!!!THIS KEEPS FAILING cuz it says theirs no column named Gender
+        //JUST to test inserting into table
+        db.execSQL("INSERT INTO "+DatabaseOperations.TABLE_NAME+" (Id, Name, Gender, Grade, School) " +
+                "VALUES ('1','Some Test','Female','Junior','Some School'); ");
+        Log.d("Database operations", "INSERT query executed!");
+        */
     }
 
-    private static boolean doesDatabaseExist(Context context, String dbName)
+    private static boolean doesDatabaseExist(ContextWrapper context, String dbName)
     {
+        //For debugging only
         File dbFile = context.getDatabasePath(dbName);
         return dbFile.exists();
     }
@@ -56,36 +65,28 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+
     public void goToProfiles(View v)
     {
-        //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(10);
-
+        new RumbleAction(v);
         startActivity(new Intent(MainActivity.this,ProfileActivity.class));
     }
     public void goToMeets(View v)
     {
-        //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(10);
-
+        new RumbleAction(v);
         startActivity(new Intent(MainActivity.this,MeetActivity.class));
     }
     public void goToCutTimes(View v)
     {
-        //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(10);
-
+        new RumbleAction(v);
         startActivity(new Intent(MainActivity.this,CutTimeActivity.class));
     }
     public void goToStatistics(View v)
     {
-        //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(10);
-
+        new RumbleAction(v);
         startActivity(new Intent(MainActivity.this,StatisticActivity.class));
     }
 }

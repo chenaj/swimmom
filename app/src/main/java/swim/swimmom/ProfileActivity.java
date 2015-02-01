@@ -42,11 +42,11 @@ public class ProfileActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void goToProfileAdd(View v)
-    {
-        //Provides vibrating feedback when button is pressed
-        v.performHapticFeedback(10);
 
+
+    public void goToProfileAdd(View v) //go to add profile page
+    {
+        new RumbleAction(v);
         startActivity(new Intent(ProfileActivity.this, ProfileAddActivity.class));
     }
 }

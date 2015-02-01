@@ -39,7 +39,6 @@ package swim.swimmom;
                     "create table profile " +
                             "(id integer primary key, name text,gender text,grade text, school text)"
                             //"(id integer primary key, name text,email text,email text, street text,place text)"
-
             );
         }
 
