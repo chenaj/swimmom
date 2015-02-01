@@ -19,7 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class ProfileAddActivity extends ActionBarActivity{
+public class ProfileAddActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+    private boolean selectionControl = true;
     Spinner genderSpinner;
     Spinner gradeSpinner;
     EditText name, gender, grade, school;
@@ -33,17 +34,21 @@ public class ProfileAddActivity extends ActionBarActivity{
 
 ////Gender Spinner
        Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
+        genderSpinner.setPrompt("Select...");
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         genderSpinner.setAdapter(adapter);
+        genderSpinner.setOnItemSelectedListener(this);
 
 ////Grade Spinner
         Spinner gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
+        gradeSpinner.setPrompt("Select...");
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter adapter_1 = ArrayAdapter.createFromResource(this, R.array.grade_array, android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         gradeSpinner.setAdapter(adapter_1);
+        gradeSpinner.setOnItemSelectedListener(this);
     }
     @Override
     public boolean dispatchTouchEvent(MotionEvent event)
@@ -113,13 +118,19 @@ public class ProfileAddActivity extends ActionBarActivity{
         startActivity(new Intent(ProfileAddActivity.this,ProfileActivity.class));
     }
 
-    /*@Override
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        if (position != 0)
+        {
+            TextView myText = (TextView) view;
+            Toast.makeText(this, "You Selected " + " " + myText.getText(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
-    }*/
+    }
+
+
 }
