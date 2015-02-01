@@ -28,8 +28,9 @@ public class MainActivity extends ActionBarActivity {
          else
             new MessagePrinter(MainActivity.this, "Database does not exist on device!");*/
 
-        DatabaseOperations dop = new DatabaseOperations(MainActivity.this);
+        DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
+
 
         /*
         //!!!!THIS KEEPS FAILING cuz it says theirs no column named Gender

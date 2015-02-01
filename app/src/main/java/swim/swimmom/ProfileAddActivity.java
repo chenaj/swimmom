@@ -21,9 +21,8 @@ import android.widget.Toast;
 
 public class ProfileAddActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
     private boolean selectionControl = true;
-    Spinner genderSpinner;
-    Spinner gradeSpinner;
-    EditText name, gender, grade, school;
+    Spinner genderSpinner, gradeSpinner; //for gender and grade spinner drop-downs
+    EditText name, school; //for name and school text fields
     String S_name, S_gender, S_grade, S_school;
     //Button SAVE;
 
@@ -53,7 +52,6 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     @Override
     public boolean dispatchTouchEvent(MotionEvent event)
     {
-
         View v = getCurrentFocus();
         boolean ret = super.dispatchTouchEvent(event);
 
@@ -72,18 +70,6 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
             }
         }
         return ret;
-
-        /*
-        setContentView(R.layout.activity_profile_add);
-
-        name = (EditText) findViewById(R.id.name);
-        //gender = (EditText) findViewById(R.id.genderSpinner);
-        school = (EditText) findViewById(R.id.school);
-
-        SAVE = (Button) findViewById(R.id.name)
-
-        S_name = name.toString();
-        S_school = school.toString();*/
     }
 
     @Override
@@ -110,12 +96,60 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
     public void goToProfiles(View v) //navigate back to profile page when save is pressed
     {
-        //When save button is pressed, retrieve values from fields and insert them to database
+        //Retrieve values from input fields
+        name = (EditText) findViewById(R.id.name);
+        genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
+        gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
+        school = (EditText) findViewById(R.id.school);
 
+        //Convert them to strings
+        S_name = name.getText().toString();
+        S_gender= genderSpinner.getSelectedItem().toString();
+        S_grade = gradeSpinner.getSelectedItem().toString();
+        S_school = school.getText().toString();
+
+        //Output user input to log
+        Log.d("****** Name", S_name);
+        Log.d("****** Gender", S_gender);
+        Log.d("****** Grade", S_grade);
+        Log.d("****** School", S_school);
 
         new RumbleAction(v);
-        new MessagePrinter(ProfileAddActivity.this, "Swimmer Saved!");
-        startActivity(new Intent(ProfileAddActivity.this,ProfileActivity.class));
+
+        if( validInput() )
+        {
+            new MessagePrinter(this, "Swimmer Saved!");
+            startActivity(new Intent(ProfileAddActivity.this, ProfileActivity.class));
+        }
+        else
+            return;
+    }
+
+    boolean validInput() //check if input fields are all filled in correctly
+    {
+        boolean validInput = true;
+        if (name.toString().matches("")) //if name field is empty
+        {
+            Toast.makeText(this, "You did not enter a username", Toast.LENGTH_SHORT).show();
+            validInput = false;
+        }
+        if (!S_gender.matches("Male") || !S_gender.matches("Female")) //if name field is empty
+        {
+            Toast.makeText(this, "You did not select a gender", Toast.LENGTH_SHORT).show();
+            validInput = false;
+        }
+        if (S_grade.matches("")) //if name field is empty
+        {
+            Toast.makeText(this, "You did not select a gender", Toast.LENGTH_SHORT).show();
+            validInput = false;
+        }
+        if (name.toString().matches("")) //if name field is empty
+        {
+            Toast.makeText(this, "You did not enter a username", Toast.LENGTH_SHORT).show();
+            validInput = false;
+        }
+
+        return validInput;
     }
 
     @Override
@@ -123,7 +157,8 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         if (position != 0)
         {
             TextView myText = (TextView) view;
-            Toast.makeText(this, "You Selected " + " " + myText.getText(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "You Selected " + " " + myText.getText(), Toast.LENGTH_SHORT).show();
+            Log.d("*****You selected", myText.getText().toString());
         }
     }
 
@@ -131,6 +166,4 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
-
 }

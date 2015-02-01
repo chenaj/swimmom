@@ -40,7 +40,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
     public DatabaseOperations(Context context) //default constructor
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.d("Database operations", "Database created bro!");
+        Log.d("*****Database operations", "Database created bro!");
     }
 
     @Override
