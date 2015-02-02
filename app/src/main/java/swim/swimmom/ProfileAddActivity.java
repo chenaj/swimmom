@@ -139,12 +139,12 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
             Toast.makeText(this.getApplicationContext(), "You did not enter a name", Toast.LENGTH_SHORT).show();
             validInput = false;
         }
-        if (S_gender.matches("Select..")) //if gender is not selected
+        if (S_gender.matches("Select...")) //if gender is not selected
         {
             Toast.makeText(this.getApplicationContext(), "You did not select a gender", Toast.LENGTH_SHORT).show();
             validInput = false;
         }
-        if (S_grade.matches("Select..")) //if grade is not selected
+        if (S_grade.matches("Select...")) //if grade is not selected
         {
             Toast.makeText(this.getApplicationContext(), "You did not select a grade", Toast.LENGTH_SHORT).show();
             validInput = false;
@@ -163,7 +163,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         if (position != 0)
         {
             TextView myText = (TextView) view;
-            Toast.makeText(this.getApplicationContext(), "You Selected " + " " + myText.getText(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.getApplicationContext(), "You Selected " + " " + myText.getText(), Toast.LENGTH_SHORT).show();
             Log.d("*****You selected", myText.getText().toString());
         }
     }
