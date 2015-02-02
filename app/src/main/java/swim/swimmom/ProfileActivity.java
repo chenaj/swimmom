@@ -1,6 +1,5 @@
 package swim.swimmom;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,7 +33,7 @@ public class ProfileActivity extends ActionBarActivity {
 
         DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
-        Cursor  cursor = db.rawQuery("SELECT * FROM "+dop.TABLE_NAME+"",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+dop.TABLE_NAME+"",null);
 
         if (cursor .moveToFirst())
         {
@@ -58,8 +57,8 @@ public class ProfileActivity extends ActionBarActivity {
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, swimmerList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
 
-        new MessagePrinter().shortMessage(this, ""+cursor.getCount()+" Swimmer(s) in profile table");
-        Log.d("Swimmer(s) in profile table",""+cursor.getCount()+"");
+        // new MessagePrinter().shortMessage(this, ""+cursor.getCount()+" Swimmer(s) in profile table");
+        // Log.d("Swimmer(s) in profile table",""+cursor.getCount()+"");
     }
 
 
@@ -97,3 +96,4 @@ public class ProfileActivity extends ActionBarActivity {
         startActivity(new Intent(ProfileActivity.this, ProfileDeleteActivity.class));
     }
 }
+
