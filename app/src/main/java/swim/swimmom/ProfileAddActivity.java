@@ -22,14 +22,20 @@ import android.widget.Toast;
 public class ProfileAddActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
     private boolean selectionControl = true;
     Spinner genderSpinner, gradeSpinner; //for gender and grade spinner drop-downs
-    EditText name, school; //for name and school text fields
+    EditText nameField, schoolField; //for name and school text fields
     String S_name, S_gender, S_grade, S_school;
-    //Button SAVE;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_add);
+
+        S_name = null;
+        S_gender = null;
+        S_grade = null;
+        S_school = null;
 
 ////Gender Spinner
        Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
@@ -97,16 +103,16 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     public void goToProfiles(View v) //navigate back to profile page when save is pressed
     {
         //Retrieve values from input fields
-        name = (EditText) findViewById(R.id.name);
+        nameField = (EditText) findViewById(R.id.name);
         genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
         gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
-        school = (EditText) findViewById(R.id.school);
+        schoolField = (EditText) findViewById(R.id.school);
 
         //Convert them to strings
-        S_name = name.getText().toString();
+        S_name = nameField.getText().toString();
         S_gender= genderSpinner.getSelectedItem().toString();
         S_grade = gradeSpinner.getSelectedItem().toString();
-        S_school = school.getText().toString();
+        S_school = schoolField.getText().toString();
 
         //Output user input to log
         Log.d("****** Name", S_name);
@@ -128,24 +134,24 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     boolean validInput() //check if input fields are all filled in correctly
     {
         boolean validInput = true;
-        if (name.toString().matches("")) //if name field is empty
+        if (S_name.length() < 1) //if name field is empty
         {
-            Toast.makeText(this, "You did not enter a username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "You did not enter a name", Toast.LENGTH_SHORT).show();
             validInput = false;
         }
-        if (!S_gender.matches("Male") || !S_gender.matches("Female")) //if name field is empty
+        if (S_gender.matches("Select..")) //if gender is not selected
         {
-            Toast.makeText(this, "You did not select a gender", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "You did not select a gender", Toast.LENGTH_SHORT).show();
             validInput = false;
         }
-        if (S_grade.matches("")) //if name field is empty
+        if (S_grade.matches("Select..")) //if grade is not selected
         {
-            Toast.makeText(this, "You did not select a gender", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "You did not select a grade", Toast.LENGTH_SHORT).show();
             validInput = false;
         }
-        if (name.toString().matches("")) //if name field is empty
+        if (S_school.length() < 1) //if school field is empty
         {
-            Toast.makeText(this, "You did not enter a username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "You did not enter a school", Toast.LENGTH_SHORT).show();
             validInput = false;
         }
 
@@ -164,6 +170,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
 
     }
 }

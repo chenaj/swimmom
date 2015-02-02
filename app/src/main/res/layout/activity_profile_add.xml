@@ -118,5 +118,4 @@
         android:background="#ff0289aa"
         android:onClick="goToProfiles" />
 
-
 </RelativeLayout>

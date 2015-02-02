@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="grade_array">
-        <item>Select..</item>
-        <item>Freshmen</item>
+        <item>Select...</item>
+        <item>Freshman</item>
         <item>Sophomore</item>
         <item>Junior</item>
         <item>Senior</item>

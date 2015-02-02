@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         /*
-        if(doesDatabaseExist(MainActivity.this, "swimmomdb"))
+        if(doesDatabaseExist(MainActivity.this, "swimmom.db"))
             new MessagePrinter(MainActivity.this, "Database exists on device!");
          else
             new MessagePrinter(MainActivity.this, "Database does not exist on device!");*/
