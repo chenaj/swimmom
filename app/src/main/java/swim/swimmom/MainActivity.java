@@ -24,10 +24,11 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         //this.deleteDatabase("swimmom.db");
+        /*
         String x = "Database does exist";
         if(doesDatabaseExist(this, "swimmom.db") == false)
             x = "Database does not exist";
-        Toast.makeText(this.getApplicationContext(), x, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getApplicationContext(), x, Toast.LENGTH_LONG).show();*/
     }
 
     private static boolean doesDatabaseExist(ContextWrapper context, String dbName)

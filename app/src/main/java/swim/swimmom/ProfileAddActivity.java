@@ -33,7 +33,6 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_add);
-
         S_name = "";
         S_gender = "";
         S_grade = "";
@@ -121,28 +120,25 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
         if( validInput() ) //if all user input fields are valid
         {
-            //Output user input to log
-            /*
-            Log.d("****** Name", S_name);
-            Log.d("****** Gender", S_gender);
-            Log.d("****** Grade", S_grade);
-            Log.d("****** School", S_school);*/
-
-            //Insert swimmer information into database
             DatabaseOperations dop = new DatabaseOperations(this);
             SQLiteDatabase db = dop.getWritableDatabase();
 
-            //SQLiteDatabase db;
-            //db = openOrCreateDatabase("swimmom.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-
-            dop.insertProfile(db, S_name, S_gender, S_grade, S_school); //insert swimmer into profile table
-
-
-            new MessagePrinter(this, "Swimmer Saved!");
-            startActivity(new Intent(ProfileAddActivity.this, ProfileActivity.class));
+            //Insert swimmer information into database
+            if( dop.insertProfile(db, S_name, S_gender, S_grade, S_school) == true) //if insert is successful
+            {
+                new MessagePrinter().shortMessage(this, "Swimmer Saved!");
+                startActivity(new Intent(ProfileAddActivity.this, ProfileActivity.class));
+            }
+            else //if insert fails i.e., swimmer exists already
+            {
+                errorMsg = "Sorry this swimmer already exists";
+                new MessagePrinter().longMessage(this, errorMsg);
+                errorMsg = "";
+                return;
+            }
         }
         else {
-            Toast.makeText(this.getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+            new MessagePrinter().longMessage(this, errorMsg);
             errorMsg = "";
             return;
         }
@@ -192,7 +188,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         {
             TextView myText = (TextView) view;
             //Toast.makeText(this.getApplicationContext(), "You Selected " + " " + myText.getText(), Toast.LENGTH_SHORT).show();
-            Log.d("*****You selected", myText.getText().toString());
+            Log.d("You selected", myText.getText().toString());
         }
     }
 
@@ -202,3 +198,6 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
     }
 }
+
+//SQLiteDatabase db;
+//db = openOrCreateDatabase("swimmom.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);

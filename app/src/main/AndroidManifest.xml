@@ -42,6 +42,10 @@
             android:name=".ProfileEditActivity"
             android:label="@string/title_activity_profile_edit" >
         </activity>
+        <activity
+            android:name=".ProfileDeleteActivity"
+            android:label="@string/title_activity_profile_delete" >
+        </activity>
     </application>
 
 </manifest>

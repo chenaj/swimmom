@@ -1,32 +1,24 @@
 package swim.swimmom;
 
-import android.app.ActionBar;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfileActivity extends ActionBarActivity {
+public class ProfileDeleteActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        // ActionBar actionBar = getActionBar();
-        // actionBar.setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_profile_delete);
 
         List<String[]> tableData = new ArrayList<String[]>(); // Stores profile table data
         List<String> swimmerList = new ArrayList<String>(); // Stores list of swimmer names
@@ -34,7 +26,7 @@ public class ProfileActivity extends ActionBarActivity {
 
         DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
-        Cursor  cursor = db.rawQuery("SELECT * FROM "+dop.TABLE_NAME+"",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+dop.TABLE_NAME+"",null);
 
         if (cursor .moveToFirst())
         {
@@ -57,16 +49,13 @@ public class ProfileActivity extends ActionBarActivity {
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, swimmerList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
-
-        new MessagePrinter().shortMessage(this, ""+cursor.getCount()+" Swimmer(s) in profile table");
-        Log.d("Swimmer(s) in profile table",""+cursor.getCount()+"");
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        getMenuInflater().inflate(R.menu.menu_profile_delete, menu);
         return true;
     }
 
@@ -83,17 +72,5 @@ public class ProfileActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void goToProfileAdd(View v) //go to add profile page
-    {
-        new RumbleAction(v);
-        startActivity(new Intent(ProfileActivity.this, ProfileAddActivity.class));
-    }
-
-    public void goToProfileDelete(View v) //go to delete profile page
-    {
-        new RumbleAction(v);
-        startActivity(new Intent(ProfileActivity.this, ProfileDeleteActivity.class));
     }
 }

@@ -2,9 +2,13 @@ package swim.swimmom;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.sql.SQLException;
 
 
 /**
@@ -17,24 +21,21 @@ public class DatabaseOperations extends SQLiteOpenHelper{
     public static final int DATABASE_VERSION = 1;
     public static final String TABLE_NAME = "Profile_TABLE";
 
-    // profile_table columns
+    // profile_table column headers
     public static final String SID = "Id";
     public static final String NAME = "Name";
+    public static final String SCHOOL = "School";
     public static final String GENDER = "Gender";
     public static final String GRADE = "Grade";
-    public static final String SCHOOL = "School";
-
-    /*public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+SID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            ""+NAME+" VARCHAR(50), "+GENDER+" VARCHAR(6), "+GRADE+" VARCHAR(9), "+SCHOOL+" VARCHAR(100));";*/
 
     public static final String CREATE_TABLE =
             "CREATE TABLE Profile_TABLE" +
             "(" +
             "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "Name varchar(60)," +
+            "School varchar(100)," +
             "Gender varchar(6)," +
-            "Grade varchar(9)," +
-            "School varchar(100)" +
+            "Grade varchar(9)" +
             ");";
 
     public DatabaseOperations(Context context) //default constructor
@@ -47,7 +48,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(CREATE_TABLE); //execute create table query
-        Log.d("***** Database operations", "Profile Table created bro!");
+        Log.d("Database operations", "Profile Table created bro!");
     }
 
     @Override
@@ -56,15 +57,26 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 
     }
 
-    public void insertProfile(SQLiteDatabase db,String name,String gender, String grade, String school)
+    public Boolean insertProfile(SQLiteDatabase db,String name,String gender, String grade, String school)
     {
-        String query = "INSERT INTO "+TABLE_NAME+" (Name, Gender, Grade, School) VALUES ('"+name+"', '"+gender+"', '"+grade+"', '"+school+"')";
-        db.execSQL(query);
+        //Check if this swimmer already exists
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE Name= '"+name+"'",null);
+        if(cursor.getCount() > 0) //if a profile with same name already exists
+            return false;
 
-        Log.d("***** Database operations", "One Row inserted Bro!");
-        Log.d("***** Name", name);
-        Log.d("***** Gender", gender);
-        Log.d("***** Grade", grade);
-        Log.d("***** School", school);
+        String query = "INSERT INTO "+TABLE_NAME+" (Name, School, Gender, Grade) VALUES ('"+name+"', '"+school+"', '"+gender+"', '"+grade+"')";
+        try {
+            db.execSQL(query);
+        }catch (Exception e){
+            Log.e("Query error!", "INSERT FAILED");
+        }
+
+        Log.d("*Database operations", "One Row inserted Bro!");
+        Log.d("*Name", name);
+        Log.d("*School", school);
+        Log.d("*Gender", gender);
+        Log.d("*Grade", grade);
+
+        return true;
     }
 }

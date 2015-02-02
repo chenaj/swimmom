@@ -9,12 +9,20 @@ import android.widget.Toast;
  * Created by Smooth on 1/31/2015.
  */
 public class MessagePrinter {
-    public MessagePrinter(Context context, String message)
+    public void shortMessage(Context context, String message)
     {
         Toast toast = Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT);
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         v.setTextColor(Color.WHITE);
-        v.setTextSize(20);
+        v.setTextSize(18);
+        toast.show();
+    }
+    public void longMessage(Context context, String message)
+    {
+        Toast toast = Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_LONG);
+        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+        v.setTextColor(Color.WHITE);
+        v.setTextSize(18);
         toast.show();
     }
 }
