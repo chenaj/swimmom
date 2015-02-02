@@ -27,7 +27,8 @@
         android:background="#ff0289aa"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        />
+        android:width="80dp"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -41,7 +42,9 @@
         android:textColor="#ffffffff"
         android:background="#ff0289aa"
         android:layout_marginLeft="30dp"
-        android:onClick="goToProfileAdd" />
+        android:onClick="goToProfileAdd"
+        android:width="80dp"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -54,7 +57,9 @@
         android:textSize="25sp"
         android:textColor="#ffffffff"
         android:background="#ff0289aa"
-        android:layout_marginRight="30dp"/>
+        android:layout_marginRight="30dp"
+        android:width="80dp"
+        android:layout_marginTop="16dp" />
 
     <ListView
         android:layout_width="wrap_content"

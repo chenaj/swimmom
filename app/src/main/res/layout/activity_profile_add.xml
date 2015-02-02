@@ -13,7 +13,8 @@
         android:id="@+id/imageView2"
         android:src="@drawable/swimmom_logo"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop" />
 
     <TableLayout
        android:layout_width="fill_parent"
@@ -30,19 +31,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text="Name:"
+                android:textStyle="bold"
                 android:id="@+id/nameLabel"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:textSize="16dp"
+                android:layout_marginTop="16dp" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:inputType="textPersonName"
                 android:clickable="true"
                 android:focusableInTouchMode="true"
                 android:ems="10"
                 android:id="@+id/name"
-                android:layout_column="1" />
+                android:layout_column="1"
+                android:layout_marginTop="16dp" />
         </TableRow>
 
         <TableRow
@@ -52,13 +58,40 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender"
+                android:text="School:"
+                android:textStyle="bold"
+                android:id="@+id/schoolLabel"
+                android:layout_column="0"
+                android:textSize="16dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/school"
+
+                android:layout_column="1"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="textCapWords" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender:"
+                android:textStyle="bold"
                 android:id="@+id/genderLabel"
-            />
+                android:textSize="16dp" />
 
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:id="@+id/genderSpinner"
                 android:layout_column="1"
                 android:spinnerMode="dropdown" />
@@ -72,12 +105,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grade"
-                android:id="@+id/gradeLabel" />
+                android:text="Grade:"
+                android:textStyle="bold"
+                android:id="@+id/gradeLabel"
+                android:textSize="16dp" />
 
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:id="@+id/gradeSpinner"
                 android:layout_column="1"
                 android:spinnerMode="dropdown" />
@@ -87,21 +123,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="School"
-                android:id="@+id/schoolLabel"
-                android:layout_column="0" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/school"
-                android:layout_column="1"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:inputType="textCapWords" /> // capitalize first letter of every word
+            // capitalize first letter of every word
         </TableRow>
     </TableLayout>
 
@@ -116,6 +138,8 @@
         android:textSize="25dp"
         android:textColor="#ffffffff"
         android:background="#ff0289aa"
-        android:onClick="goToProfiles" />
+        android:onClick="goToProfiles"
+        android:width="100dp" />
+
 
 </RelativeLayout>

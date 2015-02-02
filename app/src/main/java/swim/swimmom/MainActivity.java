@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -22,23 +23,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
-        if(doesDatabaseExist(MainActivity.this, "swimmom.db"))
-            new MessagePrinter(MainActivity.this, "Database exists on device!");
-         else
-            new MessagePrinter(MainActivity.this, "Database does not exist on device!");*/
-
-        DatabaseOperations dop = new DatabaseOperations(this);
-        SQLiteDatabase db = dop.getWritableDatabase();
-
-
-        /*
-        //!!!!THIS KEEPS FAILING cuz it says theirs no column named Gender
-        //JUST to test inserting into table
-        db.execSQL("INSERT INTO "+DatabaseOperations.TABLE_NAME+" (Id, Name, Gender, Grade, School) " +
-                "VALUES ('1','Some Test','Female','Junior','Some School'); ");
-        Log.d("Database operations", "INSERT query executed!");
-        */
+        //this.deleteDatabase("swimmom.db");
+        String x = "Database does exist";
+        if(doesDatabaseExist(this, "swimmom.db") == false)
+            x = "Database does not exist";
+        Toast.makeText(this.getApplicationContext(), x, Toast.LENGTH_LONG).show();
     }
 
     private static boolean doesDatabaseExist(ContextWrapper context, String dbName)

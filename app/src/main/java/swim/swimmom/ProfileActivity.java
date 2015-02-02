@@ -2,9 +2,12 @@ package swim.swimmom;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,26 @@ public class ProfileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_profile);
        // ActionBar actionBar = getActionBar();
         //actionBar.setDisplayHomeAsUpEnabled(true);
+
+        DatabaseOperations dop = new DatabaseOperations(this);
+        SQLiteDatabase db = dop.getWritableDatabase();
+
+        Cursor  cursor = db.rawQuery("SELECT * FROM "+dop.TABLE_NAME+"",null);
+
+        /*
+        if (cursor .moveToFirst())
+        {
+            while (cursor.isAfterLast() == false) {
+                String name = cursor.getString(cursor
+                        .getColumnIndex("Name"));
+
+                list.add(name);
+                cursor.moveToNext();
+            }
+        }*/
+
+          new MessagePrinter(this, ""+cursor.getCount()+" row(s) returned from SELECT query");
+        Log.e("Rows returned from SELECT query",""+cursor.getCount()+"");
     }
 
 

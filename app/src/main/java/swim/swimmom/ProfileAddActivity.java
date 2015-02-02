@@ -2,6 +2,7 @@ package swim.swimmom;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.internal.widget.AdapterViewCompat;
@@ -24,6 +25,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     Spinner genderSpinner, gradeSpinner; //for gender and grade spinner drop-downs
     EditText nameField, schoolField; //for name and school text fields
     String S_name, S_gender, S_grade, S_school;
+    String errorMsg;
 
 
     @Override
@@ -32,10 +34,11 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_add);
 
-        S_name = null;
-        S_gender = null;
-        S_grade = null;
-        S_school = null;
+        S_name = "";
+        S_gender = "";
+        S_grade = "";
+        S_school = "";
+        errorMsg = "";
 
 ////Gender Spinner
        Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
@@ -114,48 +117,73 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         S_grade = gradeSpinner.getSelectedItem().toString();
         S_school = schoolField.getText().toString();
 
-        //Output user input to log
-        Log.d("****** Name", S_name);
-        Log.d("****** Gender", S_gender);
-        Log.d("****** Grade", S_grade);
-        Log.d("****** School", S_school);
-
         new RumbleAction(v);
 
-        if( validInput() )
+        if( validInput() ) //if all user input fields are valid
         {
+            //Output user input to log
+            /*
+            Log.d("****** Name", S_name);
+            Log.d("****** Gender", S_gender);
+            Log.d("****** Grade", S_grade);
+            Log.d("****** School", S_school);*/
+
+            //Insert swimmer information into database
+            DatabaseOperations dop = new DatabaseOperations(this);
+            SQLiteDatabase db = dop.getWritableDatabase();
+
+            //SQLiteDatabase db;
+            //db = openOrCreateDatabase("swimmom.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+
+            dop.insertProfile(db, S_name, S_gender, S_grade, S_school); //insert swimmer into profile table
+
+
             new MessagePrinter(this, "Swimmer Saved!");
             startActivity(new Intent(ProfileAddActivity.this, ProfileActivity.class));
         }
-        else
+        else {
+            Toast.makeText(this.getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+            errorMsg = "";
             return;
+        }
     }
 
     boolean validInput() //check if input fields are all filled in correctly
     {
         boolean validInput = true;
+
         if (S_name.length() < 1) //if name field is empty
         {
-            Toast.makeText(this.getApplicationContext(), "You did not enter a name", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.getApplicationContext(), "You did not enter a name", Toast.LENGTH_SHORT).show();
+            addNewLine();
+            errorMsg += "You did not enter a name";
             validInput = false;
         }
         if (S_gender.matches("Select...")) //if gender is not selected
         {
-            Toast.makeText(this.getApplicationContext(), "You did not select a gender", Toast.LENGTH_SHORT).show();
+            addNewLine();
+            errorMsg += "You did not select a gender";
             validInput = false;
         }
         if (S_grade.matches("Select...")) //if grade is not selected
         {
-            Toast.makeText(this.getApplicationContext(), "You did not select a grade", Toast.LENGTH_SHORT).show();
+            addNewLine();
+            errorMsg += "You did not select a grade";
             validInput = false;
         }
         if (S_school.length() < 1) //if school field is empty
         {
-            Toast.makeText(this.getApplicationContext(), "You did not enter a school", Toast.LENGTH_SHORT).show();
+            addNewLine();
+            errorMsg += "You did not enter a school";
             validInput = false;
         }
-
         return validInput;
+    }
+
+    public void addNewLine() //adds new line to display multiple error messages in single toast message
+    {
+        if(errorMsg.length() > 0)
+            errorMsg += "\r\n";
     }
 
     @Override
