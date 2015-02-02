@@ -39,7 +39,7 @@ public class ProfileActivity extends ActionBarActivity {
             }
         }*/
 
-          new MessagePrinter(this, ""+cursor.getCount()+" row(s) returned from SELECT query");
+         new MessagePrinter(this, ""+cursor.getCount()+" row(s) returned from SELECT query");
         Log.e("Rows returned from SELECT query",""+cursor.getCount()+"");
     }
 

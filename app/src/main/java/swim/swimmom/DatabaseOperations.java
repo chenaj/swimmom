@@ -14,7 +14,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 
     //** variable represents name in code, the string represents column name in table
     public static final String DATABASE_NAME = "swimmom.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String TABLE_NAME = "Profile_TABLE";
 
     // profile_table columns
