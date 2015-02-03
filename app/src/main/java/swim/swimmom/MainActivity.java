@@ -63,21 +63,21 @@ public class MainActivity extends ActionBarActivity {
     public void goToProfiles(View v)
     {
         new RumbleAction(v);
-        startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+        startActivity(new Intent(this,ProfileActivity.class));
     }
     public void goToMeets(View v)
     {
         new RumbleAction(v);
-        startActivity(new Intent(MainActivity.this,MeetActivity.class));
+        startActivity(new Intent(this,MeetActivity.class));
     }
     public void goToCutTimes(View v)
     {
         new RumbleAction(v);
-        startActivity(new Intent(MainActivity.this,CutTimeActivity.class));
+        startActivity(new Intent(this,CutTimeActivity.class));
     }
     public void goToStatistics(View v)
     {
         new RumbleAction(v);
-        startActivity(new Intent(MainActivity.this,StatisticActivity.class));
+        startActivity(new Intent(this,StatisticActivity.class));
     }
 }

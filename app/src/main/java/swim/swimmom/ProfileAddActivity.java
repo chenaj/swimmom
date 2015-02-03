@@ -57,6 +57,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         gradeSpinner.setAdapter(adapter_1);
         gradeSpinner.setOnItemSelectedListener(this);
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event)
     {

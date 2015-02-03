@@ -4,8 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="swim.swimmom.ProfileAddActivity"
-    android:id="@+id/ProfileAddPage">
+    tools:context="swim.swimmom.MeetCreateActivity">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -17,7 +16,7 @@
         android:scaleType="centerCrop" />
 
     <TableLayout
-       android:layout_width="fill_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
@@ -26,14 +25,15 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name:"
+                android:text="Date:"
                 android:textStyle="bold"
-                android:id="@+id/nameLabel"
+                android:id="@+id/dateLabel"
                 android:layout_column="0"
                 android:textSize="16dp"
                 android:layout_marginTop="16dp" />
@@ -46,21 +46,29 @@
                 android:clickable="true"
                 android:focusableInTouchMode="true"
                 android:ems="10"
-                android:id="@+id/name"
+                android:id="@+id/date"
                 android:layout_column="1"
                 android:layout_marginTop="16dp" />
+
+            <View
+                android:id="@+id/invisible_click_watcher"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true" />
+
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="School:"
+                android:text="Location:"
                 android:textStyle="bold"
-                android:id="@+id/schoolLabel"
+                android:id="@+id/locationLabel"
                 android:layout_column="0"
                 android:textSize="16dp" />
 
@@ -68,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/school"
+                android:id="@+id/location"
 
                 android:layout_column="1"
                 android:clickable="true"
@@ -78,52 +86,51 @@
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender:"
+                android:text="Time:"
                 android:textStyle="bold"
-                android:id="@+id/genderLabel"
+                android:id="@+id/timeLabel"
                 android:textSize="16dp" />
 
-            <Spinner
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/genderSpinner"
+                android:id="@+id/time"
                 android:layout_column="1"
-                android:spinnerMode="dropdown" />
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="textCapWords" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grade:"
+                android:text="Opponent:"
                 android:textStyle="bold"
-                android:id="@+id/gradeLabel"
+                android:id="@+id/opponentLabel"
                 android:textSize="16dp" />
 
-            <Spinner
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/gradeSpinner"
+                android:id="@+id/opponent"
                 android:layout_column="1"
-                android:spinnerMode="dropdown" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            // capitalize first letter of every word
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="textCapWords" />
         </TableRow>
     </TableLayout>
 
@@ -140,6 +147,5 @@
         android:background="#ff0289aa"
         android:onClick="goToProfiles"
         android:width="100dp" />
-
 
 </RelativeLayout>

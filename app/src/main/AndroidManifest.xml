@@ -46,6 +46,10 @@
             android:name=".ProfileDeleteActivity"
             android:label="@string/title_activity_profile_delete" >
         </activity>
+        <activity
+            android:name=".MeetCreateActivity"
+            android:label="@string/title_activity_meet_create" >
+        </activity>
     </application>
 
 </manifest>
