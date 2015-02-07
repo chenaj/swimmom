@@ -1,18 +1,12 @@
 package swim.swimmom;
 
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import java.io.File;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,19 +17,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //this.deleteDatabase("swimmom.db");
-        /*
-        String x = "Database does exist";
-        if(doesDatabaseExist(this, "swimmom.db") == false)
-            x = "Database does not exist";
-        Toast.makeText(this.getApplicationContext(), x, Toast.LENGTH_LONG).show();*/
-    }
-
-    private static boolean doesDatabaseExist(ContextWrapper context, String dbName)
-    {
-        //For debugging only
-        File dbFile = context.getDatabasePath(dbName);
-        return dbFile.exists();
     }
 
     @Override

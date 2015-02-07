@@ -125,14 +125,15 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
             SQLiteDatabase db = dop.getWritableDatabase();
 
             //Insert swimmer information into database
-            if( dop.insertProfile(db, S_name, S_gender, S_grade, S_school) == true) //if insert is successful
+            String result = dop.insertProfile(db, S_name, S_gender, S_grade, S_school);
+            if(result == "Success") //if insert is successful
             {
                 new MessagePrinter().shortMessage(this, "Swimmer Saved!");
                 startActivity(new Intent(ProfileAddActivity.this, ProfileActivity.class));
             }
-            else //if insert fails i.e., swimmer exists already
+            else //if insert fails i.e., display returned error message
             {
-                errorMsg = "Sorry this swimmer already exists";
+                errorMsg = result;
                 new MessagePrinter().longMessage(this, errorMsg);
                 errorMsg = "";
                 return;

@@ -3,18 +3,14 @@ package swim.swimmom;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.Toast;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +22,6 @@ public class ProfileActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        // ActionBar actionBar = getActionBar();
-        // actionBar.setDisplayHomeAsUpEnabled(true);
 
         List<String[]> tableData = new ArrayList<String[]>(); // Stores profile table data
         List<String> swimmerList = new ArrayList<String>(); // Stores list of swimmer names

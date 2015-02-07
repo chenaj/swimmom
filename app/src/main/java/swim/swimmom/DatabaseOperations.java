@@ -39,14 +39,14 @@ public class DatabaseOperations extends SQLiteOpenHelper{
     public DatabaseOperations(Context context) //default constructor
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.d("***** Database operations", "Database created/opened bro!");
+        Log.d("*Database operations", "Database instance created");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL(CREATE_TABLE); //execute create table query
-        Log.d("Database operations", "Profile Table created bro!");
+        Log.d("*Database operations", "Profile Table created!");
     }
 
     @Override
@@ -55,26 +55,53 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 
     }
 
-    public Boolean insertProfile(SQLiteDatabase db,String name,String gender, String grade, String school)
+    public String insertProfile(SQLiteDatabase db, String name, String gender, String grade, String school) //INSERT
     {
+        //Get number of profiles in database
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_NAME+"", null);
+        if(cursor.getCount() == 10) //if 10 profiles already exist
+            return "Sorry maximum number of profiles reached";
+
         //Check if this swimmer already exists
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE Name= '"+name+"'",null);
+        cursor = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE Name= '"+name+"'", null);
         if(cursor.getCount() > 0) //if a profile with same name already exists
-            return false;
+            return "Sorry this profile already exists";
 
         String query = "INSERT INTO "+TABLE_NAME+" (Name, School, Gender, Grade) VALUES ('"+name+"', '"+school+"', '"+gender+"', '"+grade+"')";
         try {
             db.execSQL(query);
         }catch (Exception e){
-            Log.e("Query error!", "INSERT FAILED");
+            Log.e("*Query error!", "INSERT FAILED");
+            return "Error occurred!";
         }
 
-        Log.d("*Database operations", "One Row inserted Bro!");
-        Log.d("*Name", name);
-        Log.d("*School", school);
-        Log.d("*Gender", gender);
-        Log.d("*Grade", grade);
+        Log.d("*Database operations", "One row inserted!");
+        return "Success";
+    }
+    public String updateProfile(SQLiteDatabase db, String id, String name, String gender, String grade, String school) //UPDATE
+    {
+        String query = "UPDATE "+TABLE_NAME+" SET Name='"+name+"', Gender='"+gender+"', Grade='"+grade+"', Name='"+school+"' WHERE Id='"+id+"' ";
+        try {
+            db.execSQL(query);
+        }catch (Exception e){
+            Log.e("*Query error!", "UPDATE FAILED");
+            return "Error occurred!";
+        }
 
-        return true;
+        Log.d("*Database operations", "One row updated!");
+        return "Success";
+    }
+    public String deleteProfile(SQLiteDatabase db, String id) //DELETE
+    {
+        String query = "DELETE FROM "+TABLE_NAME+" WHERE Id='"+id+"'";
+        try {
+            db.execSQL(query);
+        }catch (Exception e){
+            Log.e("*Query error!", "DELETE FAILED");
+            return "Error occurred!";
+        }
+
+        Log.d("*Database operations", "One row deleted (Id='"+id+"'!");
+        return "Success";
     }
 }
