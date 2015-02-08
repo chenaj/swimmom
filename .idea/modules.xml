@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SwimMom.iml" filepath="$PROJECT_DIR$/SwimMom.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/swimmom.iml" filepath="$PROJECT_DIR$/swimmom.iml" />
     </modules>
   </component>
 </project>
