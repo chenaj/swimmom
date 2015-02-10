@@ -1,6 +1,9 @@
 package swim.swimmom;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -84,5 +88,23 @@ public class ProfileDeleteActivity extends ActionBarActivity {
         String item = parent.getItemAtPosition(position).toString();
         new MessagePrinter().shortMessage(this, "You selected "+item+"");
 
+    }
+
+
+
+    public void deleteProfiles(View v) //delete selected profiles
+    {
+        new RumbleAction(v);
+
+        Boolean path = new AlertDialogBuilder().AlertDialogBuilder(this, "Delete profiles", "Are you sure you want to delete the selected profiles?");
+
+        if(path == true)
+            startActivity(new Intent(this, ProfileActivity.class));
+    }
+
+    public void goToProfiles(View v) //go to profile page
+    {
+        new RumbleAction(v);
+        startActivity(new Intent(this, ProfileActivity.class));
     }
 }

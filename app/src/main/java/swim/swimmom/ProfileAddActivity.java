@@ -129,7 +129,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
             if(result == "Success") //if insert is successful
             {
                 new MessagePrinter().shortMessage(this, "Swimmer Saved!");
-                startActivity(new Intent(ProfileAddActivity.this, ProfileActivity.class));
+                startActivity(new Intent(this, ProfileActivity.class));
             }
             else //if insert fails i.e., display returned error message
             {

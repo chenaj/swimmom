@@ -7,139 +7,153 @@
     tools:context="swim.swimmom.ProfileAddActivity"
     android:id="@+id/ProfileAddPage">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:src="@drawable/swimmom_logo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop" />
 
-    <TableLayout
-       android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:id="@+id/profileAddForm">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:id="@+id/linearLayout">
 
-        <TableRow
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/swimlogov2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical">
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:id="@+id/profileAddForm"
+            android:paddingLeft="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name:"
-                android:textStyle="bold"
-                android:id="@+id/nameLabel"
-                android:layout_column="0"
-                android:textSize="16dp"
-                android:layout_marginTop="16dp" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:inputType="textPersonName"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:ems="10"
-                android:id="@+id/name"
-                android:layout_column="1"
-                android:layout_marginTop="16dp" />
-        </TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name:"
+                    android:textStyle="bold"
+                    android:id="@+id/nameLabel"
+                    android:layout_column="0"
+                    android:textSize="16dp"
+                    android:layout_marginTop="16dp" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:inputType="textPersonName"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:ems="10"
+                    android:id="@+id/name"
+                    android:layout_column="1"
+                    android:layout_marginTop="16dp" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="School:"
-                android:textStyle="bold"
-                android:id="@+id/schoolLabel"
-                android:layout_column="0"
-                android:textSize="16dp" />
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/school"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="School:"
+                    android:textStyle="bold"
+                    android:id="@+id/schoolLabel"
+                    android:layout_column="0"
+                    android:textSize="16dp" />
 
-                android:layout_column="1"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:inputType="textCapWords" />
-        </TableRow>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/school"
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+                    android:layout_column="1"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:inputType="textCapWords" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gender:"
-                android:textStyle="bold"
-                android:id="@+id/genderLabel"
-                android:textSize="16dp" />
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/genderSpinner"
-                android:layout_column="1"
-                android:spinnerMode="dropdown" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender:"
+                    android:textStyle="bold"
+                    android:id="@+id/genderLabel"
+                    android:textSize="16dp" />
 
-        </TableRow>
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/genderSpinner"
+                    android:layout_column="1"
+                    android:spinnerMode="dropdown" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Grade:"
-                android:textStyle="bold"
-                android:id="@+id/gradeLabel"
-                android:textSize="16dp" />
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/gradeSpinner"
-                android:layout_column="1"
-                android:spinnerMode="dropdown" />
-        </TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grade:"
+                    android:textStyle="bold"
+                    android:id="@+id/gradeLabel"
+                    android:textSize="16dp" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/gradeSpinner"
+                    android:layout_column="1"
+                    android:spinnerMode="dropdown" />
+            </TableRow>
 
-            // capitalize first letter of every word
-        </TableRow>
-    </TableLayout>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-    <Button
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/createBtn"
-        android:layout_below="@+id/profileAddForm"
-        android:layout_centerHorizontal="true"
-        android:textSize="25dp"
-        android:textColor="#ffffffff"
-        android:background="#ff0289aa"
-        android:onClick="goToProfiles"
-        android:width="100dp" />
+                // capitalize first letter of every word
+            </TableRow>
 
+        </TableLayout>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/createBtn"
+            android:layout_below="@+id/profileAddForm"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"
+            android:textColor="#ffffffff"
+            android:onClick="goToProfiles"
+            android:width="100dp"
+            android:layout_gravity="center_horizontal" />
+        </LinearLayout>
 
 </RelativeLayout>

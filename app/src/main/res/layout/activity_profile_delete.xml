@@ -6,14 +6,30 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="swim.swimmom.ProfileDeleteActivity">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:id="@+id/linearLayout2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/swimlogov2"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:id="@+id/logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/swimmom_logo"
-        />
+        android:src="@drawable/swimlogov2"
+        android:scaleType="fitCenter" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,13 +61,14 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="25dp"
         android:layout_below="@+id/logo"
-        android:layout_marginBottom="50dp" />
+        android:layout_above="@+id/button" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete"
-        android:id="@+id/deleteProfileBtn"
+        android:id="@+id/button"
+        android:onClick="deleteProfiles"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView" />
@@ -60,9 +77,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:id="@+id/cancelBtn"
+        android:id="@+id/button2"
+        android:onClick="goToProfiles"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/logo"
-        android:layout_alignEnd="@+id/logo" />
+        android:layout_toRightOf="@+id/button"
+        android:layout_toEndOf="@+id/button" />
+
 
 </RelativeLayout>
