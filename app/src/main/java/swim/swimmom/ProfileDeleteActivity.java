@@ -1,5 +1,6 @@
 package swim.swimmom;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
@@ -23,7 +24,6 @@ public class ProfileDeleteActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_delete);
-
         List<String[]> tableData = new ArrayList<String[]>(); // Stores profile table data
         List<String> swimmerList = new ArrayList<String>(); // Stores list of swimmer names
         String id, name, school, gender, grade;
@@ -49,9 +49,11 @@ public class ProfileDeleteActivity extends ActionBarActivity {
             }
         }
 
+
         ListView lv = (ListView) findViewById(R.id.profileList);
+        lv.setChoiceMode(lv.CHOICE_MODE_MULTIPLE);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, swimmerList);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, swimmerList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
     }
 

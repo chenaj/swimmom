@@ -9,47 +9,66 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile" >
+            android:label="@string/title_activity_profile"
+            android:screenOrientation="portrait">
         </activity>
+
         <activity
             android:name=".MeetActivity"
-            android:label="@string/title_activity_meet" >
+            android:label="@string/title_activity_meet"
+            android:screenOrientation="portrait">
         </activity>
+
         <activity
             android:name=".CutTimeActivity"
-            android:label="@string/title_activity_cut_time" >
+            android:label="@string/title_activity_cut_time"
+            android:screenOrientation="portrait">
         </activity>
+
         <activity
             android:name=".StatisticActivity"
-            android:label="@string/title_activity_statistic" >
+            android:label="@string/title_activity_statistic"
+            android:screenOrientation="portrait">
         </activity>
+
         <activity
             android:name=".ProfileAddActivity"
-            android:label="@string/title_activity_profile_add" >
+            android:label="@string/title_activity_profile_add"
+            android:screenOrientation="portrait">
         </activity>
+
         <activity
             android:name=".ProfileEditActivity"
-            android:label="@string/title_activity_profile_edit" >
+            android:label="@string/title_activity_profile_edit"
+            android:screenOrientation="portrait">
         </activity>
+
         <activity
             android:name=".ProfileDeleteActivity"
-            android:label="@string/title_activity_profile_delete" >
+            android:label="@string/title_activity_profile_delete"
+            android:screenOrientation="portrait">
         </activity>
+
         <activity
             android:name=".MeetCreateActivity"
-            android:label="@string/title_activity_meet_create" >
+            android:label="@string/title_activity_meet_create"
+            android:screenOrientation="portrait">
         </activity>
+
     </application>
 
 </manifest>

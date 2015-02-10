@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -23,8 +24,7 @@
                 android:nestedScrollingEnabled="false"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="0dp" />
+                android:layout_alignParentEnd="true" />
         </LinearLayout>
 
         <View
@@ -45,43 +45,59 @@
             android:id="@+id/BtnSect"
             android:layout_gravity="center_horizontal"
             android:gravity="bottom"
+            android:paddingBottom="30dp"
             android:background="#ff0289aa">
 
             <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="90dp"
+                android:layout_height="92dp"
                 android:id="@+id/profilesBtn"
                 android:src="@drawable/prof_btn"
+                android:onClick="goToProfiles"
                 android:scaleType="fitCenter"
-                android:background="#00000000"
-                android:paddingBottom="6dp" />
+                android:longClickable="false"
+                android:cropToPadding="false"
+                android:clickable="false"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="0dp"
+                android:layout_marginBottom="2dp" />
 
             <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="90dp"
+                android:layout_height="92dp"
                 android:id="@+id/meetsBtn"
                 android:src="@drawable/meets_btn"
+                android:onClick="goToMeets"
                 android:scaleType="fitCenter"
-                android:background="#00000000"
-                android:paddingBottom="6dp" />
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="0dp"
+                android:layout_marginBottom="2dp" />
 
             <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="90dp"
+                android:layout_height="92dp"
                 android:id="@+id/cuttimesBtn"
                 android:src="@drawable/ctimes_btn"
+                android:onClick="goToCutTimes"
                 android:scaleType="fitCenter"
-                android:background="#00000000"
-                android:paddingBottom="6dp" />
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="0dp"
+                android:layout_marginBottom="2dp" />
 
             <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="90dp"
+                android:layout_height="92dp"
                 android:id="@+id/statisticsBtn"
                 android:src="@drawable/stats_btn"
+                android:onClick="goToStatistics"
                 android:scaleType="fitCenter"
-                android:background="#00000000"
-                android:paddingBottom="6dp" />
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:paddingBottom="0dp"
+                android:layout_marginBottom="2dp" />
         </LinearLayout>
 
     </LinearLayout>
