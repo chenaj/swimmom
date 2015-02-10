@@ -10,10 +10,8 @@ import android.content.Intent;
  */
 public class AlertDialogBuilder {
 
-    Boolean AlertDialogBuilder(Context context, String title, String message)
+    AlertDialogBuilder(Context context, String title, String message)
     {
-        Boolean choice;
-
         new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
@@ -22,7 +20,7 @@ public class AlertDialogBuilder {
                     public void onClick(DialogInterface dialog, int which)
                     {
                         // do nothing on no
-                        
+
                     }
                 })
                 .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener()
@@ -31,11 +29,9 @@ public class AlertDialogBuilder {
                     {
                         // continue on ok
 
-
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
-        return choice;
     }
 }

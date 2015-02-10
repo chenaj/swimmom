@@ -92,14 +92,44 @@ public class ProfileDeleteActivity extends ActionBarActivity {
 
 
 
-    public void deleteProfiles(View v) //delete selected profiles
+    private AlertDialog AskOption(final View v)
+    {
+        AlertDialog dialogBox = new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Are you sure you want to delete the selected profiles?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+
+                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton)
+                    {
+                        //do nothing
+                        dialog.dismiss();
+                        new RumbleAction(v);
+                        return;
+                    }
+
+                })
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        //delete selected profiles
+                        dialog.dismiss();
+                        //add delete code here
+
+                        goToProfiles(v); //navigate back to profile page
+                    }
+                })
+                .create();
+        return dialogBox;
+    }
+
+
+    public void deleteProfiles(View v) //when delete is pressed
     {
         new RumbleAction(v);
-
-        Boolean path = new AlertDialogBuilder().AlertDialogBuilder(this, "Delete profiles", "Are you sure you want to delete the selected profiles?");
-
-        if(path == true)
-            startActivity(new Intent(this, ProfileActivity.class));
+        AlertDialog diaBox = AskOption(v);
+        diaBox.show();
     }
 
     public void goToProfiles(View v) //go to profile page
