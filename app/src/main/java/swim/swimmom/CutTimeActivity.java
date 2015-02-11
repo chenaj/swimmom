@@ -1,9 +1,11 @@
 package swim.swimmom;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class CutTimeActivity extends ActionBarActivity {
@@ -35,5 +37,11 @@ public class CutTimeActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToAddCutTimes(View v)
+    {
+        new RumbleAction(v);
+        startActivity(new Intent(CutTimeActivity.this, AddCutTimes.class));
     }
 }

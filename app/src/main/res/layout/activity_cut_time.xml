@@ -5,5 +5,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="swim.swimmom.CutTimeActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:id="@+id/linearLayout2">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView6"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/swimlogov2"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Cut Times"
+        android:id="@+id/addcuttimeBtn"
+        android:textSize="25dp"
+        android:textColor="#ffffffff"
+        android:width="200dp"
+        android:layout_centerVertical="true"
+        android:onClick="goToAddCutTimes"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Cut Times"
+        android:id="@+id/viewcuttimesBtn"
+        android:textSize="25dp"
+        android:textColor="#ffffffff"
+        android:width="200dp"
+        android:layout_below="@+id/addcuttimeBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
