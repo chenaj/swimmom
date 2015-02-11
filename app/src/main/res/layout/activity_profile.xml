@@ -22,13 +22,50 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Swimmers"
+        android:id="@+id/textView6"
+        android:layout_above="@+id/linearLayout4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:singleLine="false"
+        android:id="@+id/linearLayout4"
+        android:layout_alignTop="@+id/profileList"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#FF000000"
+        android:paddingTop="300dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/profileList"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_above="@+id/linearLayout3"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="20dp"/>
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout3">
+        android:id="@+id/linearLayout3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="10dp">
 
         <Button
             android:layout_width="wrap_content"
@@ -55,7 +92,7 @@
             android:layout_centerHorizontal="true"
             android:textSize="25dp"
             android:textColor="#ffffffff"
-            android:onClick="goToProfileDelete"
+            android:onClick="deleteProfiles"
             android:width="115dp"
             android:backgroundTintMode="screen"
             android:layout_gravity="center_vertical"
@@ -72,45 +109,11 @@
             android:layout_alignParentEnd="true"
             android:textSize="25dp"
             android:textColor="#ffffffff"
+            android:onClick="goToProfileEdit"
             android:width="80dp"
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:layout_weight="50" />
-        </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/linearLayout3"
-        android:layout_centerHorizontal="true">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold"
-        android:text="Swimmers"
-        android:id="@+id/textView"
-        android:layout_below="@+id/addProfileBtn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/black"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:singleLine="false" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/profileList"
-        android:layout_below="@+id/deleteProfileBtn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
     </LinearLayout>
 
 </RelativeLayout>

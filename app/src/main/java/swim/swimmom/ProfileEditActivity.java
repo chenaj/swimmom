@@ -1,190 +1,202 @@
-/*
 package swim.swimmom;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.support.v7.internal.widget.AdapterViewCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DisplayContact extends Activity {
 
-    int from_Where_I_Am_Coming = 0;
-    private DBHelper mydb ;
-    TextView name ;
-    TextView phone;
-    TextView email;
-    TextView street;
-    TextView place;
-    int id_To_Update = 0;
+public class ProfileEditActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+    private boolean selectionControl = true;
+    Spinner genderSpinner, gradeSpinner; //for gender and grade spinner drop-downs
+    EditText nameField, schoolField; //for name and school text fields
+    String S_name, S_gender, S_grade, S_school;
+    String errorMsg;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_edit);
-        name = (TextView) findViewById(R.id.editTextName);
-        phone = (TextView) findViewById(R.id.editTextPhone);
-        email = (TextView) findViewById(R.id.editTextStreet);
-        street = (TextView) findViewById(R.id.editTextEmail);
-        place = (TextView) findViewById(R.id.editTextCity);
+        setContentView(R.layout.activity_profile_add);
+        S_name = "";
+        S_gender = "";
+        S_grade = "";
+        S_school = "";
+        errorMsg = "";
 
-        mydb = new DBHelper(this);
+////Gender Spinner
+        Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
+        genderSpinner.setPrompt("Select...");
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        genderSpinner.setAdapter(adapter);
+        genderSpinner.setOnItemSelectedListener(this);
 
-        Bundle extras = getIntent().getExtras();
-        if(extras !=null)
-        {
-            int Value = extras.getInt("id");
-            if(Value>0){
-                //means this is the view part not the add contact part.
-                Cursor rs = mydb.getData(Value);
-                id_To_Update = Value;
-                rs.moveToFirst();
+////Grade Spinner
+        Spinner gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
+        gradeSpinner.setPrompt("Select...");
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter adapter_1 = ArrayAdapter.createFromResource(this, R.array.grade_array, android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        gradeSpinner.setAdapter(adapter_1);
+        gradeSpinner.setOnItemSelectedListener(this);
+    }
 
-                String id = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_ID));
-                String nam = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_NAME));
-                String gen = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_GENDER));
-                String grad = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_GRADE));
-                String schoo = rs.getString(rs.getColumnIndex(DBHelper.PROFILE_COLUMN_SCHOOL));
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event)
+    {
+        View v = getCurrentFocus();
+        boolean ret = super.dispatchTouchEvent(event);
 
-                if (!rs.isClosed())
-                {
-                    rs.close();
-                }
-                Button b = (Button)findViewById(R.id.button1);
-                b.setVisibility(View.INVISIBLE);
+        if (v instanceof EditText) {
+            View w = getCurrentFocus();
+            int scrcoords[] = new int[2];
+            w.getLocationOnScreen(scrcoords);
+            float x = event.getRawX() + w.getLeft() - scrcoords[0];
+            float y = event.getRawY() + w.getTop() - scrcoords[1];
 
-                place.setText((CharSequence)id);
-                place.setFocusable(false);
-                place.setClickable(false);
+            Log.d("Activity", "Touch event " + event.getRawX() + "," + event.getRawY() + " " + x + "," + y + " rect " + w.getLeft() + "," + w.getTop() + "," + w.getRight() + "," + w.getBottom() + " coords " + scrcoords[0] + "," + scrcoords[1]);
+            if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom()) ) {
 
-                name.setText((CharSequence)nam);
-                name.setFocusable(false);
-                name.setClickable(false);
-
-                phone.setText((CharSequence)gen);
-                phone.setFocusable(false);
-                phone.setClickable(false);
-
-                email.setText((CharSequence)grad);
-                email.setFocusable(false);
-                email.setClickable(false);
-
-                street.setText((CharSequence)schoo);
-                street.setFocusable(false);
-                street.setClickable(false);
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
             }
         }
+        return ret;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        Bundle extras = getIntent().getExtras();
-        if(extras !=null)
-        {
-            int Value = extras.getInt("id");
-            if(Value>0){
-                getMenuInflater().inflate(R.menu.menu_profile_edit, menu);
-            }
-            else{
-                getMenuInflater().inflate(R.menu.menu_main, menu);
-            }
-        }
+        getMenuInflater().inflate(R.menu.menu_profile_add, menu);
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void goToProfiles(View v) //navigate back to profile page when save is pressed
     {
-        super.onOptionsItemSelected(item);
-        switch(item.getItemId())
+        //Retrieve values from input fields
+        nameField = (EditText) findViewById(R.id.name);
+        genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
+        gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
+        schoolField = (EditText) findViewById(R.id.school);
+
+        //Convert them to strings
+        S_name = nameField.getText().toString();
+        S_gender= genderSpinner.getSelectedItem().toString();
+        S_grade = gradeSpinner.getSelectedItem().toString();
+        S_school = schoolField.getText().toString();
+
+        new RumbleAction(v);
+
+        if( validInput() ) //if all user input fields are valid
         {
-            case R.id.Edit_Contact:
-                Button b = (Button)findViewById(R.id.button1);
-                b.setVisibility(View.VISIBLE);
-                name.setEnabled(true);
-                name.setFocusableInTouchMode(true);
-                name.setClickable(true);
+            DatabaseOperations dop = new DatabaseOperations(this);
+            SQLiteDatabase db = dop.getWritableDatabase();
 
-                phone.setEnabled(true);
-                phone.setFocusableInTouchMode(true);
-                phone.setClickable(true);
-
-                email.setEnabled(true);
-                email.setFocusableInTouchMode(true);
-                email.setClickable(true);
-
-                street.setEnabled(true);
-                street.setFocusableInTouchMode(true);
-                street.setClickable(true);
-
-                place.setEnabled(true);
-                place.setFocusableInTouchMode(true);
-                place.setClickable(true);
-
-                return true;
-            case R.id.Delete_Contact:
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(R.string.deleteContact)
-                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                mydb.deleteContact(id_To_Update);
-                                Toast.makeText(getApplicationContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),com.example.addressbook.MainActivity.class);
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
-                            }
-                        });
-                AlertDialog d = builder.create();
-                d.setTitle("Are you sure");
-                d.show();
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
+            //Insert swimmer information into database
+            String result = dop.insertProfile(db, S_name, S_gender, S_grade, S_school);
+            if(result == "Success") //if insert is successful
+            {
+                new MessagePrinter().shortMessage(this, "Swimmer Saved!");
+                startActivity(new Intent(this, ProfileActivity.class));
+            }
+            else //if insert fails i.e., display returned error message
+            {
+                errorMsg = result;
+                new MessagePrinter().longMessage(this, errorMsg);
+                errorMsg = "";
+                return;
+            }
+        }
+        else {
+            new MessagePrinter().longMessage(this, errorMsg);
+            errorMsg = "";
+            return;
         }
     }
 
-    public void run(View view)
+    boolean validInput() //check if input fields are all filled in correctly
     {
-        Bundle extras = getIntent().getExtras();
-        if(extras !=null)
+        boolean validInput = true;
+
+        if (S_name.length() < 1) //if name field is empty
         {
-            int Value = extras.getInt("id");
-            if(Value>0){
-                if(mydb.updateContact(id_To_Update,name.getText().toString(), phone.getText().toString(), email.getText().toString(), street.getText().toString(), place.getText().toString())){
-                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),com.example.addressbook.MainActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else{
-                if(mydb.insertContact(name.getText().toString(), phone.getText().toString(), email.getText().toString(), street.getText().toString(), place.getText().toString())){
-                    Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "not done", Toast.LENGTH_SHORT).show();
-                }
-                Intent intent = new Intent(getApplicationContext(),com.example.addressbook.MainActivity.class);
-                startActivity(intent);
-            }
+            //Toast.makeText(this.getApplicationContext(), "You did not enter a name", Toast.LENGTH_SHORT).show();
+            addNewLine();
+            errorMsg += "You did not enter a name";
+            validInput = false;
         }
+        if (S_gender.matches("Select...")) //if gender is not selected
+        {
+            addNewLine();
+            errorMsg += "You did not select a gender";
+            validInput = false;
+        }
+        if (S_grade.matches("Select...")) //if grade is not selected
+        {
+            addNewLine();
+            errorMsg += "You did not select a grade";
+            validInput = false;
+        }
+        if (S_school.length() < 1) //if school field is empty
+        {
+            addNewLine();
+            errorMsg += "You did not enter a school";
+            validInput = false;
+        }
+        return validInput;
+    }
+
+    public void addNewLine() //adds new line to display multiple error messages in single toast message
+    {
+        if(errorMsg.length() > 0)
+            errorMsg += "\r\n";
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (position != 0)
+        {
+            TextView myText = (TextView) view;
+            //Toast.makeText(this.getApplicationContext(), "You Selected " + " " + myText.getText(), Toast.LENGTH_SHORT).show();
+            Log.d("You selected", myText.getText().toString());
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+
     }
 }
-
-*/

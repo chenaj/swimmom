@@ -91,17 +91,15 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         Log.d("*Database operations", "One row updated!");
         return "Success";
     }
-    public String deleteProfile(SQLiteDatabase db, String id) //DELETE
+    public void deleteProfile(SQLiteDatabase db, String name) //DELETE
     {
-        String query = "DELETE FROM "+TABLE_NAME+" WHERE Id='"+id+"'";
+        String query = "DELETE FROM "+TABLE_NAME+" WHERE Name='"+name+"'";
         try {
             db.execSQL(query);
         }catch (Exception e){
             Log.e("*Query error!", "DELETE FAILED");
-            return "Error occurred!";
         }
 
-        Log.d("*Database operations", "One row deleted (Id='"+id+"'!");
-        return "Success";
+        Log.d("*Database operations", "One row deleted (Name='"+name+"'!");
     }
 }
