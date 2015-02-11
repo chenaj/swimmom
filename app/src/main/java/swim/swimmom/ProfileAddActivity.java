@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 
 public class ProfileAddActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
-    private boolean selectionControl = true;
+
     Spinner genderSpinner, gradeSpinner; //for gender and grade spinner drop-downs
     EditText nameField, schoolField; //for name and school text fields
     String S_name, S_gender, S_grade, S_school;
@@ -32,13 +32,13 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_add);
         S_name = "";
+        S_school = "";
         S_gender = "";
         S_grade = "";
-        S_school = "";
         errorMsg = "";
 
-////Gender Spinner
-       Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
+        //Gender Spinner
+        Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
         genderSpinner.setPrompt("Select...");
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
@@ -46,7 +46,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         genderSpinner.setAdapter(adapter);
         genderSpinner.setOnItemSelectedListener(this);
 
-////Grade Spinner
+        //Grade Spinner
         Spinner gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
         gradeSpinner.setPrompt("Select...");
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -54,29 +54,6 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         // Apply the adapter to the spinner
         gradeSpinner.setAdapter(adapter_1);
         gradeSpinner.setOnItemSelectedListener(this);
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event)
-    {
-        View v = getCurrentFocus();
-        boolean ret = super.dispatchTouchEvent(event);
-
-        if (v instanceof EditText) {
-            View w = getCurrentFocus();
-            int scrcoords[] = new int[2];
-            w.getLocationOnScreen(scrcoords);
-            float x = event.getRawX() + w.getLeft() - scrcoords[0];
-            float y = event.getRawY() + w.getTop() - scrcoords[1];
-
-            Log.d("Activity", "Touch event " + event.getRawX() + "," + event.getRawY() + " " + x + "," + y + " rect " + w.getLeft() + "," + w.getTop() + "," + w.getRight() + "," + w.getBottom() + " coords " + scrcoords[0] + "," + scrcoords[1]);
-            if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom()) ) {
-
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
-            }
-        }
-        return ret;
     }
 
     @Override
@@ -105,18 +82,18 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     {
         //Retrieve values from input fields
         nameField = (EditText) findViewById(R.id.name);
+        schoolField = (EditText) findViewById(R.id.school);
         genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
         gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
-        schoolField = (EditText) findViewById(R.id.school);
 
         //Convert them to strings
         S_name = nameField.getText().toString();
+        S_school = schoolField.getText().toString();
         S_gender= genderSpinner.getSelectedItem().toString();
         S_grade = gradeSpinner.getSelectedItem().toString();
-        S_school = schoolField.getText().toString();
+
 
         new RumbleAction(v);
-
         if( validInput() ) //if all user input fields are valid
         {
             DatabaseOperations dop = new DatabaseOperations(this);
@@ -198,6 +175,30 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
     }
 }
+/*
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event)
+    {
+        View v = getCurrentFocus();
+        boolean ret = super.dispatchTouchEvent(event);
+
+        if (v instanceof EditText) {
+            View w = getCurrentFocus();
+            int scrcoords[] = new int[2];
+            w.getLocationOnScreen(scrcoords);
+            float x = event.getRawX() + w.getLeft() - scrcoords[0];
+            float y = event.getRawY() + w.getTop() - scrcoords[1];
+
+            Log.d("Activity", "Touch event " + event.getRawX() + "," + event.getRawY() + " " + x + "," + y + " rect " + w.getLeft() + "," + w.getTop() + "," + w.getRight() + "," + w.getBottom() + " coords " + scrcoords[0] + "," + scrcoords[1]);
+            if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom()) ) {
+
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+        return ret;
+    }
+*/
 
 //SQLiteDatabase db;
 //db = openOrCreateDatabase("swimmom.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);

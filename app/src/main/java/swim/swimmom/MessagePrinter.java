@@ -2,6 +2,7 @@ package swim.swimmom;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ public class MessagePrinter {
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         v.setTextColor(Color.WHITE);
         v.setTextSize(18);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 500);
         toast.show();
     }
     public void longMessage(Context context, String message)
@@ -23,6 +25,7 @@ public class MessagePrinter {
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         v.setTextColor(Color.WHITE);
         v.setTextSize(18);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 500);
         toast.show();
     }
 }

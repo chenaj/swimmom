@@ -25,21 +25,23 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class ProfileActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
+public class ProfileActivity extends ActionBarActivity{
 
+    public static String nameToEdit = "";
     ArrayList swimmerList = new ArrayList(); // Stores list of swimmer names
-    ArrayList deleteList = new ArrayList(); // Stores list of profiles to delete
+    ArrayList checkedList = new ArrayList(); // List of checked swimmers
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         String name;
         DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM "+dop.TABLE_NAME+"",null);
-        if (cursor .moveToFirst())
+        Cursor cursor = db.rawQuery("SELECT * FROM Profile_TABLE",null);
+        if (cursor.moveToFirst())
         {
             while (cursor.isAfterLast() == false)
             {
@@ -56,10 +58,10 @@ public class ProfileActivity extends ActionBarActivity implements AdapterView.On
             public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng)
             {
                 String chosenSwimmer = lv.getItemAtPosition(myItemInt).toString();
-                if(!deleteList.contains(chosenSwimmer)) //if swimmer name is checked
-                    deleteList.add(chosenSwimmer);
+                if(!checkedList.contains(chosenSwimmer)) //if swimmer name is checked
+                    checkedList.add(chosenSwimmer);
                 else //if swimmer name is unchecked, remove them from list
-                    deleteList.remove(chosenSwimmer);
+                    checkedList.remove(chosenSwimmer);
                 Log.d("Selected item", chosenSwimmer);
             }
         });
@@ -107,9 +109,11 @@ public class ProfileActivity extends ActionBarActivity implements AdapterView.On
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //do nothing
                         dialog.dismiss();
-                        deleteList.clear(); //clear list
                         new RumbleAction(view);
-                        refreshPage(view);
+                        ListView listView = (ListView) findViewById(R.id.profileList);
+                        listView.clearChoices();
+                        listView.requestLayout();
+                        checkedList.clear(); //clear list
                     }
                 })
                 .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
@@ -118,14 +122,12 @@ public class ProfileActivity extends ActionBarActivity implements AdapterView.On
                         dialog.dismiss();
                         DatabaseOperations dop = new DatabaseOperations(context);
                         SQLiteDatabase db = dop.getWritableDatabase();
-
                         //For each checked swimmer to delete
-                        for (int index=0; index<deleteList.size(); index++)
-                        {
-                            String profile = deleteList.get(index).toString(); //get profile
+                        for (int index = 0; index < checkedList.size(); index++) {
+                            String profile = checkedList.get(index).toString(); //get profile
                             dop.deleteProfile(db, profile); //delete this profile
                         }
-                        deleteList.clear(); //clear list
+                        checkedList.clear(); //clear list
                         refreshPage(view);
                     }
                 })
@@ -136,8 +138,16 @@ public class ProfileActivity extends ActionBarActivity implements AdapterView.On
     public void deleteProfiles(View v) //when delete is pressed
     {
         new RumbleAction(v);
-        AlertDialog diaBox = AskOption(this, v);
-        diaBox.show();
+        if(checkedList.size() == 0) //if delete clicked with no swimmers selected
+        {
+            new MessagePrinter().shortMessage(this, "Please select swimmers first");
+            return;
+        }
+        else
+        {
+            AlertDialog diaBox = AskOption(this, v);
+            diaBox.show();
+        }
     }
 
     public void refreshPage(View v)
@@ -149,25 +159,27 @@ public class ProfileActivity extends ActionBarActivity implements AdapterView.On
     public void goToProfileAdd(View v) //go to add profile page
     {
         new RumbleAction(v);
-        startActivity(new Intent(ProfileActivity.this, ProfileAddActivity.class));
+        startActivity(new Intent(this, ProfileAddActivity.class));
     }
 
     public void goToProfileEdit(View v) //go to edit profile page
     {
         new RumbleAction(v);
-        startActivity(new Intent(ProfileActivity.this, ProfileAddActivity.class));
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-
+        if(checkedList.size() == 0) //if no swimmers selected
+        {
+            new MessagePrinter().shortMessage(this, "Please select a swimmer to edit");
+            return;
+        }
+        else if(checkedList.size() > 1)
+        {
+            new MessagePrinter().shortMessage(this, "Please select a single swimmer");
+            return;
+        }
+        else
+        {
+            nameToEdit = checkedList.get(0).toString(); //swimmer name to be reference in edit page
+            startActivity(new Intent(this, ProfileEditActivity.class));
+        }
     }
 }
 

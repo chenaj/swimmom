@@ -58,16 +58,16 @@ public class DatabaseOperations extends SQLiteOpenHelper{
     public String insertProfile(SQLiteDatabase db, String name, String gender, String grade, String school) //INSERT
     {
         //Get number of profiles in database
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_NAME+"", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM Profile_TABLE", null);
         if(cursor.getCount() == 10) //if 10 profiles already exist
             return "Sorry maximum number of profiles reached";
 
         //Check if this swimmer already exists
-        cursor = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE Name= '"+name+"'", null);
+        cursor = db.rawQuery("SELECT * FROM Profile_TABLE WHERE Name= '"+name+"'", null);
         if(cursor.getCount() > 0) //if a profile with same name already exists
             return "Sorry this profile already exists";
 
-        String query = "INSERT INTO "+TABLE_NAME+" (Name, School, Gender, Grade) VALUES ('"+name+"', '"+school+"', '"+gender+"', '"+grade+"')";
+        String query = "INSERT INTO Profile_TABLE (Name, School, Gender, Grade) VALUES ('"+name+"', '"+school+"', '"+gender+"', '"+grade+"')";
         try {
             db.execSQL(query);
         }catch (Exception e){
@@ -78,22 +78,33 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         Log.d("*Database operations", "One row inserted!");
         return "Success";
     }
-    public String updateProfile(SQLiteDatabase db, String id, String name, String gender, String grade, String school) //UPDATE
+
+    public String updateProfile(SQLiteDatabase db, String name, String school, String gender, String grade) //UPDATE
     {
-        String query = "UPDATE "+TABLE_NAME+" SET Name='"+name+"', Gender='"+gender+"', Grade='"+grade+"', Name='"+school+"' WHERE Id='"+id+"' ";
+        ContentValues cv = new ContentValues();
+        cv.put("School", school);
+        cv.put("Gender", gender);
+        cv.put("Grade", grade);
+        try {
+            db.update("Profile_TABLE", cv, "Name='"+name+"'", null);
+        }catch (Exception e){
+            Log.e("*Query error!", "UPDATE FAILED");
+            return "Error occurred!";
+        }
+        /*String query = "UPDATE Profile_TABLE SET School='"+school+"', 'Gender='"+gender+"', Grade='"+grade+"' WHERE Name='"+name+"'";
         try {
             db.execSQL(query);
         }catch (Exception e){
             Log.e("*Query error!", "UPDATE FAILED");
             return "Error occurred!";
-        }
-
+        }*/
         Log.d("*Database operations", "One row updated!");
         return "Success";
     }
+
     public void deleteProfile(SQLiteDatabase db, String name) //DELETE
     {
-        String query = "DELETE FROM "+TABLE_NAME+" WHERE Name='"+name+"'";
+        String query = "DELETE FROM Profile_TABLE WHERE Name='"+name+"'";
         try {
             db.execSQL(query);
         }catch (Exception e){
