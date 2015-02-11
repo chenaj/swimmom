@@ -30,7 +30,7 @@
         android:id="@+id/createBtn"
         android:textSize="25dp"
         android:textColor="#ffffffff"
-        android:onClick="goToAddCutTimes"
+        android:onClick="goToCreateMeet"
         android:width="200dp"
         android:layout_above="@+id/modifyBtn"
         android:layout_alignParentRight="true"

@@ -1,28 +1,22 @@
 package swim.swimmom;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 
 public class ProfileActivity extends ActionBarActivity{
@@ -37,21 +31,10 @@ public class ProfileActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        String name;
-        DatabaseOperations dop = new DatabaseOperations(this);
-        SQLiteDatabase db = dop.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Profile_TABLE",null);
-        if (cursor.moveToFirst())
-        {
-            while (cursor.isAfterLast() == false)
-            {
-                name = cursor.getString(cursor.getColumnIndex("Name"));
-                swimmerList.add(name); // Add swimmer name to swimmerList
-                cursor.moveToNext(); // Move to next row retrieved
-            }
-        }
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-
+        populateList();
         final ListView lv = (ListView) findViewById(R.id.profileList);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -65,15 +48,7 @@ public class ProfileActivity extends ActionBarActivity{
                 Log.d("Selected item", chosenSwimmer);
             }
         });
-
-        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE); //multiple choice list i.e., checked or unchecked
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, swimmerList);
-        lv.setAdapter(listAdapter); // Apply the adapter to the list view
-        TextView emptyText = (TextView)findViewById(android.R.id.empty);
-        lv.setEmptyView(emptyText);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,16 +59,11 @@ public class ProfileActivity extends ActionBarActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -120,6 +90,7 @@ public class ProfileActivity extends ActionBarActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         //delete selected profiles
                         dialog.dismiss();
+                        new RumbleAction(view);
                         DatabaseOperations dop = new DatabaseOperations(context);
                         SQLiteDatabase db = dop.getWritableDatabase();
                         //For each checked swimmer to delete
@@ -128,7 +99,7 @@ public class ProfileActivity extends ActionBarActivity{
                             dop.deleteProfile(db, profile); //delete this profile
                         }
                         checkedList.clear(); //clear list
-                        refreshPage(view);
+                        populateList();
                     }
                 })
                 .create();
@@ -150,10 +121,26 @@ public class ProfileActivity extends ActionBarActivity{
         }
     }
 
-    public void refreshPage(View v)
+    public void populateList()
     {
-        new RumbleAction(v);
-        startActivity(new Intent(this, ProfileActivity.class));
+        swimmerList.clear();
+        String name;
+        DatabaseOperations dop = new DatabaseOperations(this);
+        SQLiteDatabase db = dop.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Profile_TABLE",null);
+        if (cursor.moveToFirst())
+        {
+            while (cursor.isAfterLast() == false)
+            {
+                name = cursor.getString(cursor.getColumnIndex("Name"));
+                swimmerList.add(name); // Add swimmer name to swimmerList
+                cursor.moveToNext(); // Move to next row retrieved
+            }
+        }
+        final ListView lv = (ListView) findViewById(R.id.profileList);
+        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE); //multiple choice list i.e., checked or unchecked
+        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, swimmerList);
+        lv.setAdapter(listAdapter); // Apply the adapter to the list view
     }
 
     public void goToProfileAdd(View v) //go to add profile page

@@ -11,5 +11,4 @@ public class RumbleAction {
     {
         v.performHapticFeedback(9, 11);
     }
-
 }

@@ -18,7 +18,8 @@
             android:id="@+id/imageView4"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/swimlogov2"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="false" />
 
     </LinearLayout>
 
