@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class ProfileAddActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {

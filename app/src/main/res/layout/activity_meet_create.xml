@@ -144,7 +144,6 @@
         android:layout_centerHorizontal="true"
         android:textSize="25dp"
         android:textColor="#ffffffff"
-        android:background="#ff0289aa"
         android:onClick="goToProfiles"
         android:width="100dp" />
 

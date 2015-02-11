@@ -1,60 +1,75 @@
 package swim.swimmom;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
-public class ProfileActivity extends ActionBarActivity {
+public class ProfileActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
+
+    ArrayList swimmerList = new ArrayList(); // Stores list of swimmer names
+    ArrayList deleteList = new ArrayList(); // Stores list of profiles to delete
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        List<String[]> tableData = new ArrayList<String[]>(); // Stores profile table data
-        List<String> swimmerList = new ArrayList<String>(); // Stores list of swimmer names
-        String id, name, school, gender, grade;
-
+        String name;
         DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM "+dop.TABLE_NAME+"",null);
-
         if (cursor .moveToFirst())
         {
             while (cursor.isAfterLast() == false)
             {
-                id = cursor.getString(cursor.getColumnIndex("Id"));
                 name = cursor.getString(cursor.getColumnIndex("Name"));
-                school = cursor.getString(cursor.getColumnIndex("School"));
-                gender = cursor.getString(cursor.getColumnIndex("Gender"));
-                grade = cursor.getString(cursor.getColumnIndex("Grade"));
-
-                // Add retrieved row to tableData
-                tableData.add(new String[] { id, name, school, gender, grade});
                 swimmerList.add(name); // Add swimmer name to swimmerList
                 cursor.moveToNext(); // Move to next row retrieved
             }
         }
 
-        ListView lv = (ListView) findViewById(R.id.profileList);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, swimmerList);
-        lv.setAdapter(listAdapter); // Apply the adapter to the list view
 
-        // new MessagePrinter().shortMessage(this, ""+cursor.getCount()+" Swimmer(s) in profile table");
-        // Log.d("Swimmer(s) in profile table",""+cursor.getCount()+"");
+        final ListView lv = (ListView) findViewById(R.id.profileList);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng)
+            {
+                String chosenSwimmer = lv.getItemAtPosition(myItemInt).toString();
+                if(!deleteList.contains(chosenSwimmer)) //if swimmer name is checked
+                    deleteList.add(chosenSwimmer);
+                else //if swimmer name is unchecked, remove them from list
+                    deleteList.remove(chosenSwimmer);
+                Log.d("Selected item", chosenSwimmer);
+            }
+        });
+
+        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE); //multiple choice list i.e., checked or unchecked
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, swimmerList);
+        lv.setAdapter(listAdapter); // Apply the adapter to the list view
+        TextView emptyText = (TextView)findViewById(android.R.id.empty);
+        lv.setEmptyView(emptyText);
     }
 
 
@@ -80,16 +95,79 @@ public class ProfileActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    private AlertDialog AskOption(final Context context, final View view)
+    {
+        AlertDialog dialogBox = new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Are you sure you want to delete the selected profiles?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //do nothing
+                        dialog.dismiss();
+                        deleteList.clear(); //clear list
+                        new RumbleAction(view);
+                        refreshPage(view);
+                    }
+                })
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //delete selected profiles
+                        dialog.dismiss();
+                        DatabaseOperations dop = new DatabaseOperations(context);
+                        SQLiteDatabase db = dop.getWritableDatabase();
+
+                        //For each checked swimmer to delete
+                        for (int index=0; index<deleteList.size(); index++)
+                        {
+                            String profile = deleteList.get(index).toString(); //get profile
+                            dop.deleteProfile(db, profile); //delete this profile
+                        }
+                        deleteList.clear(); //clear list
+                        refreshPage(view);
+                    }
+                })
+                .create();
+        return dialogBox;
+    }
+
+    public void deleteProfiles(View v) //when delete is pressed
+    {
+        new RumbleAction(v);
+        AlertDialog diaBox = AskOption(this, v);
+        diaBox.show();
+    }
+
+    public void refreshPage(View v)
+    {
+        new RumbleAction(v);
+        startActivity(new Intent(this, ProfileActivity.class));
+    }
+
     public void goToProfileAdd(View v) //go to add profile page
     {
         new RumbleAction(v);
         startActivity(new Intent(ProfileActivity.this, ProfileAddActivity.class));
     }
 
-    public void goToProfileDelete(View v) //go to delete profile page
+    public void goToProfileEdit(View v) //go to edit profile page
     {
         new RumbleAction(v);
-        startActivity(new Intent(ProfileActivity.this, ProfileDeleteActivity.class));
+        startActivity(new Intent(ProfileActivity.this, ProfileAddActivity.class));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+
     }
 }
 
