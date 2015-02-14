@@ -1,12 +1,12 @@
 package swim.swimmom;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +33,7 @@ public class ProfileActivity extends ActionBarActivity{
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        // actionBar.setBackgroundDrawable(new ColorDrawable(0xff0088aa));
 
         populateList();
         final ListView lv = (ListView) findViewById(R.id.profileList);
@@ -59,9 +60,11 @@ public class ProfileActivity extends ActionBarActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 onBackPressed();
+                startActivity(new Intent(this, MainActivity.class)); //return to main activity
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -142,6 +145,7 @@ public class ProfileActivity extends ActionBarActivity{
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, swimmerList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
     }
+
 
     public void goToProfileAdd(View v) //go to add profile page
     {

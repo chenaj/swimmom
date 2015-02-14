@@ -8,12 +8,12 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="SwimMOM"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,43 +24,50 @@
 
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
+            android:label="Profiles"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".MeetActivity"
-            android:label="@string/title_activity_meet"
+            android:label="Meets"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".CutTimeActivity"
-            android:label="@string/title_activity_cut_time"
+            android:label="Cut Times"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".StatisticActivity"
-            android:label="@string/title_activity_statistic"
+            android:label="Statistics"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".ProfileAddActivity"
-            android:label="@string/title_activity_profile_add"
+            android:label="Add Swimmer"
+            android:parentActivityName=".ProfileActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".ProfileEditActivity"
-            android:label="@string/title_activity_profile_edit"
+            android:label="Edit Swimmer"
+            android:parentActivityName=".ProfileActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".MeetCreateActivity"
-            android:label="@string/title_activity_meet_create"
+            android:label="Create Meet"
+            android:parentActivityName=".MeetActivity"
             android:screenOrientation="portrait">
         </activity>
 

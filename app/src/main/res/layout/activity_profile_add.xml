@@ -132,13 +132,6 @@
                     android:spinnerMode="dropdown" />
             </TableRow>
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                // capitalize first letter of every word
-            </TableRow>
-
         </TableLayout>
 
         <Button

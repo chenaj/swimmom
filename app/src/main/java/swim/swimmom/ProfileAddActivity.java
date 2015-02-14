@@ -27,8 +27,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_add);
 
@@ -73,6 +72,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                startActivity(new Intent(this, ProfileActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -89,32 +89,30 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         //Convert them to strings
         S_name = nameField.getText().toString();
         S_school = schoolField.getText().toString();
-        S_gender= genderSpinner.getSelectedItem().toString();
+        S_gender = genderSpinner.getSelectedItem().toString();
         S_grade = gradeSpinner.getSelectedItem().toString();
 
 
         new RumbleAction(v);
-        if( validInput() ) //if all user input fields are valid
+        if (validInput()) //if all user input fields are valid
         {
             DatabaseOperations dop = new DatabaseOperations(this);
             SQLiteDatabase db = dop.getWritableDatabase();
 
             //Insert swimmer information into database
             String result = dop.insertProfile(db, S_name, S_gender, S_grade, S_school);
-            if(result == "Success") //if insert is successful
+            if (result == "Success") //if insert is successful
             {
                 new MessagePrinter().shortMessage(this, "Swimmer Saved!");
                 startActivity(new Intent(this, ProfileActivity.class));
-            }
-            else //if insert fails i.e., display returned error message
+            } else //if insert fails i.e., display returned error message
             {
                 errorMsg = result;
                 new MessagePrinter().longMessage(this, errorMsg);
                 errorMsg = "";
                 return;
             }
-        }
-        else {
+        } else {
             new MessagePrinter().longMessage(this, errorMsg);
             errorMsg = "";
             return;
@@ -155,14 +153,13 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
     public void addNewLine() //adds new line to display multiple error messages in single toast message
     {
-        if(errorMsg.length() > 0)
+        if (errorMsg.length() > 0)
             errorMsg += "\r\n";
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position != 0)
-        {
+        if (position != 0) {
             TextView myText = (TextView) view;
             //Toast.makeText(this.getApplicationContext(), "You Selected " + " " + myText.getText(), Toast.LENGTH_SHORT).show();
             Log.d("You selected", myText.getText().toString());
@@ -175,30 +172,3 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
     }
 }
-/*
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event)
-    {
-        View v = getCurrentFocus();
-        boolean ret = super.dispatchTouchEvent(event);
-
-        if (v instanceof EditText) {
-            View w = getCurrentFocus();
-            int scrcoords[] = new int[2];
-            w.getLocationOnScreen(scrcoords);
-            float x = event.getRawX() + w.getLeft() - scrcoords[0];
-            float y = event.getRawY() + w.getTop() - scrcoords[1];
-
-            Log.d("Activity", "Touch event " + event.getRawX() + "," + event.getRawY() + " " + x + "," + y + " rect " + w.getLeft() + "," + w.getTop() + "," + w.getRight() + "," + w.getBottom() + " coords " + scrcoords[0] + "," + scrcoords[1]);
-            if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom()) ) {
-
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
-            }
-        }
-        return ret;
-    }
-*/
-
-//SQLiteDatabase db;
-//db = openOrCreateDatabase("swimmom.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);

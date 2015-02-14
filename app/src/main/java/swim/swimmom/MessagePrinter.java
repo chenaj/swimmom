@@ -16,7 +16,7 @@ public class MessagePrinter {
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         v.setTextColor(Color.WHITE);
         v.setTextSize(18);
-        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 500);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 400);
         toast.show();
     }
     public void longMessage(Context context, String message)
@@ -25,7 +25,7 @@ public class MessagePrinter {
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         v.setTextColor(Color.WHITE);
         v.setTextSize(18);
-        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 500);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 400);
         toast.show();
     }
 }

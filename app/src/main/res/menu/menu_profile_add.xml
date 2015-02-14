@@ -1,6 +1,36 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context="swim.swimmom.ProfileAddActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="swim.swimmom.ProfileAddActivity">
+
+    <item
+        android:id="@+id/settings"
+        android:title="Jump To"
+        android:orderInCategory="100"
+        android:icon="@drawable/settingsicon"
+        app:showAsAction="always" >
+
+        <menu>
+            <item
+                android:id="@+id/refresh"
+                android:title="Refresh "
+                android:icon="@drawable/refreshicon"/>
+            <item
+                android:id="@+id/main"
+                android:title="Home"
+                android:icon="@drawable/swimlogov2"/>
+            <item
+                android:id="@+id/meets"
+                android:title="Meets"
+                android:icon="@drawable/meetsicon"/>
+            <item
+                android:id="@+id/cutTimes"
+                android:title="Cut Times"
+                android:icon="@drawable/cuttimesicon"/>
+            <item
+                android:id="@+id/statistics"
+                android:title="Statistics"
+                android:icon="@drawable/statisticsicon"/>
+        </menu>
+    </item>
 </menu>

@@ -45,7 +45,8 @@
             android:id="@+id/BtnSect"
             android:layout_gravity="center_horizontal"
             android:gravity="bottom"
-            android:paddingBottom="30dp">
+            android:paddingBottom="30dp"
+            android:background="#ff0088aa">
 
             <ImageButton
                 android:layout_width="wrap_content"

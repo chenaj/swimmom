@@ -56,19 +56,28 @@ public class ProfileEditActivity extends ActionBarActivity{
         EditText nameField = (EditText) findViewById(R.id.name);
         EditText schoolField = (EditText) findViewById(R.id.school);
         nameField.setText(S_name);
-        nameField.setFocusable(false); //name field cannot be edited
-        nameField.setClickable(false);
-        schoolField.setText(S_school);
+        nameField.setFocusable(false);
+        nameField.setClickable(false); //name field cannot be edited
+        schoolField.setText(S_school); //set school name
 
-        //Gender Spinner
+        //--Gender Spinner--//
         Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter adapter;
+        adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(adapter); // Apply adapter to the spinner
+        ArrayAdapter myAdapter = (ArrayAdapter) genderSpinner.getAdapter(); //cast to an ArrayAdapter
+        int spinnerPosition = myAdapter.getPosition(S_gender); //find position of current gender
+        genderSpinner.setSelection(spinnerPosition); //set gender in spinner
+        genderSpinner.setClickable(false); //gender field cannot be edited
 
-        //Grade Spinner
+        //--Grade Spinner--//
         Spinner gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
-        ArrayAdapter adapter_1 = ArrayAdapter.createFromResource(this, R.array.grade_array, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter adapter_1;
+        adapter_1 = ArrayAdapter.createFromResource(this, R.array.grade_array2, android.R.layout.simple_spinner_dropdown_item);
         gradeSpinner.setAdapter(adapter_1); // Apply adapter to the spinner
+        myAdapter = (ArrayAdapter) gradeSpinner.getAdapter(); //cast to an ArrayAdapter
+        spinnerPosition = myAdapter.getPosition(S_grade); //find position of current grade
+        gradeSpinner.setSelection(spinnerPosition); //set grade in spinner
     }
 
 
@@ -84,6 +93,7 @@ public class ProfileEditActivity extends ActionBarActivity{
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                startActivity(new Intent(this, ProfileActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

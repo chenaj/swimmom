@@ -16,17 +16,9 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 
     //** variable represents name in code, the string represents column name in table
     public static final String DATABASE_NAME = "swimmom.db";
-    public static final int DATABASE_VERSION = 2;
-    public static final String TABLE_NAME = "Profile_TABLE";
+    public static final int DATABASE_VERSION = 3;
 
-    // profile_table column headers
-    public static final String SID = "Id";
-    public static final String NAME = "Name";
-    public static final String SCHOOL = "School";
-    public static final String GENDER = "Gender";
-    public static final String GRADE = "Grade";
-
-    public static final String CREATE_TABLE =
+    public static final String CREATE_Profile_TABLE =
             "CREATE TABLE Profile_TABLE" +
             "(" +
             "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -35,6 +27,25 @@ public class DatabaseOperations extends SQLiteOpenHelper{
             "Gender varchar(6)," +
             "Grade varchar(9)" +
             ");";
+
+    public static final String CREATE_Meet_TABLE =
+            "CREATE TABLE Meet_TABLE" +
+                    "(" +
+                    "Meet_Id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "Date date NOT NULL," +
+                    "Location varchar(50)," +
+                    "Time varchar(5)," +
+                    "Opponent varchar(50)" +
+                    ");";
+
+    public static final String CREATE_Participants_TABLE =
+            "CREATE TABLE Participants_TABLE" +
+                    "(" +
+                    "Meet_Id INTEGER," +
+                    "Name varchar(60)," +
+                    "PRIMARY KEY (Meet_Id),"+
+                    "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
+                    ");";
 
     public DatabaseOperations(Context context) //default constructor
     {
@@ -45,8 +56,12 @@ public class DatabaseOperations extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL(CREATE_TABLE); //execute create table query
+        db.execSQL(CREATE_Profile_TABLE); //execute create table query
+        db.execSQL(CREATE_Meet_TABLE); //execute create table query
+        db.execSQL(CREATE_Participants_TABLE); //execute create table query
         Log.d("*Database operations", "Profile Table created!");
+        Log.d("*Database operations", "Meet Table created!");
+        Log.d("*Database operations", "Participants Table created!");
     }
 
     @Override

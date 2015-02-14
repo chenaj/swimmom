@@ -7,4 +7,12 @@
         <item>Junior</item>
         <item>Senior</item>
     </string-array>
+
+    <!-- For edit profile page -->
+    <string-array name="grade_array2">
+        <item>Freshman</item>
+        <item>Sophomore</item>
+        <item>Junior</item>
+        <item>Senior</item>
+    </string-array>
 </resources>
