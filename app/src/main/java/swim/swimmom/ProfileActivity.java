@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class ProfileActivity extends ActionBarActivity{
         setContentView(R.layout.activity_profile);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        // actionBar.setBackgroundDrawable(new ColorDrawable(0xff0088aa)); // Action bar color
+        actionBar.setBackgroundDrawable(new ColorDrawable(0xff0088aa)); // Action bar color
         populateList();
         registerForContextMenu(lv); //enable long clicking on list items
         // When user long clicks an item in list
