@@ -12,23 +12,23 @@
 
         <menu>
             <item
-                android:id="@+id/refresh"
+                android:id="@+id/refreshOption"
                 android:title="Refresh "
                 android:icon="@drawable/refreshicon"/>
             <item
-                android:id="@+id/main"
+                android:id="@+id/mainOption"
                 android:title="Home"
                 android:icon="@drawable/swimlogov2"/>
             <item
-                android:id="@+id/profiles"
+                android:id="@+id/profilesOption"
                 android:title="Profiles"
                 android:icon="@drawable/profilesicon"/>
             <item
-                android:id="@+id/meets"
+                android:id="@+id/meetsOption"
                 android:title="Meets"
                 android:icon="@drawable/meetsicon"/>
             <item
-                android:id="@+id/cutTimes"
+                android:id="@+id/cutTimesOption"
                 android:title="Cut Times"
                 android:icon="@drawable/cuttimesicon"/>
         </menu>

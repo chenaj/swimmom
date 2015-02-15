@@ -6,49 +6,75 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.internal.view.menu.MenuBuilder;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class ProfileActivity extends ActionBarActivity{
 
-    public static String nameToEdit = "";
     ArrayList swimmerList = new ArrayList(); // Stores list of swimmer names
-    ArrayList checkedList = new ArrayList(); // List of checked swimmers
+    public static String chosenSwimmer = ""; // swimmer chosen for doing editing on
+    ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        // actionBar.setBackgroundDrawable(new ColorDrawable(0xff0088aa));
-
+        // actionBar.setBackgroundDrawable(new ColorDrawable(0xff0088aa)); // Action bar color
         populateList();
-        final ListView lv = (ListView) findViewById(R.id.profileList);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng)
-            {
-                String chosenSwimmer = lv.getItemAtPosition(myItemInt).toString();
-                if(!checkedList.contains(chosenSwimmer)) //if swimmer name is checked
-                    checkedList.add(chosenSwimmer);
-                else //if swimmer name is unchecked, remove them from list
-                    checkedList.remove(chosenSwimmer);
-                Log.d("Selected item", chosenSwimmer);
+        registerForContextMenu(lv); //enable long clicking on list items
+        // When user long clicks an item in list
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                chosenSwimmer = lv.getItemAtPosition(position).toString();
+                Log.d("You selected", chosenSwimmer);
+                return false;
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId() == R.id.profileList)
+        {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+            menu.setHeaderTitle("Options"); // Title for pop up menu
+            menu.setHeaderIcon(android.R.drawable.ic_menu_edit);
+            menu.add(Menu.NONE, 0, 0, "Edit");
+            menu.add(Menu.NONE, 0, 0, "Delete");
+        }
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle() == "Edit") {
+            goToProfileEdit(this.findViewById(android.R.id.content).getRootView());
+        }
+        else if (item.getTitle() == "Delete") {
+            deleteProfiles(this.findViewById(android.R.id.content).getRootView());
+        }
+        else
+            return false;
+        return true;
     }
 
     @Override
@@ -60,67 +86,42 @@ public class ProfileActivity extends ActionBarActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
+        View curView = this.findViewById(android.R.id.content).getRootView();
+        new RumbleAction(curView);
+        // Handle item selection
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                startActivity(new Intent(this, MainActivity.class)); //return to main activity
+                new RumbleAction(curView);
+                startActivity(new Intent(this, MainActivity.class));
                 return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
+            case R.id.refreshOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, ProfileActivity.class));
+                return true;
 
-    private AlertDialog AskOption(final Context context, final View view)
-    {
-        AlertDialog dialogBox = new AlertDialog.Builder(this)
-                //set message, title, and icon
-                .setTitle("Delete")
-                .setMessage("Are you sure you want to delete the selected profiles?")
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        //do nothing
-                        dialog.dismiss();
-                        new RumbleAction(view);
-                        ListView listView = (ListView) findViewById(R.id.profileList);
-                        listView.clearChoices();
-                        listView.requestLayout();
-                        checkedList.clear(); //clear list
-                    }
-                })
-                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //delete selected profiles
-                        dialog.dismiss();
-                        new RumbleAction(view);
-                        DatabaseOperations dop = new DatabaseOperations(context);
-                        SQLiteDatabase db = dop.getWritableDatabase();
-                        //For each checked swimmer to delete
-                        for (int index = 0; index < checkedList.size(); index++) {
-                            String profile = checkedList.get(index).toString(); //get profile
-                            dop.deleteProfile(db, profile); //delete this profile
-                        }
-                        checkedList.clear(); //clear list
-                        populateList();
-                    }
-                })
-                .create();
-        return dialogBox;
-    }
+            case R.id.mainOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
 
-    public void deleteProfiles(View v) //when delete is pressed
-    {
-        new RumbleAction(v);
-        if(checkedList.size() == 0) //if delete clicked with no swimmers selected
-        {
-            new MessagePrinter().shortMessage(this, "Please select swimmers first");
-            return;
-        }
-        else
-        {
-            AlertDialog diaBox = AskOption(this, v);
-            diaBox.show();
+            case R.id.meetsOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, MeetActivity.class));
+                return true;
+
+            case R.id.cutTimesOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, CutTimeActivity.class));
+                return true;
+
+            case R.id.statisticsOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, StatisticActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -140,12 +141,44 @@ public class ProfileActivity extends ActionBarActivity{
                 cursor.moveToNext(); // Move to next row retrieved
             }
         }
-        final ListView lv = (ListView) findViewById(R.id.profileList);
-        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE); //multiple choice list i.e., checked or unchecked
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, swimmerList);
+
+        //sort swimmerList alphabetically
+        Collections.sort(swimmerList);
+
+        lv = (ListView) findViewById(R.id.profileList);
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); //multiple choice list i.e., checked or unchecked
+        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, swimmerList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
     }
 
+    private AlertDialog AskOption(final Context context, final View view)
+    {
+        AlertDialog dialogBox = new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Are you sure you want to delete this profile?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//do nothing on cancel
+                        dialog.dismiss();
+                        new RumbleAction(view);
+                    }
+                })
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//delete selected profile
+                        dialog.dismiss();
+                        new RumbleAction(view);
+                        DatabaseOperations dop = new DatabaseOperations(context);
+                        SQLiteDatabase db = dop.getWritableDatabase();
+                        dop.deleteProfile(db, chosenSwimmer); //delete this profile
+                        populateList();
+                    }
+                })
+                .create();
+        return dialogBox;
+    }
 
     public void goToProfileAdd(View v) //go to add profile page
     {
@@ -156,21 +189,13 @@ public class ProfileActivity extends ActionBarActivity{
     public void goToProfileEdit(View v) //go to edit profile page
     {
         new RumbleAction(v);
-        if(checkedList.size() == 0) //if no swimmers selected
-        {
-            new MessagePrinter().shortMessage(this, "Please select a swimmer to edit");
-            return;
-        }
-        else if(checkedList.size() > 1)
-        {
-            new MessagePrinter().shortMessage(this, "Please select a single swimmer");
-            return;
-        }
-        else
-        {
-            nameToEdit = checkedList.get(0).toString(); //swimmer name to be reference in edit page
-            startActivity(new Intent(this, ProfileEditActivity.class));
-        }
+        startActivity(new Intent(this, ProfileEditActivity.class));
+    }
+
+    public void deleteProfiles(View v) //when delete is pressed
+    {
+        new RumbleAction(v);
+        AlertDialog diaBox = AskOption(this, v);
+        diaBox.show();
     }
 }
-

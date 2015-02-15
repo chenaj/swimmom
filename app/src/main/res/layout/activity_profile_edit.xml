@@ -53,17 +53,20 @@
                     android:textSize="16dp"
                     android:layout_marginTop="16dp" />
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="9dp"
                     android:inputType="textPersonName"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
                     android:ems="10"
                     android:id="@+id/name"
                     android:layout_column="1"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="16dp"
+                    android:textSize="17dp"
+                    android:textStyle="italic" />
             </TableRow>
 
             <TableRow
@@ -103,13 +106,17 @@
                     android:id="@+id/genderLabel"
                     android:textSize="16dp" />
 
-                <Spinner
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/genderSpinner"
+                    android:layout_marginLeft="9dp"
+                    android:id="@+id/gender"
                     android:layout_column="1"
-                    android:spinnerMode="dropdown" />
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:editable="false"
+                    android:textSize="17dp"
+                    android:textStyle="italic" />
 
             </TableRow>
 
@@ -131,14 +138,7 @@
                     android:layout_marginLeft="5dp"
                     android:id="@+id/gradeSpinner"
                     android:layout_column="1"
-                    android:spinnerMode="dropdown" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                // capitalize first letter of every word
+                    android:spinnerMode="dropdown"/>
             </TableRow>
 
         </TableLayout>

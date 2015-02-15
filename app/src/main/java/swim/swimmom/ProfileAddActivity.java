@@ -1,6 +1,5 @@
 package swim.swimmom;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
@@ -8,9 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -20,10 +17,10 @@ import android.widget.TextView;
 
 public class ProfileAddActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
 
-    Spinner genderSpinner, gradeSpinner; //for gender and grade spinner drop-downs
     EditText nameField, schoolField; //for name and school text fields
-    String S_name, S_gender, S_grade, S_school;
-    String errorMsg;
+    Spinner genderSpinner, gradeSpinner; //for gender and grade spinner drop-downs
+    String S_name, S_school, S_gender, S_grade;
+    String errorMsg = "";
 
 
     @Override
@@ -31,15 +28,12 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_add);
 
-
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
         S_name = "";
         S_school = "";
         S_gender = "";
         S_grade = "";
-        errorMsg = "";
 
         //Gender Spinner
         Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
@@ -69,13 +63,43 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        View curView = this.findViewById(android.R.id.content).getRootView();
+        new RumbleAction(curView);
+        // Handle item selection
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                new RumbleAction(curView);
                 startActivity(new Intent(this, ProfileActivity.class));
                 return true;
+
+            case R.id.refreshOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, ProfileAddActivity.class));
+                return true;
+
+            case R.id.mainOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+
+            case R.id.meetsOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, MeetActivity.class));
+                return true;
+
+            case R.id.cutTimesOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, CutTimeActivity.class));
+                return true;
+
+            case R.id.statisticsOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, StatisticActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     public void goToProfiles(View v) //navigate back to profile page when save is pressed
@@ -92,14 +116,14 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         S_gender = genderSpinner.getSelectedItem().toString();
         S_grade = gradeSpinner.getSelectedItem().toString();
 
-
         new RumbleAction(v);
         if (validInput()) //if all user input fields are valid
         {
             DatabaseOperations dop = new DatabaseOperations(this);
             SQLiteDatabase db = dop.getWritableDatabase();
-
             //Insert swimmer information into database
+            S_name = S_name.toLowerCase();
+            S_name = toTitleCase(S_name); //format name (i.e., john johnson -> John Johnson)
             String result = dop.insertProfile(db, S_name, S_gender, S_grade, S_school);
             if (result == "Success") //if insert is successful
             {
@@ -112,11 +136,25 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
                 errorMsg = "";
                 return;
             }
-        } else {
+        }
+        else
+        {
             new MessagePrinter().longMessage(this, errorMsg);
             errorMsg = "";
             return;
         }
+    }
+
+    public static String toTitleCase(String givenString) // uppercase first letter of each word in string
+    {
+        String[] arr = givenString.split(" ");
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < arr.length; i++) {
+            sb.append(Character.toUpperCase(arr[i].charAt(0)))
+                    .append(arr[i].substring(1)).append(" ");
+        }
+        return sb.toString().trim();
     }
 
     boolean validInput() //check if input fields are all filled in correctly
@@ -125,9 +163,23 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
 
         if (S_name.length() < 1) //if name field is empty
         {
-            //Toast.makeText(this.getApplicationContext(), "You did not enter a name", Toast.LENGTH_SHORT).show();
             addNewLine();
-            errorMsg += "You did not enter a name";
+            errorMsg = "You did not enter a name";
+            validInput = false;
+        }
+        else //if name field isn't empty, check name format
+        {
+            String[] components = S_name.split("\\s+");
+            if (components.length != 2)
+            {
+                errorMsg = "Name format should be: First Last";
+                validInput = false;
+            }
+        }
+        if (S_school.length() < 1) //if school field is empty
+        {
+            addNewLine();
+            errorMsg += "You did not enter a school";
             validInput = false;
         }
         if (S_gender.matches("Select...")) //if gender is not selected
@@ -142,16 +194,10 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
             errorMsg += "You did not select a grade";
             validInput = false;
         }
-        if (S_school.length() < 1) //if school field is empty
-        {
-            addNewLine();
-            errorMsg += "You did not enter a school";
-            validInput = false;
-        }
         return validInput;
     }
 
-    public void addNewLine() //adds new line to display multiple error messages in single toast message
+    public void addNewLine() //adds new line to toast message
     {
         if (errorMsg.length() > 0)
             errorMsg += "\r\n";

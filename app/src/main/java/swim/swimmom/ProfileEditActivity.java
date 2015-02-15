@@ -22,8 +22,9 @@ import android.widget.TextView;
 
 public class ProfileEditActivity extends ActionBarActivity{
 
-    Spinner genderSpinner, gradeSpinner; //for gender and grade spinner drop-downs
-    EditText nameField, schoolField; //for name and school text fields
+    Spinner gradeSpinner;
+    EditText schoolField;
+    TextView nameField, genderField;
     String S_name, S_gender, S_grade, S_school;
     String errorMsg;
 
@@ -36,7 +37,7 @@ public class ProfileEditActivity extends ActionBarActivity{
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        S_name = ProfileActivity.nameToEdit;
+        S_name = ProfileActivity.chosenSwimmer;
         errorMsg = "";
         DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
@@ -53,30 +54,20 @@ public class ProfileEditActivity extends ActionBarActivity{
             }
         }
         // Populate fields on page with existing swimmer info
-        EditText nameField = (EditText) findViewById(R.id.name);
+        TextView nameField = (TextView) findViewById(R.id.name);
         EditText schoolField = (EditText) findViewById(R.id.school);
+        TextView genderField = (TextView) findViewById(R.id.gender);
         nameField.setText(S_name);
-        nameField.setFocusable(false);
-        nameField.setClickable(false); //name field cannot be edited
         schoolField.setText(S_school); //set school name
-
-        //--Gender Spinner--//
-        Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
-        ArrayAdapter adapter;
-        adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(adapter); // Apply adapter to the spinner
-        ArrayAdapter myAdapter = (ArrayAdapter) genderSpinner.getAdapter(); //cast to an ArrayAdapter
-        int spinnerPosition = myAdapter.getPosition(S_gender); //find position of current gender
-        genderSpinner.setSelection(spinnerPosition); //set gender in spinner
-        genderSpinner.setClickable(false); //gender field cannot be edited
+        genderField.setText(S_gender);
 
         //--Grade Spinner--//
         Spinner gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
         ArrayAdapter adapter_1;
         adapter_1 = ArrayAdapter.createFromResource(this, R.array.grade_array2, android.R.layout.simple_spinner_dropdown_item);
         gradeSpinner.setAdapter(adapter_1); // Apply adapter to the spinner
-        myAdapter = (ArrayAdapter) gradeSpinner.getAdapter(); //cast to an ArrayAdapter
-        spinnerPosition = myAdapter.getPosition(S_grade); //find position of current grade
+        ArrayAdapter myAdapter = (ArrayAdapter) gradeSpinner.getAdapter(); //cast to an ArrayAdapter
+        int spinnerPosition = myAdapter.getPosition(S_grade); //find position of current grade
         gradeSpinner.setSelection(spinnerPosition); //set grade in spinner
     }
 
@@ -90,27 +81,57 @@ public class ProfileEditActivity extends ActionBarActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        View curView = this.findViewById(android.R.id.content).getRootView();
+        new RumbleAction(curView);
+        // Handle item selection
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                new RumbleAction(curView);
                 startActivity(new Intent(this, ProfileActivity.class));
                 return true;
+
+            case R.id.refreshOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, ProfileEditActivity.class));
+                return true;
+
+            case R.id.mainOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+
+            case R.id.meetsOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, MeetActivity.class));
+                return true;
+
+            case R.id.cutTimesOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, CutTimeActivity.class));
+                return true;
+
+            case R.id.statisticsOption:
+                new RumbleAction(curView);
+                startActivity(new Intent(this, StatisticActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     public void goToProfiles(View v) //navigate back to profile page when update is pressed
     {
         //Retrieve values from input fields
-        nameField = (EditText) findViewById(R.id.name);
+        nameField = (TextView) findViewById(R.id.name);
         schoolField = (EditText) findViewById(R.id.school);
-        genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
+        genderField = (TextView) findViewById(R.id.gender);
         gradeSpinner = (Spinner) findViewById(R.id.gradeSpinner);
 
         //Convert them to strings
         S_name = nameField.getText().toString();
         S_school = schoolField.getText().toString();
-        S_gender= genderSpinner.getSelectedItem().toString();
+        S_gender= genderField.getText().toString();
         S_grade = gradeSpinner.getSelectedItem().toString();
 
         new RumbleAction(v);

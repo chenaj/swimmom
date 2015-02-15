@@ -78,18 +78,23 @@ public class DatabaseOperations extends SQLiteOpenHelper{
             return "Sorry maximum number of profiles reached";
 
         //Check if this swimmer already exists
-        cursor = db.rawQuery("SELECT * FROM Profile_TABLE WHERE Name= '"+name+"'", null);
-        if(cursor.getCount() > 0) //if a profile with same name already exists
-            return "Sorry this profile already exists";
-
+        if (cursor.moveToFirst())
+        {
+            while (cursor.isAfterLast() == false)
+            {
+                String name2 = cursor.getString(cursor.getColumnIndex("Name"));
+                if(name2.equalsIgnoreCase(name) == true) //if name already exists in table (regardless of case)
+                    return "Sorry this profile already exists";
+                cursor.moveToNext(); // Move to next row retrieved
+            }
+        }
         String query = "INSERT INTO Profile_TABLE (Name, School, Gender, Grade) VALUES ('"+name+"', '"+school+"', '"+gender+"', '"+grade+"')";
         try {
             db.execSQL(query);
         }catch (Exception e){
             Log.e("*Query error!", "INSERT FAILED");
-            return "Error occurred!";
+            return "Sorry, an error occurred.. Please try again.";
         }
-
         Log.d("*Database operations", "One row inserted!");
         return "Success";
     }
@@ -104,15 +109,8 @@ public class DatabaseOperations extends SQLiteOpenHelper{
             db.update("Profile_TABLE", cv, "Name='"+name+"'", null);
         }catch (Exception e){
             Log.e("*Query error!", "UPDATE FAILED");
-            return "Error occurred!";
+            return "Sorry, an error occurred.. Please try again.";
         }
-        /*String query = "UPDATE Profile_TABLE SET School='"+school+"', 'Gender='"+gender+"', Grade='"+grade+"' WHERE Name='"+name+"'";
-        try {
-            db.execSQL(query);
-        }catch (Exception e){
-            Log.e("*Query error!", "UPDATE FAILED");
-            return "Error occurred!";
-        }*/
         Log.d("*Database operations", "One row updated!");
         return "Success";
     }
@@ -125,7 +123,6 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         }catch (Exception e){
             Log.e("*Query error!", "DELETE FAILED");
         }
-
         Log.d("*Database operations", "One row deleted (Name='"+name+"'!");
     }
 }

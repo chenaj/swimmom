@@ -70,53 +70,18 @@
         android:layout_alignParentStart="true"
         android:paddingBottom="10dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add"
-            android:id="@+id/addProfileBtn"
-            android:layout_below="@+id/logo"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="25dp"
-            android:textColor="#ffffffff"
-            android:onClick="goToProfileAdd"
-            android:width="80dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:layout_weight="50" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            android:id="@+id/deleteProfileBtn"
-            android:layout_below="@+id/logo"
-            android:layout_centerHorizontal="true"
-            android:textSize="25dp"
-            android:textColor="#ffffffff"
-            android:onClick="deleteProfiles"
-            android:width="115dp"
-            android:backgroundTintMode="screen"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:layout_weight="50" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit"
-            android:id="@+id/editProfileBtn"
-            android:layout_below="@+id/logo"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textSize="25dp"
-            android:textColor="#ffffffff"
-            android:onClick="goToProfileEdit"
-            android:width="80dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:layout_weight="50" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Swimmer"
+        android:id="@+id/addProfileBtn"
+        android:textSize="25dp"
+        android:textColor="#ffffffff"
+        android:onClick="goToProfileAdd"
+        android:width="200dp"
+        android:layout_below="@+id/profileList"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
