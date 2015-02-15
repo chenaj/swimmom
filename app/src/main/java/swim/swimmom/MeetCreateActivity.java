@@ -105,41 +105,9 @@ public class MeetCreateActivity extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                new RumbleAction(curView);
-                startActivity(new Intent(this, MeetActivity.class));
-                return true;
+        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class,MeetActivity.class);
+        return super.onOptionsItemSelected(item);
 
-            case R.id.refreshOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, MeetCreateActivity.class));
-                return true;
-
-            case R.id.mainOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-
-            case R.id.profilesOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, ProfileActivity.class));
-                return true;
-
-            case R.id.cutTimesOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, CutTimeActivity.class));
-                return true;
-
-            case R.id.statisticsOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, StatisticActivity.class));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     public void goToMeets(View v) //navigate back to profile page when save is pressed

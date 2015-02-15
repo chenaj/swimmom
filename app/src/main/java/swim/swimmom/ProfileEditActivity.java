@@ -84,40 +84,8 @@ public class ProfileEditActivity extends ActionBarActivity{
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                new RumbleAction(curView);
-                startActivity(new Intent(this, ProfileActivity.class));
-                return true;
-
-            case R.id.refreshOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, ProfileEditActivity.class));
-                return true;
-
-            case R.id.mainOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-
-            case R.id.meetsOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, MeetActivity.class));
-                return true;
-
-            case R.id.cutTimesOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, CutTimeActivity.class));
-                return true;
-
-            case R.id.statisticsOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, StatisticActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        new MenuOptions().MenuOption(curView,item,this,ProfileEditActivity.class,ProfileActivity.class);
+        return super.onOptionsItemSelected(item);
     }
 
     public void goToProfiles(View v) //navigate back to profile page when update is pressed

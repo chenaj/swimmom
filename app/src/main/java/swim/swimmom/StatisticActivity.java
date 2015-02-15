@@ -51,40 +51,7 @@ public class StatisticActivity extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                new RumbleAction(curView);
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-
-            case R.id.refreshOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, StatisticActivity.class));
-                return true;
-
-            case R.id.mainOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-
-            case R.id.profilesOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, ProfileActivity.class));
-                return true;
-
-            case R.id.meetsOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, MeetActivity.class));
-                return true;
-
-            case R.id.cutTimesOption:
-                new RumbleAction(curView);
-                startActivity(new Intent(this, CutTimeActivity.class));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class,MainActivity.class);
+        return super.onOptionsItemSelected(item);
     }
 }
