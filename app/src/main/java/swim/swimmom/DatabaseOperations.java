@@ -43,7 +43,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "(" +
                     "Meet_Id INTEGER," +
                     "Name varchar(60)," +
-                    "Event varchar(50)" +
+                    "Event varchar(50)," +
                     "PRIMARY KEY (Meet_Id),"+
                     "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
                     ");";
@@ -52,8 +52,8 @@ public class DatabaseOperations extends SQLiteOpenHelper{
             "CREATE TABLE Statistics_TABLE" +
                     "(" +
                     "Name varchar(60)," +
-                    "Event varchar(50)" +
-                    "Event_Time varchar(6)" +
+                    "Event varchar(50)," +
+                    "Event_Time varchar(6)," +
                     "Meet_Id INTEGER," +
                     "PRIMARY KEY (Name),"+
                     "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+

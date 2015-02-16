@@ -90,8 +90,7 @@ public class ProfileActivity extends ActionBarActivity{
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-
-       new MenuOptions().MenuOption(curView,item,this,ProfileActivity.class,MainActivity.class );
+        new MenuOptions().MenuOption(curView,item,this,ProfileActivity.class,MainActivity.class );
         return super.onOptionsItemSelected(item);
     }
 
