@@ -33,9 +33,9 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "(" +
                     "Meet_Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Date date NOT NULL," +
-                    "Location varchar(50)," +
+                    "Location varchar(100)," +
                     "Time varchar(5)," +
-                    "Opponent varchar(50)" +
+                    "Opponent varchar(100)" +
                     ");";
 
     public static final String CREATE_Participants_TABLE =
@@ -43,9 +43,27 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "(" +
                     "Meet_Id INTEGER," +
                     "Name varchar(60)," +
+                    "Event varchar(50)" +
                     "PRIMARY KEY (Meet_Id),"+
                     "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
                     ");";
+                    
+    public static final String CREATE_Statistics_TABLE =
+            "CREATE TABLE Statistics_TABLE" +
+                    "(" +
+                    "Name varchar(60)," +
+                    "Event varchar(50)" +
+                    "Event_Time varchar(6)" +
+                    "Meet_Id INTEGER," +
+                    "PRIMARY KEY (Name),"+
+                    "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
+                    ");";                
+                    
+                    
+    //Example Event retrieve query
+    /*
+        SELECT * FROM Participants_TABLE WHERE Meet_Id='' AND Event1='' OR Event2='' OR Event3='' OR Event4=''" 
+    */
 
     public DatabaseOperations(Context context) //default constructor
     {
