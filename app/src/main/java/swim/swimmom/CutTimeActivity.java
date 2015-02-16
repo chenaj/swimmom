@@ -14,9 +14,7 @@ public class CutTimeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cut_time);
-
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        new MyActionBar(getSupportActionBar(), "Cut Times"); // Create action bar
     }
 
 

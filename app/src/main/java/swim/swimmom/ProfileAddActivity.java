@@ -27,9 +27,8 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_add);
+        new MyActionBar(getSupportActionBar(), "Add a Swimmer"); // Create action bar
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
         S_name = "";
         S_school = "";
         S_gender = "";
@@ -133,6 +132,11 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         {
             addNewLine();
             errorMsg = "You did not enter a name";
+            validInput = false;
+        }
+        else if (!S_name.matches("[a-zA-Z]+")) //if name contains characters other than letters
+        {
+            errorMsg = "Name must only contain letters";
             validInput = false;
         }
         else //if name field isn't empty, check name format

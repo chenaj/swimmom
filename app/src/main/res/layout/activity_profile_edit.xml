@@ -147,14 +147,15 @@
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update"
-            android:id="@+id/updateBtn"
+            android:drawableLeft="@android:drawable/ic_menu_save"
+            android:text="Save"
+            android:id="@+id/saveBtn"
             android:layout_below="@+id/profileAddForm"
             android:layout_centerHorizontal="true"
             android:textSize="25dp"
             android:textColor="#ffffffff"
             android:onClick="goToProfiles"
-            android:width="150dp"
+            android:width="120dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 

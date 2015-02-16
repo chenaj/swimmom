@@ -16,9 +16,7 @@ public class StatisticActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
-
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        new MyActionBar(getSupportActionBar(), "Statistics"); // Create action bar
 
         Spinner swimmerSpinner = (Spinner) findViewById(R.id.swimmerSpinner);
         swimmerSpinner.setPrompt("Select...");
@@ -32,8 +30,6 @@ public class StatisticActivity extends ActionBarActivity {
         ArrayAdapter Adapter = ArrayAdapter.createFromResource(this, R.array.event_array, android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         eventSpinner.setAdapter(Adapter);
-
-
     }
 
 

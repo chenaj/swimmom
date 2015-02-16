@@ -56,8 +56,7 @@ public class MeetCreateActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meet_create);
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        new MyActionBar(getSupportActionBar(), "Create a Meet"); // Create action bar
 
         displayTime = (TextView) findViewById(R.id.timePicker);
         pickTime = (EditText) findViewById(R.id.timePicker);

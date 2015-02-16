@@ -138,6 +138,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@android:drawable/ic_menu_save"
             android:text="Save"
             android:id="@+id/createBtn"
             android:layout_below="@+id/profileAddForm"
@@ -145,8 +146,8 @@
             android:textSize="25dp"
             android:textColor="#ffffffff"
             android:onClick="goToProfiles"
-            android:width="100dp"
-            android:layout_gravity="center_horizontal" />
+            android:width="120dp"
+            android:layout_gravity="center_horizontal"/>
         </LinearLayout>
 
 </RelativeLayout>

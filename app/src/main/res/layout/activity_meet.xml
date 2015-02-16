@@ -33,40 +33,11 @@
         android:textColor="#ffffffff"
         android:onClick="goToCreateMeet"
         android:width="200dp"
-        android:layout_above="@+id/modifyBtn"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Modify"
-        android:id="@+id/modifyBtn"
-        android:textSize="25dp"
-        android:textColor="#ffffffff"
-        android:width="200dp"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/beginBtn"
-        android:layout_alignStart="@+id/beginBtn"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Begin"
-        android:id="@+id/beginBtn"
-        android:textSize="25dp"
-        android:textColor="#ffffffff"
-        android:width="200dp"
-        android:layout_below="@+id/modifyBtn"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_centerVertical="true" />
 
 
 </RelativeLayout>

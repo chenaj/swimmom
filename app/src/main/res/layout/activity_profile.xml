@@ -75,13 +75,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_menu_add"
         android:text="Add Swimmer"
         android:id="@+id/addProfileBtn"
         android:textSize="25dp"
         android:textColor="#ffffffff"
         android:onClick="goToProfileAdd"
-        android:width="200dp"
+        android:width="220dp"
         android:layout_below="@+id/profileList"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

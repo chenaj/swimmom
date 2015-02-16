@@ -14,9 +14,7 @@ public class MeetActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meet);
-
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        new MyActionBar(getSupportActionBar(), "Meets"); // Create action bar
     }
 
 

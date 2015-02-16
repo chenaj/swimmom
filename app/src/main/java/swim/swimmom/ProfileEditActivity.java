@@ -33,9 +33,7 @@ public class ProfileEditActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
-
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        new MyActionBar(getSupportActionBar(), "Edit Swimmer"); // Create action bar
 
         S_name = ProfileActivity.chosenSwimmer;
         errorMsg = "";
