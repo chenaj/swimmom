@@ -1,12 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="swim.swimmom.ProfileActivity">
+    tools:context="swim.swimmom.MeetCreateSwimmersActivity">
 
     <item
         android:id="@+id/settings"
         android:title="Jump To"
-        android:layout_gravity="center"
         android:orderInCategory="100"
         android:icon="@drawable/settingsicon"
         app:showAsAction="always" >
@@ -21,9 +20,9 @@
                 android:title="Home"
                 android:icon="@drawable/swimlogov2"/>
             <item
-                android:id="@+id/meetsOption"
-                android:title="Meets"
-                android:icon="@drawable/meetsicon"/>
+                android:id="@+id/profilesOption"
+                android:title="Profiles"
+                android:icon="@drawable/profilesicon"/>
             <item
                 android:id="@+id/cutTimesOption"
                 android:title="Cut Times"
@@ -34,5 +33,4 @@
                 android:icon="@drawable/statisticsicon"/>
         </menu>
     </item>
-
 </menu>

@@ -16,9 +16,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/imageView6"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/swimlogov2"
+            android:id="@+id/imageView6"
+            android:src="@drawable/statisticsiconlarge"
             android:scaleType="fitCenter" />
 
     </LinearLayout>

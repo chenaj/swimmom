@@ -110,7 +110,7 @@ public class ProfileEditActivity extends ActionBarActivity{
             String result = dop.updateProfile(db, S_name, S_school, S_gender, S_grade);
             if(result == "Success") //if update is successful
             {
-                new MessagePrinter().shortMessage(this, "Swimmer Updated!");
+                new MessagePrinter().shortMessage(this, "Changes Saved!");
                 startActivity(new Intent(this, ProfileActivity.class));
             }
             else //if update fails i.e., display returned error message

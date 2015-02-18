@@ -131,14 +131,15 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         if (S_name.length() < 1) //if name field is empty
         {
             addNewLine();
-            errorMsg = "You did not enter a name";
+            errorMsg = "Please enter a name";
             validInput = false;
         }
-        else if (!S_name.matches("[a-zA-Z]+")) //if name contains characters other than letters
+        else if (containsDigit(S_name) == true) //if name contains digits
         {
-            errorMsg = "Name must only contain letters";
+            errorMsg = "Name cannot contain digits";
             validInput = false;
         }
+        /* //Do we need first and last name?
         else //if name field isn't empty, check name format
         {
             String[] components = S_name.split("\\s+");
@@ -147,26 +148,38 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
                 errorMsg = "Name format should be: First Last";
                 validInput = false;
             }
-        }
+        }*/
         if (S_school.length() < 1) //if school field is empty
         {
             addNewLine();
-            errorMsg += "You did not enter a school";
+            errorMsg += "Please enter a school";
             validInput = false;
         }
         if (S_gender.matches("Select...")) //if gender is not selected
         {
             addNewLine();
-            errorMsg += "You did not select a gender";
+            errorMsg += "Please select a gender";
             validInput = false;
         }
         if (S_grade.matches("Select...")) //if grade is not selected
         {
             addNewLine();
-            errorMsg += "You did not select a grade";
+            errorMsg += "Please select a grade";
             validInput = false;
         }
         return validInput;
+    }
+
+    public final boolean containsDigit(String s)
+    {
+        boolean containsDigit = false;
+        if (s != null && !s.isEmpty()) {
+            for (char c : s.toCharArray()) {
+                if (containsDigit = Character.isDigit(c))
+                    break;
+            }
+        }
+        return containsDigit;
     }
 
     public void addNewLine() //adds new line to toast message

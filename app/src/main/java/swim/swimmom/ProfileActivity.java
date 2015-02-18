@@ -33,9 +33,10 @@ public class ProfileActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         new MyActionBar(getSupportActionBar(), "Profiles"); // Create action bar
+
         populateList();
         registerForContextMenu(lv); //enable long clicking on list items
-        // When user long clicks an item in list
+        // When user long clicks a profile in table
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -51,8 +52,7 @@ public class ProfileActivity extends ActionBarActivity{
                                     ContextMenu.ContextMenuInfo menuInfo) {
         if (v.getId() == R.id.profileList)
         {
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-            menu.setHeaderTitle("Options"); // Title for pop up menu
+            menu.setHeaderTitle("Profile Options"); // Title for pop up menu
             menu.setHeaderIcon(android.R.drawable.ic_menu_edit);
             menu.add(Menu.NONE, 0, 0, "Edit");
             menu.add(Menu.NONE, 0, 0, "Delete");
@@ -103,7 +103,6 @@ public class ProfileActivity extends ActionBarActivity{
                 cursor.moveToNext(); // Move to next row retrieved
             }
         }
-
         //sort swimmerList alphabetically
         Collections.sort(swimmerList);
 
@@ -117,7 +116,7 @@ public class ProfileActivity extends ActionBarActivity{
     {
         AlertDialog dialogBox = new AlertDialog.Builder(this)
 //set message, title, and icon
-                .setTitle("Delete")
+                .setTitle("Delete Profile")
                 .setMessage("Are you sure you want to delete this profile?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {

@@ -11,7 +11,7 @@ import android.view.View;
  */
 public class MenuOptions {
 
-    public boolean MenuOption(View curView, MenuItem item, Context context, Class myClass,Class parent)
+    public boolean MenuOption(View curView, MenuItem item, Context context, Class currentPage, Class parentPage)
     {
     new RumbleAction(curView);
     // Handle item selection
@@ -21,13 +21,13 @@ public class MenuOptions {
         case android.R.id.home:
             //onBackPressed();
             new RumbleAction(curView);
-            intent = new Intent (context, parent);
+            intent = new Intent (context, parentPage);
             context.startActivity(intent);
             return true;
 
         case R.id.refreshOption:
             new RumbleAction(curView);
-            intent = new Intent (context, myClass);
+            intent = new Intent (context, currentPage);
             context.startActivity(intent);
             return true;
 

@@ -5,9 +5,11 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,6 +24,13 @@ public class MeetCreateActivity extends ActionBarActivity {
 
     TextView displayTime;
     EditText pickTime;
+    String errorMsg = "";
+
+    public static String opponent = "";
+    public static String location = "";
+    public static String time = "";
+    public static String date = "";
+    EditText dateField, locationField, timeField, opponentField;
 
     int pHour;
     int pMinute;
@@ -72,7 +81,6 @@ public class MeetCreateActivity extends ActionBarActivity {
         });
     }
 
-
     private static String pad(int c) // Add padding to numbers less than ten
     {
         if (c >= 10)
@@ -104,14 +112,62 @@ public class MeetCreateActivity extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class,MeetActivity.class);
+        new MenuOptions().MenuOption(curView,item,this,MeetCreateActivity.class,MeetActivity.class);
         return super.onOptionsItemSelected(item);
 
     }
 
-    public void goToMeets(View v) //navigate back to profile page when save is pressed
+    public void goToSelectSwimmers(View v) //navigate to select swimmers
     {
-        new MessagePrinter().shortMessage(this, "Meet Created!");
-        startActivity(new Intent(this, MeetActivity.class));
+        opponentField = (EditText) findViewById(R.id.opponent);
+        locationField = (EditText) findViewById(R.id.location);
+        dateField =  (EditText) findViewById(R.id.date);
+        timeField = (EditText) findViewById(R.id.timePicker);
+
+        opponent = opponentField.getText().toString();
+        location = locationField.getText().toString();
+        date =  dateField.getText().toString();
+        time = timeField.getText().toString();
+
+        // check if fields are filled in correctly
+        if(validInput()) {
+            startActivity(new Intent(this, MeetCreateSwimmersActivity.class));
+        }else {
+            new MessagePrinter().longMessage(this, errorMsg);
+            errorMsg = "";
+            return;
+        }
+    }
+
+    public boolean validInput()
+    {
+        boolean validInput = true;
+        if(opponent.length() < 1) {
+            addNewLine();
+            errorMsg += "Please enter an opponent";
+            validInput = false;
+        }
+        if(location.length() < 1) {
+            addNewLine();
+            errorMsg += "Please enter a location";
+            validInput = false;
+        }
+        if(date.length() < 1) {
+            addNewLine();
+            errorMsg += "Please enter a date";
+            validInput = false;
+        }
+        if(time.length() < 1) {
+            addNewLine();
+            errorMsg += "Please enter a time";
+            validInput = false;
+        }
+        return validInput;
+    }
+
+    public void addNewLine() //adds new line to toast message
+    {
+        if (errorMsg.length() > 0)
+            errorMsg += "\r\n";
     }
 }

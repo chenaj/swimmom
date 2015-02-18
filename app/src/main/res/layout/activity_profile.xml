@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView4"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/swimlogov2"
+            android:src="@drawable/profilesiconlarge"
             android:scaleType="fitCenter"
             android:adjustViewBounds="false" />
 
@@ -35,7 +35,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textStyle="bold"
-        android:textSize="18dp" />
+        android:textSize="16dp" />
 
     <View
         android:layout_width="match_parent"

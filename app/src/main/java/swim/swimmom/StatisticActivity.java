@@ -27,7 +27,7 @@ public class StatisticActivity extends ActionBarActivity {
 
         Spinner eventSpinner = (Spinner) findViewById(R.id.eventSpinner);
         eventSpinner.setPrompt("Select...");
-        ArrayAdapter Adapter = ArrayAdapter.createFromResource(this, R.array.event_array, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter Adapter = ArrayAdapter.createFromResource(this, R.array.events_array, android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         eventSpinner.setAdapter(Adapter);
     }
