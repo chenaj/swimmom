@@ -36,13 +36,15 @@ public class ProfileActivity extends ActionBarActivity{
 
         populateList();
         registerForContextMenu(lv); //enable long clicking on list items
-        // When user long clicks a profile in table
-        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        // When user clicks a profile in table
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
+                // TODO Auto-generated method stub
                 chosenSwimmer = lv.getItemAtPosition(position).toString();
                 Log.d("You selected", chosenSwimmer);
-                return false;
+                new RumbleAction(view);
+                view.showContextMenu();
             }
         });
     }
@@ -83,7 +85,7 @@ public class ProfileActivity extends ActionBarActivity{
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,ProfileActivity.class,MainActivity.class );
+        new MenuOptions().MenuOption(curView,item,this,MainActivity.class );
         return super.onOptionsItemSelected(item);
     }
 
@@ -105,7 +107,6 @@ public class ProfileActivity extends ActionBarActivity{
         }
         //sort swimmerList alphabetically
         Collections.sort(swimmerList);
-
         lv = (ListView) findViewById(R.id.profileList);
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); //multiple choice list i.e., checked or unchecked
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, swimmerList);
@@ -119,22 +120,22 @@ public class ProfileActivity extends ActionBarActivity{
                 .setTitle("Delete Profile")
                 .setMessage("Are you sure you want to delete this profile?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
 //do nothing on cancel
-                        dialog.dismiss();
-                        new RumbleAction(view);
-                    }
-                })
-                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-//delete selected profile
                         dialog.dismiss();
                         new RumbleAction(view);
                         DatabaseOperations dop = new DatabaseOperations(context);
                         SQLiteDatabase db = dop.getWritableDatabase();
                         dop.deleteProfile(db, chosenSwimmer); //delete this profile
                         populateList();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//delete selected profile
+                        dialog.dismiss();
+                        new RumbleAction(view);
                     }
                 })
                 .create();

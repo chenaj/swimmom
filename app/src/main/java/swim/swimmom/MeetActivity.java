@@ -36,7 +36,6 @@ public class MeetActivity extends ActionBarActivity {
 
         populateList();
         registerForContextMenu(lv); //enable long clicking on list items
-
         // When user short clicks a meet in table
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -47,7 +46,6 @@ public class MeetActivity extends ActionBarActivity {
                 new RumbleAction(view);
                 AlertDialog diaBox = beginMeetDialog(getApplicationContext(), view);
                 diaBox.show();
-
             }
         });
         // When user long clicks a meet in table
@@ -77,7 +75,7 @@ public class MeetActivity extends ActionBarActivity {
             //goToCreateMeet(this.findViewById(android.R.id.content).getRootView());
         }
         else if (item.getTitle() == "Delete") {
-            //deleteMeet(this.findViewById(android.R.id.content).getRootView());
+            deleteMeet(this.findViewById(android.R.id.content).getRootView());
         }
         else
             return false;
@@ -96,14 +94,15 @@ public class MeetActivity extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class,MainActivity.class);
+        new MenuOptions().MenuOption(curView,item,this,MainActivity.class);
         return super.onOptionsItemSelected(item);
     }
 
     public void populateList()
     {
         meetList.clear();
-        String name;
+        String meet;
+        String Meet_Id, opponent, date, time;
         DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Meet_TABLE",null);
@@ -111,8 +110,12 @@ public class MeetActivity extends ActionBarActivity {
         {
             while (cursor.isAfterLast() == false)
             {
-                name = cursor.getString(cursor.getColumnIndex("Name"));
-                meetList.add(name); // Add swimmer name to swimmerList
+                Meet_Id = cursor.getString(cursor.getColumnIndex("Meet_Id"));
+                opponent = cursor.getString(cursor.getColumnIndex("Opponent"));
+                date = cursor.getString(cursor.getColumnIndex("Date"));
+                //time = cursor.getString(cursor.getColumnIndex("Time"));
+                meet = ""+Meet_Id+": "+date+" vs. "+opponent+"";
+                meetList.add(meet); // Add meet opponent name to meetList
                 cursor.moveToNext(); // Move to next row retrieved
             }
         }
@@ -131,22 +134,22 @@ public class MeetActivity extends ActionBarActivity {
                 .setTitle("Delete Meet")
                 .setMessage("Are you sure you want to delete this meet?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
 //do nothing on cancel
-                        dialog.dismiss();
-                        new RumbleAction(view);
-                    }
-                })
-                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-//delete selected profile
                         dialog.dismiss();
                         new RumbleAction(view);
                         DatabaseOperations dop = new DatabaseOperations(context);
                         SQLiteDatabase db = dop.getWritableDatabase();
                         dop.deleteProfile(db, chosenMeet); //delete this profile
                         populateList();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//delete selected profile
+                        dialog.dismiss();
+                        new RumbleAction(view);
                     }
                 })
                 .create();
@@ -160,16 +163,45 @@ public class MeetActivity extends ActionBarActivity {
                 .setTitle("Start Meet")
                 .setMessage("Would you like to begin this meet?")
                 .setIcon(R.drawable.ic_launcher)
-                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Start", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
 //do nothing on cancel
                         dialog.dismiss();
                         new RumbleAction(view);
                     }
                 })
-                .setNegativeButton("Start", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 //begin meet
+                        dialog.dismiss();
+                        new RumbleAction(view);
+                    }
+                })
+                .create();
+        return dialogBox;
+    }
+
+    private AlertDialog deleteMeetDialog(final Context context, final View view)
+    {
+        AlertDialog dialogBox = new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Delete Meet")
+                .setMessage("Are you sure you want to delete this meet?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//do nothing on cancel
+                        dialog.dismiss();
+                        new RumbleAction(view);
+                        DatabaseOperations dop = new DatabaseOperations(context);
+                        SQLiteDatabase db = dop.getWritableDatabase();
+                        dop.deleteMeet(db, chosenMeet); //delete this profile
+                        populateList();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//delete selected profile
                         dialog.dismiss();
                         new RumbleAction(view);
                     }
@@ -187,7 +219,7 @@ public class MeetActivity extends ActionBarActivity {
     public void deleteMeet(View v) //when delete is pressed
     {
         new RumbleAction(v);
-        AlertDialog diaBox = AskOption(this, v);
+        AlertDialog diaBox = deleteMeetDialog(this, v);
         diaBox.show();
     }
 }

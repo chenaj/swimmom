@@ -33,6 +33,31 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         S_school = "";
         S_gender = "";
         S_grade = "";
+        resetForm(getWindow().getDecorView().findViewById(android.R.id.content));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_profile_add, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        View curView = this.findViewById(android.R.id.content).getRootView();
+        new RumbleAction(curView);
+        // Handle item selection
+        new MenuOptions().MenuOption(curView,item,this, ProfileActivity.class);
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void resetForm(View v)
+    {
+        nameField = (EditText) findViewById(R.id.name);
+        schoolField = (EditText) findViewById(R.id.school);
+        nameField.setText("");
+        schoolField.setText("");
 
         //Gender Spinner
         Spinner genderSpinner = (Spinner) findViewById(R.id.genderSpinner);
@@ -51,22 +76,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         // Apply the adapter to the spinner
         gradeSpinner.setAdapter(adapter_1);
         gradeSpinner.setOnItemSelectedListener(this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_profile_add, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        View curView = this.findViewById(android.R.id.content).getRootView();
-        new RumbleAction(curView);
-        // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,ProfileAddActivity.class, ProfileActivity.class);
-        return super.onOptionsItemSelected(item);
+        return;
     }
 
     public void goToProfiles(View v) //navigate back to profile page when save is pressed

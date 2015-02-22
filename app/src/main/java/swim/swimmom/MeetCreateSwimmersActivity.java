@@ -63,7 +63,7 @@ public class MeetCreateSwimmersActivity extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MeetCreateSwimmersActivity.class,MeetCreateActivity.class);
+        new MenuOptions().MenuOption(curView,item,this,MeetCreateActivity.class);
         return super.onOptionsItemSelected(item);
     }
 

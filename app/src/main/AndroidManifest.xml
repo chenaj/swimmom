@@ -7,7 +7,7 @@
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:logo="@drawable/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme" >
         <activity
@@ -70,7 +70,9 @@
         </activity>
         <activity
             android:name=".MeetCreateSwimmersEventsActivity"
-            android:label="@string/title_activity_meet_create_swimmers_events" >
+            android:label="@string/title_activity_meet_create_swimmers_events"
+            android:parentActivityName=".MeetCreateSwimmersActivity"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

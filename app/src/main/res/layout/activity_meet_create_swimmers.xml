@@ -97,11 +97,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next"
+            android:drawableRight="@drawable/ic_action_forward"
             android:id="@+id/nextBtn"
             android:textSize="25dp"
             android:textColor="#ffffffff"
             android:onClick="goToSelectEvents"
-            android:width="100dp"
+            android:width="108dp"
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/linearLayout5"
             android:layout_centerHorizontal="true" />

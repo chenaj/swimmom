@@ -1,65 +1,34 @@
 package swim.swimmom;
 
-import android.app.Dialog;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
 
-public class MeetCreateActivity extends ActionBarActivity {
+public class MeetCreateActivity extends ActionBarActivity{
 
-    TextView displayTime;
-    EditText pickTime;
     String errorMsg = "";
-
     public static String opponent = "";
     public static String location = "";
     public static String time = "";
     public static String date = "";
+    int Year, meetYear;
+    int Month, meetMonth;
+    int Day, meetDay;
+
+
     EditText dateField, locationField, timeField, opponentField;
 
-    int pHour;
-    int pMinute;
-    String timeOfDay = " A.M.";
-    /** This integer will uniquely define the dialog to be used for displaying time picker.*/
-    final int TIME_DIALOG_ID = 0;
-
-    /** Callback received when the user "picks" a time in the dialog */
-    TimePickerDialog.OnTimeSetListener mTimeSetListener =
-            new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute)
-                {
-                    pHour = hourOfDay;
-                    pMinute = minute;
-                    if(hourOfDay > 12)
-                    {
-                        pHour = hourOfDay - 12;
-                        timeOfDay = " P.M.";
-                    }
-                    updateDisplay();
-                }
-            };
-
-    private void updateDisplay() {
-        displayTime.setText(
-                new StringBuilder()
-                        .append(pad(pHour)).append(":")
-                        .append(pad(pMinute)).append(timeOfDay));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +36,85 @@ public class MeetCreateActivity extends ActionBarActivity {
         setContentView(R.layout.activity_meet_create);
         new MyActionBar(getSupportActionBar(), "Create a Meet"); // Create action bar
 
-        displayTime = (TextView) findViewById(R.id.timePicker);
-        pickTime = (EditText) findViewById(R.id.timePicker);
-        pickTime.setInputType(0);
+        opponentField = (EditText) findViewById(R.id.opponent);
+        locationField = (EditText) findViewById(R.id.location);
+        dateField =  (EditText) findViewById(R.id.date);
+        timeField = (EditText) findViewById(R.id.time);
 
-        // Listener for click event of the button
-        pickTime.setOnClickListener(new View.OnClickListener()
-        {
+        // pre-populate fields from previous saved info or start fresh
+        opponentField.setText(MeetInfo.opponent);
+        locationField.setText(MeetInfo.location);
+        dateField.setText(MeetInfo.date);
+        timeField.setText(MeetInfo.time);
+
+        // when date field is clicked
+        dateField.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                showDialog(TIME_DIALOG_ID);
-
+                showDatePicker();
             }
         });
+        // when time field is clicked
+        timeField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePicker();
+            }
+        });
+    }
+
+    private void showDatePicker()
+    {
+        // get current date
+        final Calendar c = Calendar.getInstance();
+        Year = c.get(Calendar.YEAR);
+        Month = c.get(Calendar.MONTH);
+        Day = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dpd = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        meetYear = year;
+                        meetMonth = monthOfYear;
+                        meetDay = dayOfMonth;
+                        dateField.setText((monthOfYear + 1) + "/"
+                                + dayOfMonth + "/" + year);
+                    }
+                }, Year, Month, Day);
+        dpd.show();
+    }
+
+    private void showTimePicker()
+    {
+        // get current time
+        final Calendar c = Calendar.getInstance();
+        int mHour = c.get(Calendar.HOUR_OF_DAY);
+        int mMinute = c.get(Calendar.MINUTE);
+        TimePickerDialog tpd = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        formatTime(hourOfDay, minute);
+                    }
+                }, mHour, mMinute, false);
+        tpd.show();
+    }
+
+    private void formatTime(int hourOfDay, int minute) //formats time (i.e., A.M or P.M.)
+    {
+        String format = "A.M.";
+        if (hourOfDay == 0) {
+            hourOfDay += 12;
+            format = "AM";
+        } else if (hourOfDay == 12) {
+            format = "PM";
+        } else if (hourOfDay > 12) {
+            hourOfDay -= 12;
+            format = "PM";
+        }
+        timeField.setText(hourOfDay + ":" + pad(minute) + " " + format);
     }
 
     private static String pad(int c) // Add padding to numbers less than ten
@@ -87,16 +123,6 @@ public class MeetCreateActivity extends ActionBarActivity {
             return String.valueOf(c);
         else
             return "0" + String.valueOf(c);
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case TIME_DIALOG_ID:
-                return new TimePickerDialog(this,
-                        mTimeSetListener, pHour, pMinute, false);
-        }
-        return null;
     }
 
 
@@ -112,9 +138,22 @@ public class MeetCreateActivity extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MeetCreateActivity.class,MeetActivity.class);
+        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class);
         return super.onOptionsItemSelected(item);
 
+    }
+
+    public void resetForm(View v)
+    {
+        opponentField = (EditText) findViewById(R.id.opponent);
+        locationField = (EditText) findViewById(R.id.location);
+        dateField =  (EditText) findViewById(R.id.date);
+        timeField = (EditText) findViewById(R.id.time);
+
+        opponentField.setText("");
+        locationField.setText("");
+        dateField.setText("");
+        timeField.setText("");
     }
 
     public void goToSelectSwimmers(View v) //navigate to select swimmers
@@ -122,7 +161,7 @@ public class MeetCreateActivity extends ActionBarActivity {
         opponentField = (EditText) findViewById(R.id.opponent);
         locationField = (EditText) findViewById(R.id.location);
         dateField =  (EditText) findViewById(R.id.date);
-        timeField = (EditText) findViewById(R.id.timePicker);
+        timeField = (EditText) findViewById(R.id.time);
 
         opponent = opponentField.getText().toString();
         location = locationField.getText().toString();
@@ -130,12 +169,15 @@ public class MeetCreateActivity extends ActionBarActivity {
         time = timeField.getText().toString();
 
         // check if fields are filled in correctly
-        if(validInput()) {
+        if (validInput()) {
+            MeetInfo.opponent = opponent;
+            MeetInfo.location = location;
+            MeetInfo.date = date;
+            MeetInfo.time = time;
             startActivity(new Intent(this, MeetCreateSwimmersActivity.class));
-        }else {
+        } else {
             new MessagePrinter().longMessage(this, errorMsg);
             errorMsg = "";
-            return;
         }
     }
 
@@ -160,6 +202,16 @@ public class MeetCreateActivity extends ActionBarActivity {
         if(time.length() < 1) {
             addNewLine();
             errorMsg += "Please enter a time";
+            validInput = false;
+        }
+
+        //if date of meet is either today or in the future
+        if(meetYear >= Year && meetMonth >= Month && meetDay >= Day)
+            validInput = true;
+        else
+        {
+            addNewLine();
+            errorMsg += "Please enter a date that has not passed";
             validInput = false;
         }
         return validInput;

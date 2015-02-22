@@ -38,8 +38,6 @@ public class StatisticActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_statistic, menu);
         return true;
-
-
     }
 
     @Override
@@ -47,7 +45,7 @@ public class StatisticActivity extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class,MainActivity.class);
+        new MenuOptions().MenuOption(curView,item,this,MainActivity.class);
         return super.onOptionsItemSelected(item);
     }
 }

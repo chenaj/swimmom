@@ -34,7 +34,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "Meet_Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Date date NOT NULL," +
                     "Location varchar(100)," +
-                    "Time varchar(5)," +
+                    "Time varchar(10)," +
                     "Opponent varchar(100)" +
                     ");";
 
@@ -139,8 +139,44 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         try {
             db.execSQL(query);
         }catch (Exception e){
-            Log.e("*Query error!", "DELETE FAILED");
+            Log.e("*Query error!", "DELETE PROFILE FAILED");
         }
         Log.d("*Database operations", "One row deleted (Name='"+name+"'!");
+    }
+
+    public String insertMeet(SQLiteDatabase db, String opponent, String location, String date, String time) //INSERT meet
+    {
+        //Get number of profiles in database
+        Cursor cursor = db.rawQuery("SELECT * FROM Meet_TABLE WHERE date='"+date+"'", null);
+        if(cursor.getCount() > 0) //if a meet already exists on this day
+            return "Sorry there is already a meet created for this date";
+
+        String query = "INSERT INTO Meet_TABLE (Opponent, Location, Date, Time) VALUES ('"+opponent+"', '"+location+"', '"+date+"', '"+time+"')";
+        try {
+            db.execSQL(query);
+        }catch (Exception e){
+            Log.e("*Query error!", "INSERT FAILED");
+            return "Sorry, an error occurred.. Please try again.";
+        }
+        Log.d("*Database operations", "One row inserted in meet table!");
+        Log.d("Opponent", opponent);
+        Log.d("Location", location);
+        Log.d("Date", date);
+        Log.d("Time", time);
+        return "Success";
+    }
+
+    public void deleteMeet(SQLiteDatabase db, String meet) //DELETE
+    {
+        String[] id = meet.split("[:]"); // split meet string at : to get meet id
+        String meet_id = id[0];
+
+        String query = "DELETE FROM Meet_TABLE WHERE Meet_Id='"+meet_id+"'";
+        try {
+            db.execSQL(query);
+        }catch (Exception e){
+            Log.e("*Query error!", "DELETE MEET FAILED");
+        }
+        Log.d("*Database operations", "One row deleted (Meet_Id='"+meet_id+"'!");
     }
 }

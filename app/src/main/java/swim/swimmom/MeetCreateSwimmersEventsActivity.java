@@ -44,7 +44,7 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MeetCreateSwimmersEventsActivity.class,MeetCreateSwimmersActivity.class);
+        new MenuOptions().MenuOption(curView,item,this,MeetCreateSwimmersActivity.class);
         return super.onOptionsItemSelected(item);
     }
 
@@ -61,7 +61,25 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
     public void goToMeets(View v)
     {
         new RumbleAction(v);
-        new MessagePrinter().longMessage(this, "Meet Created!");
-        startActivity(new Intent(this, MeetActivity.class));
+        if(MeetInfo.date != "")
+        {
+            //save meet information to database
+            DatabaseOperations dop = new DatabaseOperations(this);
+            SQLiteDatabase db = dop.getWritableDatabase();
+            String result = dop.insertMeet(db, MeetInfo.opponent, MeetInfo.location, MeetInfo.date, MeetInfo.time);
+            if (result == "Success") {
+                new MessagePrinter().longMessage(this, "Meet Created!");
+                //clear previous meet info
+                MeetInfo.opponent = "";
+                MeetInfo.location = "";
+                MeetInfo.date = "";
+                MeetInfo.time = "";
+                startActivity(new Intent(this, MeetActivity.class));
+            } else {
+                new MessagePrinter().longMessage(this, result);
+            }
+        }
+        else
+            new MessagePrinter().longMessage(this, "Please fill in meet info first");
     }
 }

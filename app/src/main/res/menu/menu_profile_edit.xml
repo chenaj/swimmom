@@ -12,10 +12,6 @@
 
         <menu>
             <item
-                android:id="@+id/refreshOption"
-                android:title="Refresh "
-                android:icon="@drawable/refreshicon"/>
-            <item
                 android:id="@+id/mainOption"
                 android:title="Home"
                 android:icon="@drawable/swimlogov2"/>
