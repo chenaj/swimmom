@@ -31,33 +31,6 @@ public class AddCutTimes extends ActionBarActivity implements AdapterView.OnItem
         new MyActionBar(getSupportActionBar(), "Add Cut Time"); // Create action bar
 
         popForm();
-
-        events = new ArrayList<String>(){{
-            add("200yd. Medley Relay");
-            add("200yd. Freestyle");
-            add("200yd. Indv. Medley");
-            add("50yd. Freestyle");
-            add("100yd. Butterfly");
-            add("100yd. Freestyle");
-            add("500yd. Freestyle");
-            add("200yd. Freestyle Relay");
-            add("100yd. Backstroke");
-            add("100yd. Breaststroke");
-            add("400yd. Freestyle Relay");
-        }};
-        list = (ListView) findViewById(R.id.eventList);
-        momList = new ArrayList<>();
-
-        for(int i=0;i<events.size();i++)
-        {
-            eventMap = new HashMap<>();
-            eventMap.put("Event", events.get(i).toString() );
-            momList.add(eventMap);
-        }
-
-
-        adapter1 = new SimpleAdapter(this, momList, R.layout.row, new String[]{"1","2"}, null);
-        list.setAdapter(adapter1);
     }
 
     public void popForm()

@@ -169,7 +169,7 @@ public class MeetCreateActivity extends ActionBarActivity{
         time = timeField.getText().toString();
 
         // check if fields are filled in correctly
-        if (validInput()) {
+        if (validInput() && validDate()) {
             MeetInfo.opponent = opponent;
             MeetInfo.location = location;
             MeetInfo.date = date;
@@ -204,17 +204,21 @@ public class MeetCreateActivity extends ActionBarActivity{
             errorMsg += "Please enter a time";
             validInput = false;
         }
+        return validInput;
+    }
 
+    public boolean validDate()
+    {
         //if date of meet is either today or in the future
-        if(meetYear >= Year && meetMonth >= Month && meetDay >= Day)
-            validInput = true;
+        if(meetYear >= Year && meetMonth >= Month && meetDay >= Day) {
+            return true;
+        }
         else
         {
             addNewLine();
             errorMsg += "Please enter a date that has not passed";
-            validInput = false;
+            return false;
         }
-        return validInput;
     }
 
     public void addNewLine() //adds new line to toast message

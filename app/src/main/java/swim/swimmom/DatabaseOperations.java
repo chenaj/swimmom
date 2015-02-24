@@ -20,13 +20,13 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 
     public static final String CREATE_Profile_TABLE =
             "CREATE TABLE Profile_TABLE" +
-            "(" +
-            "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "Name varchar(60)," +
-            "School varchar(100)," +
-            "Gender varchar(6)," +
-            "Grade varchar(9)" +
-            ");";
+                    "(" +
+                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "Name varchar(60)," +
+                    "School varchar(100)," +
+                    "Gender varchar(6)," +
+                    "Grade varchar(9)" +
+                    ");";
 
     public static final String CREATE_Meet_TABLE =
             "CREATE TABLE Meet_TABLE" +
@@ -47,7 +47,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "PRIMARY KEY (Meet_Id),"+
                     "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
                     ");";
-                    
+
     public static final String CREATE_Statistics_TABLE =
             "CREATE TABLE Statistics_TABLE" +
                     "(" +
@@ -57,12 +57,12 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "Meet_Id INTEGER," +
                     "PRIMARY KEY (Name),"+
                     "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
-                    ");";                
-                    
-                    
+                    ");";
+
+
     //Example Event retrieve query
     /*
-        SELECT * FROM Participants_TABLE WHERE Meet_Id='' AND Event1='' OR Event2='' OR Event3='' OR Event4=''" 
+        SELECT * FROM Participants_TABLE WHERE Meet_Id='' AND Event1='' OR Event2='' OR Event3='' OR Event4=''"
     */
 
     public DatabaseOperations(Context context) //default constructor
