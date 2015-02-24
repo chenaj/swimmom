@@ -32,7 +32,7 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/ctimesIcon"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:id="@+id/profileAddForm"

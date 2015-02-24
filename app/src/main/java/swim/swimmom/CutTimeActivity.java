@@ -37,6 +37,6 @@ public class CutTimeActivity extends ActionBarActivity {
     public void goToAddCutTimes(View v)
     {
         new RumbleAction(v);
-        startActivity(new Intent(CutTimeActivity.this, AddCutTimes.class));
+        startActivity(new Intent(this, AddCutTimes.class));
     }
 }
