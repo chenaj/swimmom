@@ -1,22 +1,39 @@
 package swim.swimmom;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
-public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
+public class MeetCreateSwimmersEventsActivity extends ActionBarActivity implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
 
-    String[] eventArray; // Stores list of swimmer names
-    ListView lv;
+    HashMap<String, List<String>> swimmerProfiles;
+    List <String> eventList;
+    ExpandableListView elv;
+    SwimmerAdapter sAdapter;
+    ArrayList selectedSwimmers;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +42,6 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
         new MyActionBar(getSupportActionBar(), "Select Events"); // Create action bar
 
         //populate array with list of all events
-        eventArray = getResources().getStringArray(R.array.events_array);
         populateList();
     }
 
@@ -45,15 +61,47 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v,
+                                int groupPosition, int childPosition, long id) {
+
+        //track child checked state here
+        //new MessagePrinter().shortMessage(this, "Parent: " + groupPosition + " Child:" + childPosition + "");
+        return true;
+    }
+
+    @Override
+    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        return false;
+    }
+
+    public void toggle(View v)
+    {
+        CheckedTextView cView = (CheckedTextView) v.findViewById(R.id.childTextView);
+        if (cView.isSelected())
+        {
+            cView.setSelected(false);
+            cView.setCheckMarkDrawable (android.R.drawable.checkbox_off_background);
+        }
+        else
+        {
+            cView.setSelected(true);
+            cView.setCheckMarkDrawable (android.R.drawable.checkbox_on_background);
+        }
+    }
+
     public void populateList()
     {
-        ArrayList selectedSwimmers = MeetCreateSwimmersActivity.selectedSwimmers; // Stores list of swimmer names
+        selectedSwimmers = MeetCreateSwimmersActivity.selectedSwimmers; // Stores list of swimmer names
         //**Get list of selected swimmers and add events list under each swimmer
 
-        lv = (ListView) findViewById(R.id.swimmerList);
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); //multiple choice list i.e., checked or unchecked
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, selectedSwimmers);
-        lv.setAdapter(listAdapter); // Apply the adapter to the list view
+        elv = (ExpandableListView) findViewById(R.id.swimmerList);
+        swimmerProfiles = DataProvider.getInfo(selectedSwimmers);
+        eventList = new ArrayList<>(swimmerProfiles.keySet());
+        sAdapter = new SwimmerAdapter(this, swimmerProfiles, eventList);
+        elv.setAdapter(sAdapter);
+        elv.setOnChildClickListener(this);
+        elv.setOnGroupClickListener(this);
     }
 
     public void goToMeets(View v)

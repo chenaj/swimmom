@@ -54,6 +54,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "Name varchar(60)," +
                     "Event varchar(50)," +
                     "Event_Time varchar(6)," +
+                    "Date date NOT NULL," +
                     "Meet_Id INTEGER," +
                     "PRIMARY KEY (Name),"+
                     "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
