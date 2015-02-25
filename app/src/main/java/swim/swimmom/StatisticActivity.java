@@ -5,9 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -20,20 +22,44 @@ public class StatisticActivity extends ActionBarActivity {
 
     ArrayList swimmerList = new ArrayList();
     ListView lv;
+    public static String selected_swimmer = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
         new MyActionBar(getSupportActionBar(), "Statistics"); // Create action bar
+        ///////////////////////////////////
+
+        //////////////
         populateList();
 
-        /*DatabaseOperations dop = new DatabaseOperations(this);
-        SQLiteDatabase db = dop.getWritableDatabase();
-        String query = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time, Meet_Id) VALUES ('')";
-        db.execSQL(query);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
+                // TODO Auto-generated method stub
+                selected_swimmer = lv.getItemAtPosition(position).toString();
+                Log.d("You selected", selected_swimmer);
 
-        Spinner swimmerSpinner = (Spinner) findViewById(R.id.swimmerSpinner);
+                //new RumbleAction(view);
+                //view.showContextMenu();
+
+            }
+        });
+
+       DatabaseOperations dop = new DatabaseOperations(this);
+        SQLiteDatabase db = dop.getWritableDatabase();
+        String query = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id) VALUES ( 'Wajiha','200m FS', '48.56', '01/12/15', '01' )";
+        db.execSQL(query);
+        String query2 = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id) VALUES ('Wajiha','100m B', '24.32', '01/05/15', '01' )";
+        db.execSQL(query2);
+        String query3 = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id) VALUES ('Wajiha','100m MR', '23.65', '02/14/15', '02' )";
+        db.execSQL(query3);
+        String query4 = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id) VALUES ('Wajiha','150m BS', '45.65', '02/20/15', '02' )";
+        db.execSQL(query4);
+
+       /* Spinner swimmerSpinner = (Spinner) findViewById(R.id.swimmerSpinner);
         swimmerSpinner.setPrompt("Select...");
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.swimmer_array, android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -48,12 +74,7 @@ public class StatisticActivity extends ActionBarActivity {
     }
 
 
-    public void viewSwimmerStats ()
-    {
 
-
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -61,6 +82,17 @@ public class StatisticActivity extends ActionBarActivity {
         return true;
     }
 
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.isVisible()== true)
+        {
+            goToSwimmerStatistics(this.findViewById(android.R.id.content).getRootView());
+        }
+
+        else {
+            return false;
+        }
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         View curView = this.findViewById(android.R.id.content).getRootView();
@@ -92,5 +124,12 @@ public class StatisticActivity extends ActionBarActivity {
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, swimmerList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
     }
+
+    public void goToSwimmerStatistics(View v) //go to add profile page
+    {
+        new RumbleAction(v);
+        startActivity(new Intent(this, SwimmerStatisticActivity.class));
+    }
+
 
 }

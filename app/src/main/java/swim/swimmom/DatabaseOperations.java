@@ -78,6 +78,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         db.execSQL(CREATE_Profile_TABLE); //execute create table query
         db.execSQL(CREATE_Meet_TABLE); //execute create table query
         db.execSQL(CREATE_Participants_TABLE); //execute create table query
+        db.execSQL(CREATE_Statistics_TABLE);
         Log.d("*Database operations", "Profile Table created!");
         Log.d("*Database operations", "Meet Table created!");
         Log.d("*Database operations", "Participants Table created!");
