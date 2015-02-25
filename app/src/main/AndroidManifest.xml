@@ -33,9 +33,15 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CutTimeActivity"
-            android:label="Cut Times"
-            android:parentActivityName=".MainActivity"
+        android:name=".CutTimeActivity"
+        android:label="Cut Times"
+        android:parentActivityName=".MainActivity"
+        android:screenOrientation="portrait" >
+    </activity>
+        <activity
+            android:name=".AddCutTimes"
+            android:label="Add Cut Time"
+            android:parentActivityName=".CutTimeActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity

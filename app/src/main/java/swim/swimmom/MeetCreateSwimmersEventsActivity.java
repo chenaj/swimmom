@@ -1,7 +1,6 @@
 package swim.swimmom;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,13 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
 
     String[] eventArray; // Stores list of swimmer names
-    public
     ListView lv;
 
     @Override
@@ -52,6 +49,7 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
     {
         ArrayList selectedSwimmers = MeetCreateSwimmersActivity.selectedSwimmers; // Stores list of swimmer names
         //**Get list of selected swimmers and add events list under each swimmer
+
         lv = (ListView) findViewById(R.id.swimmerList);
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); //multiple choice list i.e., checked or unchecked
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, selectedSwimmers);
@@ -70,10 +68,7 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
             if (result == "Success") {
                 new MessagePrinter().longMessage(this, "Meet Created!");
                 //clear previous meet info
-                MeetInfo.opponent = "";
-                MeetInfo.location = "";
-                MeetInfo.date = "";
-                MeetInfo.time = "";
+                MeetInfo.clearInfo(); // clear temporary meet info upon successful insertion
                 startActivity(new Intent(this, MeetActivity.class));
             } else {
                 new MessagePrinter().longMessage(this, result);

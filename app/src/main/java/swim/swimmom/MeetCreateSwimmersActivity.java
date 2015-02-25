@@ -1,26 +1,20 @@
 package swim.swimmom;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 
@@ -101,9 +95,19 @@ public class MeetCreateSwimmersActivity extends ActionBarActivity {
             new MessagePrinter().shortMessage(this, "Please select at least one swimmer");
             return;
         }
-        Log.d("List of selected swimmers","_____");
-        for(int i=0; i<selectedSwimmers.size(); i++)
-            Log.d("Swimmer"+i+"",selectedSwimmers.get(i).toString());
+        Log.d("Selected swimmers","_____");
+        for(int i=0; i<selectedSwimmers.size(); i++) {
+            MeetInfo.swimmers.add(i, Arrays.asList(selectedSwimmers.get(i).toString())); //save swimmer names
+            Log.d("Swimmer" + i + "", selectedSwimmers.get(i).toString());
+        }
+
+        /*//For debugging
+        for(int i=0; i<MeetInfo.swimmers.size(); i++)
+            Log.d("Swimmer"+i+"", MeetInfo.swimmers.get(i).toString());*/
+
+        //MeetInfo.swimmers.add(index, Arrays.asList("Swimmer1", "100 FS", "200 BS"));
+        //MeetInfo.swimmers.add(index, Arrays.asList("Swimmer2", "200 FS", "200 BS", "50 FS"));
+
         new RumbleAction(v);
         startActivity(new Intent(this,MeetCreateSwimmersEventsActivity.class));
     }
