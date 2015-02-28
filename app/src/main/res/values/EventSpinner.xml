@@ -14,4 +14,18 @@
         <item>100 yd. Breaststroke</item>
         <item>400 yd. Freestyle Relay</item>
     </string-array>
+
+    <string-array name="events_array2">
+        <item>200 yd. Medley Relay</item>
+        <item>200 yd. Freestyle</item>
+        <item>200 yd. Individual Medley</item>
+        <item>50 yd. Freestyle</item>
+        <item>100 yd. Butterfly</item>
+        <item>100 yd. Freestyle</item>
+        <item>500 yd. Freestyle</item>
+        <item>200 yd. Freestyle Relay</item>
+        <item>100 yd. Backstroke</item>
+        <item>100 yd. Breaststroke</item>
+        <item>400 yd. Freestyle Relay</item>
+    </string-array>
 </resources>

@@ -6,8 +6,8 @@
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme" >
         <activity
@@ -33,11 +33,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-        android:name=".CutTimeActivity"
-        android:label="Cut Times"
-        android:parentActivityName=".MainActivity"
-        android:screenOrientation="portrait" >
-    </activity>
+            android:name=".CutTimeActivity"
+            android:label="Cut Times"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name=".AddCutTimes"
             android:label="Add Cut Time"
@@ -76,8 +76,14 @@
         </activity>
         <activity
             android:name=".MeetCreateSwimmersEventsActivity"
-            android:label="@string/title_activity_meet_create_swimmers_events"
+            android:label="Select Events"
             android:parentActivityName=".MeetCreateSwimmersActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".MeetSave"
+            android:label="Save Meet"
+            android:parentActivityName=".MeetCreateSwimmersEventsActivity"
             android:screenOrientation="portrait" >
         </activity>
     </application>

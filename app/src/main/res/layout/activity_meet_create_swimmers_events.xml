@@ -7,29 +7,47 @@
     tools:context="swim.swimmom.MeetCreateSwimmersEventsActivity">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/linearLayout4"
         android:id="@+id/linearLayout10">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Select events for:"
+            android:id="@+id/eventTitle"
+            android:textSize="16sp" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Select events for each swimmer"
-            android:id="@+id/EventsText"
+            android:text="Name"
+            android:id="@+id/swimmerTitle"
             android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linearLayout10"
+        android:id="@+id/linearLayout14">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:singleLine="false"
             android:id="@+id/linearLayout4"
-            android:background="#FF000000"
-            android:paddingTop="300dp" />
+            android:background="#FF000000"/>
     </LinearLayout>
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -38,12 +56,12 @@
         android:layout_above="@+id/linearLayout9"
         android:layout_below="@+id/linearLayout10">
 
-        <ExpandableListView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/swimmerList"
+            android:id="@+id/eventList"
             android:divider="#ff0088aa"
-            android:dividerHeight="2dp"/>
+            android:dividerHeight="1dp"/>
     </LinearLayout>
 
 
@@ -60,12 +78,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_save"
-            android:text="Save"
+            android:drawableRight="@drawable/ic_action_forward"
+            android:text="Next"
             android:id="@+id/saveMeetBtn"
             android:textSize="25sp"
             android:textColor="#ffffffff"
-            android:onClick="goToMeets"
+            android:onClick="nextSwimmer"
             android:width="120dp"/>
     </LinearLayout>
 

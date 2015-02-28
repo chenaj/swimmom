@@ -169,7 +169,7 @@ public class MeetCreateActivity extends ActionBarActivity{
         time = timeField.getText().toString();
 
         // check if fields are filled in correctly
-        if (validInput() && validDate()) {
+        if (validInput()) {
             MeetInfo.opponent = opponent;
             MeetInfo.location = location;
             MeetInfo.date = date;

@@ -16,7 +16,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 
     //** variable represents name in code, the string represents column name in table
     public static final String DATABASE_NAME = "swimmom.db";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     public static final String CREATE_Profile_TABLE =
             "CREATE TABLE Profile_TABLE" +
@@ -43,9 +43,11 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "(" +
                     "Meet_Id INTEGER," +
                     "Name varchar(60)," +
-                    "Event varchar(50)," +
+                    "Event varchar(50)" +
+                    /*
                     "PRIMARY KEY (Meet_Id),"+
                     "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
+                    */
                     ");";
 
     public static final String CREATE_Statistics_TABLE =
@@ -55,11 +57,12 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "Event varchar(50)," +
                     "Event_Time varchar(6)," +
                     "Date date NOT NULL," +
-                    "Meet_Id INTEGER," +
+                    "Meet_Id INTEGER" +
+                    /*
                     "PRIMARY KEY (Name),"+
                     "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
+                    */
                     ");";
-
 
     //Example Event retrieve query
     /*
@@ -100,10 +103,10 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         //Check if this swimmer already exists
         if (cursor.moveToFirst())
         {
-            while (cursor.isAfterLast() == false)
+            while (!cursor.isAfterLast())
             {
                 String name2 = cursor.getString(cursor.getColumnIndex("Name"));
-                if(name2.equalsIgnoreCase(name) == true) //if name already exists in table (regardless of case)
+                if(name2.equalsIgnoreCase(name)) //if name already exists in table (regardless of case)
                     return "Sorry this profile already exists";
                 cursor.moveToNext(); // Move to next row retrieved
             }
@@ -142,13 +145,13 @@ public class DatabaseOperations extends SQLiteOpenHelper{
             db.execSQL(query);
         }catch (Exception e){
             Log.e("*Query error!", "DELETE PROFILE FAILED");
+            return;
         }
         Log.d("*Database operations", "One row deleted (Name='"+name+"'!");
     }
 
     public String insertMeet(SQLiteDatabase db, String opponent, String location, String date, String time) //INSERT meet
     {
-        //Get number of profiles in database
         Cursor cursor = db.rawQuery("SELECT * FROM Meet_TABLE WHERE date='"+date+"'", null);
         if(cursor.getCount() > 0) //if a meet already exists on this day
             return "Sorry there is already a meet created for this date";
@@ -178,7 +181,24 @@ public class DatabaseOperations extends SQLiteOpenHelper{
             db.execSQL(query);
         }catch (Exception e){
             Log.e("*Query error!", "DELETE MEET FAILED");
+            return;
         }
         Log.d("*Database operations", "One row deleted (Meet_Id='"+meet_id+"'!");
+    }
+
+    public String insertParticipants(SQLiteDatabase db, String meetid, String name, String event) //INSERT meet
+    {
+        String query = "INSERT INTO Participants_TABLE (Meet_Id, Name, Event) VALUES ('"+meetid+"', '"+name+"', '"+event+"')";
+        try {
+            db.execSQL(query);
+        }catch (Exception e){
+            Log.e("*Query error!", "INSERT FAILED");
+            return "Sorry, an error occurred.. Please try again.";
+        }
+        Log.d("*Database operations", "One row inserted in participants table!");
+        Log.d("Meet_Id", ""+meetid+"");
+        Log.d("Name", name);
+        Log.d("Event", event);
+        return "Success";
     }
 }

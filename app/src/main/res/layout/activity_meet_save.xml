@@ -1,0 +1,209 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="swim.swimmom.MeetSave">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout11">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meet Information"
+            android:id="@+id/textView3"
+            android:textStyle="bold|italic"
+            android:textSize="15sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:singleLine="false"
+            android:id="@+id/linearLayout5"
+            android:background="#FF000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout11"
+        android:id="@+id/linearLayout12">
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/profileAddForm"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center|center_horizontal">
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Opponent:"
+                    android:id="@+id/opponentLabel"
+                    android:textSize="16sp"
+                    android:layout_column="0"
+                    android:gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/opponent"
+                    android:layout_column="1"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:gravity="center_vertical|center_horizontal" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location:"
+                    android:id="@+id/locationLabel"
+                    android:layout_column="0"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/location"
+                    android:layout_column="1"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:gravity="center_vertical|center_horizontal" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date:"
+                    android:id="@+id/dateLabel"
+                    android:layout_column="0"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:ems="10"
+                    android:id="@+id/date"
+                    android:layout_column="1"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:gravity="center_vertical|center_horizontal" />
+
+                <View
+                    android:id="@+id/invisible_click_watcher"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time:"
+                    android:id="@+id/timeLabel"
+                    android:textSize="16sp"
+                    android:layout_column="0"
+                    android:gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:ems="10"
+                    android:id="@+id/time"
+                    android:layout_column="1"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:gravity="center_vertical|center_horizontal" />
+
+            </TableRow>
+        </TableLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="265dp"
+        android:layout_below="@+id/linearLayout12"
+        android:layout_marginTop="15dp"
+        android:id="@+id/linearLayout13">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Participating Swimmers"
+            android:id="@+id/SwimmerText"
+            android:textStyle="bold|italic"
+            android:textSize="15sp"/>
+
+        <View
+            android:layout_width="155dp"
+            android:layout_height="2dp"
+            android:singleLine="false"
+            android:id="@+id/linearLayout7"
+            android:background="#FF000000" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/profileList"
+            android:divider="#ff0088aa"
+            android:dividerHeight="1dp"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/linearLayout13">
+
+        <Button
+            android:text="Cancel"
+            android:drawableRight="@android:drawable/ic_menu_close_clear_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cancelMeet"
+            android:layout_margin="7dp" />
+
+        <Button
+            android:text="Save"
+            android:drawableRight="@android:drawable/ic_menu_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="saveMeet"
+            android:layout_margin="7dp" />
+
+        </LinearLayout>
+
+
+</RelativeLayout>

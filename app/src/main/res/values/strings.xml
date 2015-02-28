@@ -14,5 +14,6 @@
     <string name="title_activity_meet_create">MeetCreateActivity</string>
     <string name="title_activity_meet_create_swimmers">MeetCreateSwimmersActivity</string>
     <string name="title_activity_meet_create_swimmers_events">MeetCreateSwimmersEvents</string>
+    <string name="title_activity_meet_save">MeetSave</string>
 
 </resources>

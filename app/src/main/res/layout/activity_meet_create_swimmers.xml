@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="Select swimmers participating in this meet"
             android:id="@+id/textView"
-            android:textSize="17dp"
+            android:textSize="17sp"
             android:textColor="#ff000000" />
     </LinearLayout>
 
@@ -55,10 +55,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Swimmers"
             android:id="@+id/SwimmerText"
-            android:layout_above="@+id/linearLayout4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
@@ -66,20 +63,14 @@
             android:layout_height="2dp"
             android:singleLine="false"
             android:id="@+id/linearLayout4"
-            android:layout_alignTop="@+id/profileList"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:background="#FF000000"
-            android:paddingTop="300dp" />
+            android:background="#FF000000"/>
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/profileList"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_above="@+id/linearLayout3"/>
+            android:divider="#ff0088aa"
+            android:dividerHeight="1dp"/>
         </LinearLayout>
 
 
@@ -99,13 +90,11 @@
             android:text="Next"
             android:drawableRight="@drawable/ic_action_forward"
             android:id="@+id/nextBtn"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textColor="#ffffffff"
             android:onClick="goToSelectEvents"
             android:width="108dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/linearLayout5"
-            android:layout_centerHorizontal="true" />
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 
 

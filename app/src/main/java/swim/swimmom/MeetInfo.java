@@ -15,11 +15,11 @@ public class MeetInfo {
     //2d array to hold swimmers and their event info
     //public static String[][] swimmers = new String[10][5];
     public static ArrayList<List<String>> swimmers = new ArrayList<List<String>>();
-    /* Example of array contents:
+    /* Example of array 'swimmers' contents:
     NAME            EVENT1                  EVENT2                   EVENT3                  EVENT4
     Swimmer1  |   200 yd. Medley Relay |  50 yd. Freestyle     |   100 yd. Freestyle   |    400 yd. Freestyle Relay
-    Swimmer2  |   100 yd. Freestyle    |     0                 |   0                   |    0
-    Swimmer3  |   200 yd. Freestyle    |  100 yd. Breaststroke |   0                   |    0
+    Swimmer2  |   100 yd. Freestyle    |     _                 |   _                   |    _
+    Swimmer3  |   200 yd. Freestyle    |  100 yd. Breaststroke |   _                   |    _
      */
     public static void clearInfo() //reset meet info
     {

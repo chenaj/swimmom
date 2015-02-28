@@ -148,7 +148,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_notification_clear_all"
+            android:drawableRight="@android:drawable/ic_notification_clear_all"
             android:text="Reset"
             android:id="@+id/clearBtn"
             android:layout_below="@+id/profileAddForm"

@@ -57,7 +57,9 @@
         android:layout_below="@+id/linearLayout2"
         android:layout_above="@+id/linearLayout3"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:divider="#ff0088aa"
+        android:dividerHeight="1dp"/>
 
 
     <LinearLayout
@@ -76,12 +78,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@android:drawable/ic_menu_add"
-        android:text="Add Swimmer"
+        android:text="Swimmer"
         android:id="@+id/addProfileBtn"
         android:textSize="25dp"
         android:textColor="#ffffffff"
         android:onClick="goToProfileAdd"
-        android:width="220dp"
         android:layout_below="@+id/profileList"
         android:layout_centerHorizontal="true"/>
 

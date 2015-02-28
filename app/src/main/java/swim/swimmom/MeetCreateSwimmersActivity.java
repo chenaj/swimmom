@@ -97,7 +97,7 @@ public class MeetCreateSwimmersActivity extends ActionBarActivity {
         }
         Log.d("Selected swimmers","_____");
         for(int i=0; i<selectedSwimmers.size(); i++) {
-            MeetInfo.swimmers.add(i, Arrays.asList(selectedSwimmers.get(i).toString())); //save swimmer names
+            //MeetInfo.swimmers.add(i, Arrays.asList(selectedSwimmers.get(i).toString())); //save swimmer names
             Log.d("Swimmer" + i + "", selectedSwimmers.get(i).toString());
         }
 
