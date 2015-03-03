@@ -144,7 +144,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
             errorMsg = "Please enter a name";
             validInput = false;
         }
-        else if (containsDigit(S_name) == true) //if name contains digits
+        else if (containsDigit(S_name)) //if name contains digits
         {
             errorMsg = "Name cannot contain digits";
             validInput = false;

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,7 +39,6 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
     int swimmerIndex = 0;
     ArrayList selectedEvents = new ArrayList();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +47,6 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
 
         //populate array with list of all events
         populateList();
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
@@ -87,6 +86,8 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
         selectedEvents.clear();
         sName = (TextView) findViewById(R.id.swimmerTitle);
         sName.setText(selectedSwimmers.get(swimmerIndex).toString());
+        if(swimmerIndex != 0)
+            sName.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
         String[] myResArray = getResources().getStringArray(R.array.events_array2);
         List<String> eventList = Arrays.asList(myResArray);
         lv = (ListView) findViewById(R.id.eventList);
@@ -98,11 +99,11 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
     public boolean checkEvents() //check if events selected is > 1 and <= 4
     {
         if(selectedEvents.size() == 0) {
-            new MessagePrinter().longMessage(this, "Please select at least one event");
+            new MessagePrinter().shortMessage(this, "Please select at least one event");
             return false;
         }
         else if(selectedEvents.size() > 4) {
-            new MessagePrinter().longMessage(this, "Please select no more than 4 events");
+            new MessagePrinter().shortMessage(this, "Please select no more than 4 events");
             return false;
         }
         else
@@ -151,10 +152,6 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
         }
     }
 }
-
-
-
-
 
 
 /*

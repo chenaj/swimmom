@@ -30,6 +30,7 @@ public class MeetCreateSwimmersActivity extends ActionBarActivity {
         setContentView(R.layout.activity_meet_create_swimmers);
         new MyActionBar(getSupportActionBar(), "Select Swimmers"); // Create action bar
 
+        MeetInfo.swimmers.clear();
         populateList();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

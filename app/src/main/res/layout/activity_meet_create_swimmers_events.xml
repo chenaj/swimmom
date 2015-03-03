@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_action_forward"
             android:text="Next"
-            android:id="@+id/saveMeetBtn"
+            android:id="@+id/nextBtn"
             android:textSize="25sp"
             android:textColor="#ffffffff"
             android:onClick="nextSwimmer"

@@ -16,15 +16,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class MeetActivity extends ActionBarActivity {
 
-    ArrayList meetList = new ArrayList(); // Stores list of meets
     public static String chosenMeet = ""; // Meet chosen for doing editing on
+    String chosenMeetId = "";
+    ArrayList<HashMap<String, String>> feedList= new ArrayList<>();
     ListView lv;
 
     @Override
@@ -41,7 +45,9 @@ public class MeetActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
                 // TODO Auto-generated method stub
                 chosenMeet = lv.getItemAtPosition(position).toString();
+                chosenMeetId = feedList.get(position).get("Meet_Id");
                 Log.d("You selected", chosenMeet);
+                Log.d("Meet_Id", chosenMeetId);
                 new RumbleAction(view);
                 AlertDialog diaBox = beginMeetDialog(getApplicationContext(), view);
                 diaBox.show();
@@ -52,7 +58,9 @@ public class MeetActivity extends ActionBarActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 chosenMeet = lv.getItemAtPosition(position).toString();
+                chosenMeetId = feedList.get(position).get("Meet_Id");
                 Log.d("You selected", chosenMeet);
+                Log.d("Meet_Id", chosenMeetId);
                 return false;
             }
         });
@@ -99,9 +107,9 @@ public class MeetActivity extends ActionBarActivity {
 
     public void populateList()
     {
-        meetList.clear();
-        String meet;
-        String Meet_Id, opponent, date, time;
+        String Meet_Id, opponent, date;
+        feedList.clear();
+        lv = (ListView) findViewById(R.id.meetList);
         DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Meet_TABLE",null);
@@ -112,47 +120,27 @@ public class MeetActivity extends ActionBarActivity {
                 Meet_Id = cursor.getString(cursor.getColumnIndex("Meet_Id"));
                 opponent = cursor.getString(cursor.getColumnIndex("Opponent"));
                 date = cursor.getString(cursor.getColumnIndex("Date"));
-                //time = cursor.getString(cursor.getColumnIndex("Time"));
-                meet = ""+Meet_Id+": "+date+" vs. "+opponent+"";
-                meetList.add(meet); // Add meet opponent name to meetList
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("Date", date);
+                map.put("vs.", "vs.");
+                map.put("Opponent", opponent);
+                map.put("Meet_Id", Meet_Id);
+                feedList.add(map);
                 cursor.moveToNext(); // Move to next row retrieved
             }
         }
 
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this, feedList, R.layout.listcolumns,
+                new String[]{"Date", "vs.", "Opponent", "Meet_Id"}, new int[]
+                {R.id.textViewDate, R.id.textViewVs, R.id.textViewOpponent, R.id.textViewMeetId});
+        lv.setAdapter(simpleAdapter);
+        /*
         //Sort meetList by date here
         lv = (ListView) findViewById(R.id.meetList);
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); //multiple choice list i.e., checked or unchecked
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, meetList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
-    }
-
-    private AlertDialog AskOption(final Context context, final View view)
-    {
-        AlertDialog dialogBox = new AlertDialog.Builder(this)
-//set message, title, and icon
-                .setTitle("Delete Meet")
-                .setMessage("Are you sure you want to delete this meet?")
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-//do nothing on cancel
-                        dialog.dismiss();
-                        new RumbleAction(view);
-                        DatabaseOperations dop = new DatabaseOperations(context);
-                        SQLiteDatabase db = dop.getWritableDatabase();
-                        dop.deleteProfile(db, chosenMeet); //delete this profile
-                        populateList();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-//delete selected profile
-                        dialog.dismiss();
-                        new RumbleAction(view);
-                    }
-                })
-                .create();
-        return dialogBox;
+        */
     }
 
     private AlertDialog beginMeetDialog(final Context context, final View view)
@@ -194,7 +182,8 @@ public class MeetActivity extends ActionBarActivity {
                         new RumbleAction(view);
                         DatabaseOperations dop = new DatabaseOperations(context);
                         SQLiteDatabase db = dop.getWritableDatabase();
-                        dop.deleteMeet(db, chosenMeet); //delete this profile
+                        dop.deleteMeet(db, chosenMeetId); //delete this profile
+                        new MessagePrinter().shortMessage(context, "Meet Deleted!");
                         populateList();
                     }
                 })
@@ -212,7 +201,8 @@ public class MeetActivity extends ActionBarActivity {
     public void goToCreateMeet(View v)
     {
         new RumbleAction(v);
-        startActivity(new Intent(this,MeetCreateActivity.class));
+        MeetInfo.clearInfo();
+        startActivity(new Intent(this, MeetCreateActivity.class));
     }
 
     public void deleteMeet(View v) //when delete is pressed

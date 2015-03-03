@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,9 +33,7 @@ public class MeetSave extends ActionBarActivity {
         new MyActionBar(getSupportActionBar(), "Verify Meet Info"); // Create action bar
 
         populatePage();
-        //checkMeetInfo();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,14 +44,10 @@ public class MeetSave extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        View curView = this.findViewById(android.R.id.content).getRootView();
+        new RumbleAction(curView);
+        // Handle item selection
+        new MenuOptions().MenuOption(curView,item,this,MeetCreateSwimmersEventsActivity.class);
         return super.onOptionsItemSelected(item);
     }
 
@@ -62,17 +57,13 @@ public class MeetSave extends ActionBarActivity {
         location = (TextView) findViewById(R.id.location);
         date = (TextView) findViewById(R.id.date);
         time = (TextView) findViewById(R.id.time);
-
         opponent.setText(MeetInfo.opponent);
         location.setText(MeetInfo.location);
         date.setText(MeetInfo.date);
         time.setText(MeetInfo.time);
 
         for(int i=0; i < MeetInfo.swimmers.size(); i++)
-        {
             swimmerList.add(MeetInfo.swimmers.get(i).get(0).toString());
-        }
-
         //sort swimmerList alphabetically
         Collections.sort(swimmerList);
         lv = (ListView) findViewById(R.id.profileList);
@@ -95,15 +86,15 @@ public class MeetSave extends ActionBarActivity {
                 String meet_id = "";
                 Cursor cursor = db.rawQuery("SELECT Meet_Id FROM Meet_TABLE WHERE date='"+MeetInfo.date+"'",null);
                 if (cursor.moveToFirst()) {
-                    while (cursor.isAfterLast() == false) {
+                    while (!cursor.isAfterLast()) {
                         meet_id = cursor.getString(cursor.getColumnIndex("Meet_Id"));
                         cursor.moveToNext(); // Move to next row retrieved
                     }
                 }
-
-                //for each swimmer, insert each event they're swimming in
+                cursor.close();
                 if(!meet_id.contentEquals(""))
                 {
+                    //for each swimmer, insert each event they're swimming in
                     for (int row = 0; row < MeetInfo.swimmers.size(); row++)
                     {
                         String swimmer = MeetInfo.swimmers.get(row).get(0);
@@ -114,7 +105,7 @@ public class MeetSave extends ActionBarActivity {
                         }
                     }
                 }
-                new MessagePrinter().longMessage(this, "Meet Created!");
+                new MessagePrinter().shortMessage(this, "Meet Created!");
                 return true;
 
             } else {

@@ -21,33 +21,59 @@
             android:scaleType="fitCenter" />
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Cut Times"
-        android:id="@+id/addcuttimeBtn"
-        android:textSize="25dp"
-        android:textColor="#ffffffff"
-        android:width="200dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="goToAddCutTimes" />
 
-    <Button
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_above="@+id/linearLayout15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Cut Times"
+            android:id="@+id/CutTimesText"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:singleLine="false"
+            android:id="@+id/linearLayout4"
+            android:background="#FF000000"/>
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cutsList"
+            android:divider="#ff0088aa"
+            android:dividerHeight="1dp"/>
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="View Cut Times"
-        android:id="@+id/viewcuttimesBtn"
-        android:textSize="25dp"
-        android:textColor="#ffffffff"
-        android:width="200dp"
-        android:layout_below="@+id/addcuttimeBtn"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/linearLayout15"
+        android:gravity="center|bottom">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:text="New Cut Time"
+            android:id="@+id/addcuttimeBtn"
+            android:textSize="25sp"
+            android:textColor="#ffffffff"
+            android:onClick="goToAddCutTimes" />
+        </LinearLayout>
+
 
 </RelativeLayout>

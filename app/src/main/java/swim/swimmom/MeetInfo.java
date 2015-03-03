@@ -13,7 +13,6 @@ public class MeetInfo {
     public static String time = "";
 
     //2d array to hold swimmers and their event info
-    //public static String[][] swimmers = new String[10][5];
     public static ArrayList<List<String>> swimmers = new ArrayList<List<String>>();
     /* Example of array 'swimmers' contents:
     NAME            EVENT1                  EVENT2                   EVENT3                  EVENT4

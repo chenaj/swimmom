@@ -98,13 +98,14 @@ public class ProfileActivity extends ActionBarActivity{
         Cursor cursor = db.rawQuery("SELECT * FROM Profile_TABLE",null);
         if (cursor.moveToFirst())
         {
-            while (cursor.isAfterLast() == false)
+            while (!cursor.isAfterLast())
             {
                 name = cursor.getString(cursor.getColumnIndex("Name"));
                 swimmerList.add(name); // Add swimmer name to swimmerList
                 cursor.moveToNext(); // Move to next row retrieved
             }
         }
+        cursor.close();
         //sort swimmerList alphabetically
         Collections.sort(swimmerList);
         lv = (ListView) findViewById(R.id.profileList);
@@ -128,6 +129,7 @@ public class ProfileActivity extends ActionBarActivity{
                         DatabaseOperations dop = new DatabaseOperations(context);
                         SQLiteDatabase db = dop.getWritableDatabase();
                         dop.deleteProfile(db, chosenSwimmer); //delete this profile
+                        new MessagePrinter().shortMessage(context, "Profile Deleted!");
                         populateList();
                     }
                 })

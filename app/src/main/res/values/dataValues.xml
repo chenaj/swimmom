@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="gender_array">
-        <item>Select...</item>
+        <item>Select…</item>
         <item>Female</item>
         <item>Male</item>
     </string-array>
@@ -9,5 +9,11 @@
     <string-array name="gender_array2">
         <item>Female</item>
         <item>Male</item>
+    </string-array>
+
+    <string-array name="cutGender_array">
+        <item>Select…</item>
+        <item>Girls</item>
+        <item>Boys</item>
     </string-array>
 </resources>

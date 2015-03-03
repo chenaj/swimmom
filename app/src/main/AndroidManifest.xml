@@ -23,68 +23,62 @@
         <activity
             android:name=".ProfileActivity"
             android:label="Profiles"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MeetActivity"
             android:label="Meets"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".CutTimeActivity"
             android:label="Cut Times"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".AddCutTimes"
+            android:name=".CutTimeAddActivity"
             android:label="Add Cut Time"
-            android:parentActivityName=".CutTimeActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".StatisticActivity"
             android:label="Statistics"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ProfileAddActivity"
             android:label="Add Swimmer"
-            android:parentActivityName=".ProfileActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ProfileEditActivity"
             android:label="Edit Swimmer"
-            android:parentActivityName=".ProfileActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MeetCreateActivity"
             android:label="Create Meet"
-            android:parentActivityName=".MeetActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MeetCreateSwimmersActivity"
             android:label="Select Swimmers"
-            android:parentActivityName=".MeetCreateActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MeetCreateSwimmersEventsActivity"
             android:label="Select Events"
-            android:parentActivityName=".MeetCreateSwimmersActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MeetSave"
             android:label="Save Meet"
-            android:parentActivityName=".MeetCreateSwimmersEventsActivity"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".CutTimeEditActivity"
+            android:label="@string/title_activity_cut_time_edit" >
         </activity>
     </application>
 

@@ -33,10 +33,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:orientation="horizontal"
             android:id="@+id/profileAddForm"
-            android:paddingLeft="20dp">
+            android:paddingLeft="20sp">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                     android:textStyle="bold"
                     android:id="@+id/nameLabel"
                     android:layout_column="0"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:layout_marginTop="16dp" />
 
                 <EditText
@@ -76,14 +75,13 @@
                     android:textStyle="bold"
                     android:id="@+id/schoolLabel"
                     android:layout_column="0"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:id="@+id/school"
-
                     android:layout_column="1"
                     android:clickable="true"
                     android:focusableInTouchMode="true"
@@ -100,7 +98,7 @@
                     android:text="Gender:"
                     android:textStyle="bold"
                     android:id="@+id/genderLabel"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <Spinner
                     android:layout_width="wrap_content"
@@ -122,7 +120,7 @@
                     android:text="Grade:"
                     android:textStyle="bold"
                     android:id="@+id/gradeLabel"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <Spinner
                     android:layout_width="wrap_content"
@@ -151,12 +149,9 @@
             android:drawableRight="@android:drawable/ic_notification_clear_all"
             android:text="Reset"
             android:id="@+id/clearBtn"
-            android:layout_below="@+id/profileAddForm"
-            android:layout_centerHorizontal="true"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textColor="#ffffffff"
             android:onClick="resetForm"
-            android:width="120dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="7dp" />
 
@@ -166,16 +161,11 @@
             android:drawableLeft="@android:drawable/ic_menu_save"
             android:text="Save"
             android:id="@+id/button"
-            android:layout_below="@+id/profileAddForm"
-            android:layout_centerHorizontal="true"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textColor="#ffffffff"
             android:onClick="goToProfiles"
-            android:width="120dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="7dp" />
-
-
     </LinearLayout>
 
 </RelativeLayout>
