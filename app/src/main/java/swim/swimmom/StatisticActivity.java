@@ -1,11 +1,15 @@
 package swim.swimmom;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +26,7 @@ public class StatisticActivity extends ActionBarActivity {
 
     ArrayList swimmerList = new ArrayList();
     ListView lv;
+    Spinner eventSpinner;
     public static String selected_swimmer = "";
 
     @Override
@@ -35,29 +40,87 @@ public class StatisticActivity extends ActionBarActivity {
         //////////////
         populateList();
 
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
                 // TODO Auto-generated method stub
+
                 selected_swimmer = lv.getItemAtPosition(position).toString();
                 Log.d("You selected", selected_swimmer);
 
-                //new RumbleAction(view);
-                //view.showContextMenu();
+                new RumbleAction(view);
+                AlertDialog diaBox = viewStats(getApplicationContext(), view);
+                diaBox.show();
+
 
             }
         });
+    }
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId() == R.id.profileList)
+        {
+            menu.setHeaderTitle("Statistics Options"); // Title for pop up menu
+            menu.setHeaderIcon(android.R.drawable.ic_menu_edit);
+            menu.add(Menu.NONE, 0, 0, "View");
 
-       DatabaseOperations dop = new DatabaseOperations(this);
+        }
+    }
+
+    /*public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle() == "ok") {
+            goToSwimmerStatistics(this.findViewById(android.R.id.content).getRootView());
+        }
+
+        else {
+            return false;
+        }
+        return true;
+    }*/
+    private AlertDialog viewStats(final Context context, final View view)
+    {
+        AlertDialog dialogBox = new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Statistics")
+                .setMessage("Would you like view" + selected_swimmer+ "'s statistics?")
+                .setIcon(R.drawable.ic_launcher)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//do nothing on cancel
+
+                        startActivity(new Intent(context, SwimmerStatisticActivity.class));
+                        new RumbleAction(view);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//begin meet
+                        dialog.dismiss();
+                        new RumbleAction(view);
+                    }
+                })
+                .create();
+        return dialogBox;
+    }
+     /*  DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
         String query = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id) VALUES ( 'Wajiha','200m FS', '48.56', '01/12/15', '01' )";
+    try {
         db.execSQL(query);
+    }catch (Exception e)
+    {
+        Log.e("*Query error!", "INSERT FAILED");
+
+    }
+
         String query2 = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id) VALUES ('Wajiha','100m B', '24.32', '01/05/15', '01' )";
         db.execSQL(query2);
         String query3 = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id) VALUES ('Wajiha','100m MR', '23.65', '02/14/15', '02' )";
         db.execSQL(query3);
         String query4 = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id) VALUES ('Wajiha','150m BS', '45.65', '02/20/15', '02' )";
-        db.execSQL(query4);
+        db.execSQL(query4);*/
 
        /* Spinner swimmerSpinner = (Spinner) findViewById(R.id.swimmerSpinner);
         swimmerSpinner.setPrompt("Select...");
@@ -71,7 +134,7 @@ public class StatisticActivity extends ActionBarActivity {
         ArrayAdapter Adapter = ArrayAdapter.createFromResource(this, R.array.events_array, android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         eventSpinner.setAdapter(Adapter);*/
-    }
+    //}
 
 
 
@@ -82,17 +145,7 @@ public class StatisticActivity extends ActionBarActivity {
         return true;
     }
 
-    public boolean onContextItemSelected(MenuItem item) {
-        if (item.isVisible()== true)
-        {
-            goToSwimmerStatistics(this.findViewById(android.R.id.content).getRootView());
-        }
 
-        else {
-            return false;
-        }
-        return true;
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         View curView = this.findViewById(android.R.id.content).getRootView();
@@ -125,7 +178,7 @@ public class StatisticActivity extends ActionBarActivity {
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
     }
 
-    public void goToSwimmerStatistics(View v) //go to add profile page
+    public void goToSwimmerStatistics(View v) //
     {
         new RumbleAction(v);
         startActivity(new Intent(this, SwimmerStatisticActivity.class));
@@ -133,3 +186,4 @@ public class StatisticActivity extends ActionBarActivity {
 
 
 }
+

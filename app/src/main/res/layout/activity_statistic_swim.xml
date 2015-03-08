@@ -37,9 +37,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:id="@+id/linearLayout3"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:paddingBottom="10dp"
@@ -99,10 +98,19 @@
         </TableLayout>
     </LinearLayout>
 
-
-
-
-
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/linearLayout3">
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/meetList"
+            android:divider="#ff0088aa"
+            android:dividerHeight="1dp"/>
+        </LinearLayout>
 
 
 </RelativeLayout>
