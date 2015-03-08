@@ -62,8 +62,9 @@ public class MeetSave extends ActionBarActivity {
         date.setText(MeetInfo.date);
         time.setText(MeetInfo.time);
 
+        swimmerList.clear();
         for(int i=0; i < MeetInfo.swimmers.size(); i++)
-            swimmerList.add(MeetInfo.swimmers.get(i).get(0).toString());
+            swimmerList.add(MeetInfo.swimmers.get(i).get(0));
         //sort swimmerList alphabetically
         Collections.sort(swimmerList);
         lv = (ListView) findViewById(R.id.profileList);
@@ -74,12 +75,12 @@ public class MeetSave extends ActionBarActivity {
 
     public boolean checkMeetInfo()
     {
-        if (MeetInfo.date != "") {
+        if (!MeetInfo.date.equals("")) {
             //save meet information to database
             DatabaseOperations dop = new DatabaseOperations(this);
             SQLiteDatabase db = dop.getWritableDatabase();
             String result = dop.insertMeet(db, MeetInfo.opponent, MeetInfo.location, MeetInfo.date, MeetInfo.time);
-            if (result == "Success")
+            if (result.equals("Success"))
             {
                 //if meet successfully saved, link swimmers & their events to this meet
                 //insert into participants table using this meets id
@@ -154,7 +155,6 @@ public class MeetSave extends ActionBarActivity {
 //delete selected profile
                         dialog.dismiss();
                         new RumbleAction(view);
-                        return;
                     }
                 })
                 .create();

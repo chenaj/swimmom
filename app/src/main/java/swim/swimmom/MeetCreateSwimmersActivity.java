@@ -72,13 +72,14 @@ public class MeetCreateSwimmersActivity extends ActionBarActivity {
         Cursor cursor = db.rawQuery("SELECT * FROM Profile_TABLE",null);
         if (cursor.moveToFirst())
         {
-            while (cursor.isAfterLast() == false)
+            while (!cursor.isAfterLast())
             {
                 name = cursor.getString(cursor.getColumnIndex("Name"));
                 swimmerList.add(name); // Add swimmer name to swimmerList
                 cursor.moveToNext(); // Move to next row retrieved
             }
         }
+        cursor.close();
         //sort swimmerList alphabetically
         Collections.sort(swimmerList);
         lv = (ListView) findViewById(R.id.profileList);
@@ -98,16 +99,8 @@ public class MeetCreateSwimmersActivity extends ActionBarActivity {
         }
         Log.d("Selected swimmers","_____");
         for(int i=0; i<selectedSwimmers.size(); i++) {
-            //MeetInfo.swimmers.add(i, Arrays.asList(selectedSwimmers.get(i).toString())); //save swimmer names
             Log.d("Swimmer" + i + "", selectedSwimmers.get(i).toString());
         }
-
-        /*//For debugging
-        for(int i=0; i<MeetInfo.swimmers.size(); i++)
-            Log.d("Swimmer"+i+"", MeetInfo.swimmers.get(i).toString());*/
-
-        //MeetInfo.swimmers.add(index, Arrays.asList("Swimmer1", "100 FS", "200 BS"));
-        //MeetInfo.swimmers.add(index, Arrays.asList("Swimmer2", "200 FS", "200 BS", "50 FS"));
 
         new RumbleAction(v);
         startActivity(new Intent(this,MeetCreateSwimmersEventsActivity.class));
