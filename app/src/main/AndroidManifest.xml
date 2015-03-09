@@ -47,6 +47,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".SwimmerStatisticActivity"
+            android:label="Statistics"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".ProfileAddActivity"
             android:label="Add Swimmer"
             android:screenOrientation="portrait" >
