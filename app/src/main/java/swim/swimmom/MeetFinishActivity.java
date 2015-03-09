@@ -61,5 +61,5 @@ public class MeetFinishActivity extends ActionBarActivity {
                 })
                 .create();
         return dialogBox;
-    }   
+    }
 }
