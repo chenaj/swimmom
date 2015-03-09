@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="swim.swimmom.MeetSwimmersEvents">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayoutSwimmerTop">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Input Event Time for Each Swimmer"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/linearLayoutSwimmerTop"
+            android:id="@+id/linearLayoutLine">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:singleLine="false"
+                android:id="@+id/linearLayout15"
+                android:background="#FF000000"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/linearLayout9"
+            android:layout_below="@+id/linearLayoutLine"
+            android:id="@+id/linearLayoutSwimmerList"
+            android:animateLayoutChanges="true">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/eventList"
+                android:divider="#ff0088aa"
+                android:dividerHeight="1dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout9"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_action_forward"
+                android:text="Next"
+                android:id="@+id/nextBtn"
+                android:textSize="25sp"
+                android:textColor="#ffffffff"
+                android:onClick="goToNextEvent"
+                android:width="120dp"/>
+        </LinearLayout>
+
+</RelativeLayout>

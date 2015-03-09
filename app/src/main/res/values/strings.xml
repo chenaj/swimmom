@@ -17,5 +17,7 @@
     <string name="title_activity_meet_save">MeetSave</string>
     <string name="title_activity_cut_time_add">cut_time_add</string>
     <string name="title_activity_cut_time_edit">CutTimeEditActivity</string>
+    <string name="title_activity_meet_swimmers_events">MeetSwimmersEvents</string>
+    <string name="title_activity_meet_finish">MeetFinishActivity</string>
 
 </resources>

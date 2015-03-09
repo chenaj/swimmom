@@ -27,7 +27,7 @@ import java.util.HashMap;
 public class MeetActivity extends ActionBarActivity {
 
     public static String chosenMeet = ""; // Meet chosen for doing editing on
-    String chosenMeetId = "";
+    public static String chosenMeetId = "";
     ArrayList<HashMap<String, String>> feedList= new ArrayList<>();
     ListView lv;
 
@@ -44,9 +44,7 @@ public class MeetActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
                 // TODO Auto-generated method stub
-                chosenMeet = lv.getItemAtPosition(position).toString();
                 chosenMeetId = feedList.get(position).get("Meet_Id");
-                Log.d("You selected", chosenMeet);
                 Log.d("Meet_Id", chosenMeetId);
                 new RumbleAction(view);
                 AlertDialog diaBox = beginMeetDialog(getApplicationContext(), view);
@@ -153,7 +151,7 @@ public class MeetActivity extends ActionBarActivity {
                 .setPositiveButton("Start", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
 //do nothing on cancel
-                        dialog.dismiss();
+                        startActivity(new Intent(context, MeetSwimmersEvents.class));
                         new RumbleAction(view);
                     }
                 })

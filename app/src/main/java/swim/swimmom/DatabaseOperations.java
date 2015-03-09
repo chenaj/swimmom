@@ -44,7 +44,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
     public static final String CREATE_Participants_TABLE =
             "CREATE TABLE Participants_TABLE" +
                     "(" +
-                    "Meet_Id INTEGER," +
+                    "Meet_Id varchar(4)," +
                     "Name varchar(60)," +
                     "Event varchar(50)" +
                     /*

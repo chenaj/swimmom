@@ -10,7 +10,6 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/linearLayout4"
         android:id="@+id/linearLayout10">
 
         <TextView

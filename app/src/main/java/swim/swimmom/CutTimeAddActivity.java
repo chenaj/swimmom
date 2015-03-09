@@ -47,16 +47,16 @@ public class CutTimeAddActivity extends ActionBarActivity implements AdapterView
 
         populatePage();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
-                // TODO Auto-generated method stub
-                String cutTime = lv.getItemAtPosition(position).toString();
-                chosenEvent = cutList.get(position).get("Event");
-                chosenPosition = position;
-                showNumberDial();
-                Log.d("cut time", cutTime);
-                Log.d("event", chosenEvent);
-                new RumbleAction(view);
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
+                        // TODO Auto-generated method stub
+                        String cutTime = lv.getItemAtPosition(position).toString();
+                        chosenEvent = cutList.get(position).get("Event");
+                        chosenPosition = position;
+                        showNumberDial();
+                        Log.d("cut time", cutTime);
+                        Log.d("event", chosenEvent);
+                        new RumbleAction(view);
                 Button saveBtn = (Button) dial.findViewById(R.id.saveBtn);
                 saveBtn.setOnClickListener(new View.OnClickListener() {
                     @Override

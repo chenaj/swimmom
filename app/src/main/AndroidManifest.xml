@@ -80,6 +80,14 @@
             android:name=".CutTimeEditActivity"
             android:label="@string/title_activity_cut_time_edit" >
         </activity>
+        <activity
+            android:name=".MeetSwimmersEvents"
+            android:label="@string/title_activity_meet_swimmers_events" >
+        </activity>
+        <activity
+            android:name=".MeetFinishActivity"
+            android:label="@string/title_activity_meet_finish" >
+        </activity>
     </application>
 
 </manifest>
