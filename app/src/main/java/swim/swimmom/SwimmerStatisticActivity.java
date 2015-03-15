@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -84,6 +86,24 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
         //populateList();
         sortList();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_statistic_swim, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        View curView = this.findViewById(android.R.id.content).getRootView();
+        new RumbleAction(curView);
+        // Handle item selection
+        new MenuOptions().MenuOption(curView,item,this,StatisticActivity.class);
+        return super.onOptionsItemSelected(item);
+    }
+
     public void resetForm(View v)
     {
         //Sort Spinner
@@ -102,36 +122,6 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
         event_spinner.setAdapter(adapter_1);
     }
 
-    public void populateList() {
-        String event, time, date;
-        EventList.clear();
-        lv = (ListView) findViewById(R.id.meetList);
-        DatabaseOperations dop = new DatabaseOperations(this);
-        SQLiteDatabase db = dop.getWritableDatabase();
-        //Cursor cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name ='" + current_swimmer + "'", null);
-        Cursor cursor = db.rawQuery("SELECT * FROM Statistics_TABLE", null);
-
-
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                event = cursor.getString(cursor.getColumnIndex("Event"));
-                time = cursor.getString(cursor.getColumnIndex("Event_Time"));
-                date = cursor.getString(cursor.getColumnIndex("Date"));
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("Event", event);
-                map.put("Time", time);
-                map.put("Date", date);
-                EventList.add(map);
-                cursor.moveToNext(); // Move to next row retrieved
-            }
-        }
-
-
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, EventList, R.layout.statsrow,
-                new String[]{"Event", "Time", "Date"}, new int[]
-                {R.id.Event, R.id.Time, R.id.Date});
-        lv.setAdapter(simpleAdapter);
-    }
     private void sortList ()
     {
         EventList.clear();
@@ -166,10 +156,10 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
            Log.d("Sort by", "Date");
 
            if(s_event.contains("Select...")) {
-               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE ORDER BY Date ", null);
+               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' ORDER BY Date ", null);
            }
            else{
-               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Event = '"+s_event+"' ORDER BY Date ", null);
+               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' AND  Event = '"+s_event+"' ORDER BY Date ", null);
            }
        }
         else {
@@ -177,11 +167,11 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
            Log.d("s_event", s_event);
            if (s_event.contains("Select...")) {
                Log.d("Event", "Select...");
-               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE ORDER BY Event_TIme ", null);
+               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' ORDER BY Event_Time ", null);
            }
            else {
                Log.d("Event", "Event");
-               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Event = '"+s_event+"' ORDER BY Event_TIme ", null);
+               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' AND Event = '"+s_event+"' ORDER BY Event_Time ", null);
            }
        }
 

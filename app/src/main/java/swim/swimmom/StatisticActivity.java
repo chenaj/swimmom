@@ -154,6 +154,7 @@ public class StatisticActivity extends ActionBarActivity {
         new MenuOptions().MenuOption(curView,item,this,MainActivity.class);
         return super.onOptionsItemSelected(item);
     }
+
     public void populateList()
     {
         swimmerList.clear();

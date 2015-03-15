@@ -36,12 +36,14 @@ import java.util.List;
 
 public class MeetSwimmersEvents extends ActionBarActivity {
 
-    String chosenMeetId=MeetActivity.chosenMeetId;
-    ArrayList<HashMap<String,String>> swimmerList = new ArrayList();
+    public static String chosenMeetId=MeetActivity.chosenMeetId;
+    public static String chosenMeetDate=MeetActivity.chosenMeetDate;
+    ArrayList<HashMap<String,String>> swimmerList = new ArrayList(); //list of swimmers swimming in current event Keys (name, time)
     int eventIndex=0;
     ListView lv;
     String swimmer;
-    ArrayList<HashMap<String,String>> participants = new ArrayList(); // Stores list of swimmer names participating in the meet
+    ArrayList<HashMap<String,String>> participants = new ArrayList(); // Stores list of swimmer names participating in the meet Keys(name, event)
+    public static ArrayList<HashMap<String,String>> finalStats = new ArrayList(); // Stores times of swimmers for all events Keys(Name,event,time)
 
     List<String> eventList;
 
@@ -165,7 +167,6 @@ public class MeetSwimmersEvents extends ActionBarActivity {
 
         if (cursor.moveToFirst())
         {
-            Log.d("fzdffdzfzsfzfdzfzxf: ","");
             while (!cursor.isAfterLast())
             {
 
@@ -175,8 +176,8 @@ public class MeetSwimmersEvents extends ActionBarActivity {
                 Log.d("Name: ",name);
                 Log.d("Event: ",event);
                 HashMap<String,String> map= new HashMap<>();
-                map.put("Name", name); // Add swimmer name to eventList
-                map.put("Event",event); // Add event to swimmerList
+                map.put("Name", name);
+                map.put("Event",event);
 
                 participants.add(map);
 
@@ -218,6 +219,22 @@ public class MeetSwimmersEvents extends ActionBarActivity {
 
     public void goToNextEvent(View v){
         if(eventIndex<eventList.size()-1) {
+
+
+            String name, time;
+            for (int i=0; i<swimmerList.size();i++)
+            {
+                name=swimmerList.get(i).get("Name");
+                time=swimmerList.get(i).get("Time");
+
+                HashMap<String,String> map= new HashMap<>();
+                map.put("Name",name ); // Add swimmer name to eventList
+                map.put("Event", eventList.get(eventIndex)); // Add swimmer name to eventList
+                map.put("Time", time); // Add event to swimmerList
+                finalStats.add(map);
+            }
+
+
             eventIndex++;
             populateList();
         }

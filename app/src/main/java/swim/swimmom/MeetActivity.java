@@ -28,6 +28,7 @@ public class MeetActivity extends ActionBarActivity {
 
     public static String chosenMeet = ""; // Meet chosen for doing editing on
     public static String chosenMeetId = "";
+    public static String chosenMeetDate="";
     ArrayList<HashMap<String, String>> feedList= new ArrayList<>();
     ListView lv;
 
@@ -45,6 +46,7 @@ public class MeetActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
                 // TODO Auto-generated method stub
                 chosenMeetId = feedList.get(position).get("Meet_Id");
+                chosenMeetDate = feedList.get(position).get("Date");
                 Log.d("Meet_Id", chosenMeetId);
                 new RumbleAction(view);
                 AlertDialog diaBox = beginMeetDialog(getApplicationContext(), view);

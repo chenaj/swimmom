@@ -301,9 +301,6 @@ public class DatabaseOperations extends SQLiteOpenHelper{
     //////////////////statistics
     public String insertStatistics(SQLiteDatabase db, String name, String event, String time, String date, String meet_id) //INSERT
     {
-
-        //Check if this swimmer already exists
-
         String query = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id ) VALUES ('"+name+"', '"+event+"', '"+time+"', '"+date+"', '"+meet_id+"')";
         try {
             db.execSQL(query);
