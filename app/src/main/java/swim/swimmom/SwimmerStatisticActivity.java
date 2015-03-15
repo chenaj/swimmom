@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 /**
  * Created by wajihaf56 on 2/24/2015.
@@ -41,25 +42,51 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
         setContentView(R.layout.activity_statistic_swim);
         current_swimmer = StatisticActivity.selected_swimmer;
         new MyActionBar(getSupportActionBar(), "" + current_swimmer + "'s Statistics");
-        DatabaseOperations dop = new DatabaseOperations(this);
+       /* DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
-        dop.insertStatistics(db, "wajiha", "Z123 freestyle", "00:01:30","3/12/2015", "01");
-        dop.insertStatistics(db, "alina", "B123 butterfly", "00:00:01","3/25/2015", "04");
-        dop.insertStatistics(db, "wajiha", "321 freestyle", "05:00:17","4/9/2015", "02");
-        dop.insertStatistics(db, "dfg", "C123 freestyle", "00:00:00","4/8/2015", "01");
-        dop.insertStatistics(db, "wajiha", "Zfreestyle", "00:00:30","3/2/2015", "01");
+        dop.insertStatistics(db, "wajiha", "200 yd. Medley Relay", "00:01:30","3/12/2015", "01");
+        dop.insertStatistics(db, "alina", "100 yd. Butterfly", "00:00:01","3/25/2015", "04");
+        dop.insertStatistics(db, "wajiha", "200 yd. Freestyle Relay", "05:00:17","4/9/2015", "02");
+        dop.insertStatistics(db, "dfg", "50 yd. Freestyle", "00:00:00","4/8/2015", "01");
+        dop.insertStatistics(db, "wajiha", "100 yd. Backstroke", "00:00:30","3/2/2015", "01");*/
+
+        sort_spinner = (Spinner) findViewById(R.id.sortSpinner);
+        event_spinner = (Spinner) findViewById(R.id.eventSpinner);
+
+        sort_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Sort", String.valueOf(position));
+                sortList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        event_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Event", String.valueOf(position));
+                sortList();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         s_sort = "";
         s_event ="";
         resetForm(getWindow().getDecorView().findViewById(android.R.id.content));
-        populateList();
-       sortList();
+        //populateList();
+        sortList();
     }
     public void resetForm(View v)
     {
-
-
         //Sort Spinner
-        sort_spinner = (Spinner) findViewById(R.id.sortSpinner);
         sort_spinner.setPrompt("Date");
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.sort_array, android.R.layout.simple_spinner_dropdown_item);
@@ -68,14 +95,11 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
 
 
         //Event Spinner
-        event_spinner = (Spinner) findViewById(R.id.eventSpinner);
         event_spinner.setPrompt("Select...");
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter adapter_1 = ArrayAdapter.createFromResource(this, R.array.events_array, android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         event_spinner.setAdapter(adapter_1);
-
-        return;
     }
 
     public void populateList() {
@@ -89,7 +113,7 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
 
 
         if (cursor.moveToFirst()) {
-            while (cursor.isAfterLast() == false) {
+            while (!cursor.isAfterLast()) {
                 event = cursor.getString(cursor.getColumnIndex("Event"));
                 time = cursor.getString(cursor.getColumnIndex("Event_Time"));
                 date = cursor.getString(cursor.getColumnIndex("Date"));
@@ -122,6 +146,7 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
 
 
         Log.d("u selected = ", s_sort);
+        Log.d("u selected =", s_event);
 
         /*if (current_sort == "Time")
         {
@@ -136,10 +161,11 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
             DatabaseOperations dop = new DatabaseOperations(this);
             SQLiteDatabase db = dop.getWritableDatabase();
             //Cursor cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name ='" + current_swimmer + "'", null);
+           // cursor = db.rawQuery("SELECT * FROM Statistics_TABLE ORDER BY Event_TIme ", null);
+       if (s_sort.contains("Date")) {
+           Log.d("Sort by", "Date");
 
-       if (s_sort == "Date") {
-
-           if(s_event == "Select...") {
+           if(s_event.contains("Select...")) {
                cursor = db.rawQuery("SELECT * FROM Statistics_TABLE ORDER BY Date ", null);
            }
            else{
@@ -147,10 +173,14 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
            }
        }
         else {
-           if (s_event == "Select...") {
+           Log.d("Sort by", "Time");
+           Log.d("s_event", s_event);
+           if (s_event.contains("Select...")) {
+               Log.d("Event", "Select...");
                cursor = db.rawQuery("SELECT * FROM Statistics_TABLE ORDER BY Event_TIme ", null);
            }
            else {
+               Log.d("Event", "Event");
                cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Event = '"+s_event+"' ORDER BY Event_TIme ", null);
            }
        }
@@ -165,6 +195,9 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
                     time = cursor.getString(cursor.getColumnIndex("Event_Time"));
                     date = cursor.getString(cursor.getColumnIndex("Date"));
                     HashMap<String, String> map = new HashMap<String, String>();
+                    Log.d("Event", event);
+                    Log.d("Time", time);
+                    Log.d("Date", date);
                     map.put("Event", event);
                     map.put("Time", time);
                     map.put("Date", date);
