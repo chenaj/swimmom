@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Select swimmer to view their swim time"
+        android:text="Select swimmer to view their stats"
         android:id="@+id/Statistictext"
         android:layout_above="@+id/linearLayout4"
         android:layout_alignParentLeft="true"

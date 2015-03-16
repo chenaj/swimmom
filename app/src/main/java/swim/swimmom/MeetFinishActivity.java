@@ -21,8 +21,9 @@ import java.util.HashMap;
 
 public class MeetFinishActivity extends ActionBarActivity {
     public static ArrayList<HashMap<String,String>> finalStats = MeetSwimmersEvents.finalStats;
-    String meetDate=MeetSwimmersEvents.chosenMeetDate;
-    String meetID=MeetSwimmersEvents.chosenMeetId;
+    String meetDate = MeetActivity.chosenMeetDate;
+    String meetID = MeetActivity.chosenMeetId;
+    String meetOpponent = MeetActivity.chosenMeetOpponent;
     ListView lv;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +33,12 @@ public class MeetFinishActivity extends ActionBarActivity {
 
         Log.d("Meet Date", meetDate);
         Log.d("Meet ID", meetID);
+        Log.d("Meet Opponent", meetOpponent);
 
         lv = (ListView) findViewById(R.id.swimmerList);
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, finalStats, R.layout.finalstatsrow,
                 new String[]{"Name", "Event", "Time"}, new int[]{R.id.name, R.id.event, R.id.eventTime});
         lv.setAdapter(simpleAdapter); // Apply the adapter to the list view
-
-        for (int i=0; i<finalStats.size();i++)
-        {
-            Log.d("Name", finalStats.get(i).get("Name"));
-            Log.d("Event", finalStats.get(i).get("Event"));
-            Log.d("Time", finalStats.get(i).get("Time"));
-        }
     }
 
 
@@ -80,7 +75,7 @@ public class MeetFinishActivity extends ActionBarActivity {
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//cancelor
+//cancel
                         dialog.dismiss();
                         new RumbleAction(view);
                     }
@@ -100,14 +95,13 @@ public class MeetFinishActivity extends ActionBarActivity {
             Log.d("Event", finalStats.get(i).get("Event"));
             Log.d("Time", finalStats.get(i).get("Time"));
 
-            dop.insertStatistics(db, finalStats.get(i).get("Name"),
-                    finalStats.get(i).get("Event"), finalStats.get(i).get("Time"), meetDate, meetID);
+            dop.insertStatistics(db, finalStats.get(i).get("Name"), finalStats.get(i).get("Event"),
+                    finalStats.get(i).get("Time"), meetDate, meetID, meetOpponent);
         }
     }
 
     public void saveMeet(View v)
     {
-        Log.d("Save Meet Button Clicked","fdasfd");
         AlertDialog ad= saveMeetDialog(this,v);
         ad.show();
     }

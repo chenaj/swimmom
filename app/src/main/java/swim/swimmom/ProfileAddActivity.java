@@ -22,7 +22,6 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     String S_name, S_school, S_gender, S_grade;
     String errorMsg = "";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +75,6 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         // Apply the adapter to the spinner
         gradeSpinner.setAdapter(adapter_1);
         gradeSpinner.setOnItemSelectedListener(this);
-        return;
     }
 
     public void goToProfiles(View v) //navigate back to profile page when save is pressed
@@ -102,7 +100,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
             S_name = S_name.toLowerCase();
             S_name = toTitleCase(S_name); //format name (i.e., john johnson -> John Johnson)
             String result = dop.insertProfile(db, S_name, S_gender, S_grade, S_school);
-            if (result == "Success") //if insert is successful
+            if (result.equals("Success")) //if insert is successful
             {
                 new MessagePrinter().shortMessage(this, "Swimmer Saved!");
                 startActivity(new Intent(this, ProfileActivity.class));
@@ -111,25 +109,23 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
                 errorMsg = result;
                 new MessagePrinter().longMessage(this, errorMsg);
                 errorMsg = "";
-                return;
             }
         }
         else
         {
             new MessagePrinter().longMessage(this, errorMsg);
             errorMsg = "";
-            return;
         }
     }
 
     public static String toTitleCase(String givenString) // uppercase first letter of each word in string
     {
         String[] arr = givenString.split(" ");
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < arr.length; i++) {
-            sb.append(Character.toUpperCase(arr[i].charAt(0)))
-                    .append(arr[i].substring(1)).append(" ");
+        for (String anArr : arr) {
+            sb.append(Character.toUpperCase(anArr.charAt(0)))
+                    .append(anArr.substring(1)).append(" ");
         }
         return sb.toString().trim();
     }
@@ -137,6 +133,12 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
     boolean validInput() //check if input fields are all filled in correctly
     {
         boolean validInput = true;
+
+        Log.d("Name", S_name);
+        Log.d("School", S_school);
+        Log.d("Gender", S_gender);
+        Log.d("Grade", S_grade);
+
 
         if (S_name.length() < 1) //if name field is empty
         {
@@ -149,16 +151,7 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
             errorMsg = "Name cannot contain digits";
             validInput = false;
         }
-        /* //Do we need first and last name?
-        else //if name field isn't empty, check name format
-        {
-            String[] components = S_name.split("\\s+");
-            if (components.length != 2)
-            {
-                errorMsg = "Name format should be: First Last";
-                validInput = false;
-            }
-        }*/
+
         if (S_school.length() < 1) //if school field is empty
         {
             addNewLine();

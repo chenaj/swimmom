@@ -35,7 +35,7 @@ public class ProfileActivity extends ActionBarActivity{
         new MyActionBar(getSupportActionBar(), "Profiles"); // Create action bar
 
         populateList();
-        registerForContextMenu(lv); //enable long clicking on list items
+        registerForContextMenu(lv); //enable clicking on list items
         // When user clicks a profile in table
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -45,6 +45,14 @@ public class ProfileActivity extends ActionBarActivity{
                 Log.d("You selected", chosenSwimmer);
                 new RumbleAction(view);
                 view.showContextMenu();
+            }
+        });
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                chosenSwimmer = lv.getItemAtPosition(position).toString();
+                Log.d("You selected", chosenSwimmer);
+                return false;
             }
         });
     }

@@ -19,7 +19,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 
     //** variable represents name in code, the string represents column name in table
     public static final String DATABASE_NAME = "swimmom.db";
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
 
     public static final String CREATE_Profile_TABLE =
             "CREATE TABLE Profile_TABLE" +
@@ -47,10 +47,6 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "Meet_Id varchar(4)," +
                     "Name varchar(60)," +
                     "Event varchar(50)" +
-                    /*
-                    "PRIMARY KEY (Meet_Id),"+
-                    "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
-                    */
                     ");";
 
     public static final String CREATE_Statistics_TABLE =
@@ -60,11 +56,8 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "Event varchar(50)," +
                     "Event_Time varchar(6)," +
                     "Date date NOT NULL," +
-                    "Meet_Id INTEGER" +
-                    /*
-                    "PRIMARY KEY (Name),"+
-                    "FOREIGN KEY (Meet_Id) REFERENCES Meet_TABLE(Meet_Id)"+
-                    */
+                    "Meet_Id INTEGER," +
+                    "Opponent varchar(100)" +
                     ");";
 
     //Stores names of all cuts created by user
@@ -78,11 +71,6 @@ public class DatabaseOperations extends SQLiteOpenHelper{
                     "(" +
                     "Name varchar(200) PRIMARY KEY" +
                     ");";
-
-    //Example Event retrieve query
-    /*
-        SELECT * FROM Participants_TABLE WHERE Meet_Id='' AND Event1='' OR Event2='' OR Event3='' OR Event4=''"
-    */
 
     public DatabaseOperations(Context context) //default constructor
     {
@@ -299,9 +287,10 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         return "Success";
     }
     //////////////////statistics
-    public String insertStatistics(SQLiteDatabase db, String name, String event, String time, String date, String meet_id) //INSERT
+    public String insertStatistics(SQLiteDatabase db, String name, String event, String time, String date, String meet_id, String opponent) //INSERT
     {
-        String query = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id ) VALUES ('"+name+"', '"+event+"', '"+time+"', '"+date+"', '"+meet_id+"')";
+        String query = "INSERT INTO Statistics_TABLE (Name, Event, Event_Time,Date, Meet_Id, Opponent) VALUES " +
+                "('"+name+"', '"+event+"', '"+time+"', '"+date+"', '"+meet_id+"', '"+opponent+"')";
         try {
             db.execSQL(query);
         }catch (Exception e){

@@ -36,8 +36,8 @@ import java.util.List;
 
 public class MeetSwimmersEvents extends ActionBarActivity {
 
-    public static String chosenMeetId=MeetActivity.chosenMeetId;
-    public static String chosenMeetDate=MeetActivity.chosenMeetDate;
+    public static String chosenMeetId = MeetActivity.chosenMeetId;
+    public static String chosenMeetDate = MeetActivity.chosenMeetDate;
     ArrayList<HashMap<String,String>> swimmerList = new ArrayList(); //list of swimmers swimming in current event Keys (name, time)
     int eventIndex=0;
     ListView lv;
@@ -51,6 +51,7 @@ public class MeetSwimmersEvents extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meet_swimmers_events);
 
+        finalStats.clear();
         getParticipants();
 
         String[] eventRes=getResources().getStringArray(R.array.events_array2);
@@ -63,14 +64,11 @@ public class MeetSwimmersEvents extends ActionBarActivity {
                 // TODO Auto-generated method stub
                 swimmer = swimmerList.get(position).get("Name");
 
-
                 Log.d("You clicked on" , swimmer);
                 new RumbleAction(view);
                 showKeypad(getApplicationContext(),view, position);
             }
         });
-
-
     }
 
     private void showKeypad (final Context context, final View view, final int position){

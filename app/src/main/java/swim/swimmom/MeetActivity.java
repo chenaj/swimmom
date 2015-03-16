@@ -29,6 +29,7 @@ public class MeetActivity extends ActionBarActivity {
     public static String chosenMeet = ""; // Meet chosen for doing editing on
     public static String chosenMeetId = "";
     public static String chosenMeetDate="";
+    public static String chosenMeetOpponent="";
     ArrayList<HashMap<String, String>> feedList= new ArrayList<>();
     ListView lv;
 
@@ -47,7 +48,10 @@ public class MeetActivity extends ActionBarActivity {
                 // TODO Auto-generated method stub
                 chosenMeetId = feedList.get(position).get("Meet_Id");
                 chosenMeetDate = feedList.get(position).get("Date");
+                chosenMeetOpponent = feedList.get(position).get("Opponent");
                 Log.d("Meet_Id", chosenMeetId);
+                Log.d("Meet Date", chosenMeetDate);
+                Log.d("Meet Opponent", chosenMeetOpponent);
                 new RumbleAction(view);
                 AlertDialog diaBox = beginMeetDialog(getApplicationContext(), view);
                 diaBox.show();

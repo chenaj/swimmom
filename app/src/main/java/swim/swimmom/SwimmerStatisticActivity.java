@@ -113,7 +113,6 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
         // Apply the adapter to the spinner
         sort_spinner.setAdapter(adapter);
 
-
         //Event Spinner
         event_spinner.setPrompt("Select...");
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -128,12 +127,9 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
         ///get the value
         sort_spinner = (Spinner) findViewById(R.id.sortSpinner);
         event_spinner = (Spinner) findViewById(R.id.eventSpinner);
-
         //
         s_sort = sort_spinner.getSelectedItem().toString();
         s_event = event_spinner.getSelectedItem().toString();
-
-
 
         Log.d("u selected = ", s_sort);
         Log.d("u selected =", s_event);
@@ -143,69 +139,73 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
             current_sort = "Event_Time";
 
         }*/
+        String event, time, date, opponent;
+        Cursor cursor;
+        EventList.clear();
+        lv = (ListView) findViewById(R.id.meetList);
+        DatabaseOperations dop = new DatabaseOperations(this);
+        SQLiteDatabase db = dop.getWritableDatabase();
+        //Cursor cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name ='" + current_swimmer + "'", null);
+        // cursor = db.rawQuery("SELECT * FROM Statistics_TABLE ORDER BY Event_TIme ", null);
 
-            String event, time, date;
-            Cursor cursor;
-            EventList.clear();
-            lv = (ListView) findViewById(R.id.meetList);
-            DatabaseOperations dop = new DatabaseOperations(this);
-            SQLiteDatabase db = dop.getWritableDatabase();
-            //Cursor cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name ='" + current_swimmer + "'", null);
-           // cursor = db.rawQuery("SELECT * FROM Statistics_TABLE ORDER BY Event_TIme ", null);
-       if (s_sort.contains("Date")) {
-           Log.d("Sort by", "Date");
 
-           if(s_event.contains("Select...")) {
-               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' ORDER BY Date ", null);
+
+        if(s_event.contains("Select...")) {
+            //cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' ORDER BY Date DESC ", null);
+            new MessagePrinter().longMessage(this, "Please select an event to view");
+        }
+        else
+        {
+            if (s_sort.contains("Date")) {
+                Log.d("Sort by", "Date");
+
+           /*if(s_event.contains("Select...")) {
+               //cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' ORDER BY Date DESC ", null);
+               new MessagePrinter().longMessage(this, "Please select an event to view");
            }
-           else{
-               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' AND  Event = '"+s_event+"' ORDER BY Date ", null);
-           }
-       }
-        else {
-           Log.d("Sort by", "Time");
-           Log.d("s_event", s_event);
-           if (s_event.contains("Select...")) {
-               Log.d("Event", "Select...");
-               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' ORDER BY Event_Time ", null);
-           }
-           else {
-               Log.d("Event", "Event");
-               cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' AND Event = '"+s_event+"' ORDER BY Event_Time ", null);
-           }
-       }
+           else{*/
+                cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='" + current_swimmer + "' AND  Event = '" + s_event + "' ORDER BY Date ", null);
+                //}
+            } else {
+                Log.d("Sort by", "Time");
+                Log.d("s_event", s_event);
+                if (s_event.contains("Select...")) {
+                    Log.d("Event", "Select...");
+                    cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='" + current_swimmer + "' ORDER BY Event_Time ", null);
+                } else {
+                    Log.d("Event", "Event");
+                    cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='" + current_swimmer + "' AND Event = '" + s_event + "' ORDER BY Event_Time ", null);
+                }
+            }
 
-
-
-
-      if (cursor.moveToFirst())
-           {
+            if (cursor.moveToFirst())
+            {
                 while (cursor.isAfterLast() == false) {
                     event = cursor.getString(cursor.getColumnIndex("Event"));
                     time = cursor.getString(cursor.getColumnIndex("Event_Time"));
                     date = cursor.getString(cursor.getColumnIndex("Date"));
+                    opponent = cursor.getString(cursor.getColumnIndex("Opponent"));
                     HashMap<String, String> map = new HashMap<String, String>();
                     Log.d("Event", event);
                     Log.d("Time", time);
                     Log.d("Date", date);
+                    Log.d("Opponent", opponent);
                     map.put("Event", event);
                     map.put("Time", time);
                     map.put("Date", date);
+                    map.put("Opponent", opponent);
+
                     EventList.add(map);
                     cursor.moveToNext(); // Move to next row retrieved
                 }
             }
-
-            SimpleAdapter simpleAdapter = new SimpleAdapter(this, EventList, R.layout.statsrow,
-                    new String[]{"Event", "Time", "Date"}, new int[]
-                    {R.id.Event, R.id.Time, R.id.Date});
-            lv.setAdapter(simpleAdapter);
-
-
-
-
-
+        }
+        if(EventList.size() == 0 && !s_event.contains("Select..."))
+            new MessagePrinter().longMessage(this, "No records exist for this event!");
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this, EventList, R.layout.statsrow,
+                new String[]{"Opponent", "Time", "Date", }, new int[]
+                {R.id.Opponent, R.id.Time, R.id.Date});
+        lv.setAdapter(simpleAdapter);
     }
 //////////////////////for sort////////////
-
 }

@@ -83,7 +83,7 @@ public class StatisticActivity extends ActionBarActivity {
         AlertDialog dialogBox = new AlertDialog.Builder(this)
 //set message, title, and icon
                 .setTitle("Statistics")
-                .setMessage("Would you like view" + selected_swimmer+ "'s statistics?")
+                .setMessage("Would you like view " + selected_swimmer+ "'s statistics?")
                 .setIcon(R.drawable.ic_launcher)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 

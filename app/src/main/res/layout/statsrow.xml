@@ -10,16 +10,17 @@
         android:layout_width="0dp"
         android:layout_weight="0.25"
         android:layout_height="fill_parent"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:textColor="#FF000000"
         android:gravity="center|left"
-        android:textSize="18sp"/>
+        android:textSize="15sp"/>
 
     <TextView
-        android:id="@+id/Event"
+        android:id="@+id/Opponent"
         android:layout_width="0dp"
         android:layout_weight="0.50"
         android:layout_height="fill_parent"
+        android:textStyle="italic"
         android:gravity="center"
         android:layout_marginLeft="5dp"
         android:textSize="18sp"/>
