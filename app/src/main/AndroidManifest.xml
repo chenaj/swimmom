@@ -84,16 +84,21 @@
         <activity
             android:name=".CutTimeEditActivity"
             android:label="@string/title_activity_cut_time_edit"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MeetSwimmersEvents"
             android:label="@string/title_activity_meet_swimmers_events"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MeetFinishActivity"
             android:label="@string/title_activity_meet_finish"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".MeetEditActivity"
+            android:label="Edit Meet"
             android:screenOrientation="portrait">
         </activity>
     </application>

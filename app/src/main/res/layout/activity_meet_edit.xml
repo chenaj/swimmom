@@ -1,0 +1,178 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="swim.swimmom.MeetEditActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:id="@+id/linearLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/meetsiconlarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:id="@+id/linearLayout8">
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ctimesIcon"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:id="@+id/profileAddForm"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center|center_horizontal">
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Opponent:"
+                    android:textStyle="bold"
+                    android:id="@+id/opponentLabel"
+                    android:textSize="16sp"
+                    android:layout_column="0" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/opponent"
+                    android:layout_column="1"
+                    android:textStyle="italic"
+                    android:textColor="#808080"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="none" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location:"
+                    android:textStyle="bold"
+                    android:id="@+id/locationLabel"
+                    android:layout_column="0"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/location"
+                    android:layout_column="1"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:inputType="textCapWords"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date:"
+                    android:textStyle="bold"
+                    android:id="@+id/dateLabel"
+                    android:layout_column="0"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:ems="10"
+                    android:id="@+id/date"
+                    android:layout_column="1"
+                    android:focusableInTouchMode="true"
+                    android:focusable="false"
+                    android:clickable="true"/>
+
+                <View
+                    android:id="@+id/invisible_click_watcher"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time:"
+                    android:textStyle="bold"
+                    android:id="@+id/timeLabel"
+                    android:textSize="16sp"
+                    android:layout_column="0" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:ems="10"
+                    android:id="@+id/time"
+                    android:layout_column="1"
+                    android:focusableInTouchMode="false"
+                    android:focusable="true"
+                    android:clickable="true"/>
+
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/linearLayout8"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="40dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:drawableRight="@drawable/ic_action_forward"
+            android:id="@+id/nextBtn"
+            android:textSize="25sp"
+            android:textColor="#ffffffff"
+            android:onClick="goToSelectSwimmers"
+            android:width="108dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="7dp" />
+    </LinearLayout>
+
+</RelativeLayout>
+

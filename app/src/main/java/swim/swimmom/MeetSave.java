@@ -106,6 +106,8 @@ public class MeetSave extends ActionBarActivity {
                         }
                     }
                 }
+                MeetInfo.swimmers.clear();
+                MeetCreateSwimmersActivity.selectedSwimmers.clear();
                 new MessagePrinter().shortMessage(this, "Meet Created!");
                 return true;
 

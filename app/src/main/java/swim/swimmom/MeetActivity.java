@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +47,7 @@ public class MeetActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
                 // TODO Auto-generated method stub
+
                 chosenMeetId = feedList.get(position).get("Meet_Id");
                 chosenMeetDate = feedList.get(position).get("Date");
                 chosenMeetOpponent = feedList.get(position).get("Opponent");
@@ -63,8 +65,12 @@ public class MeetActivity extends ActionBarActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 chosenMeet = lv.getItemAtPosition(position).toString();
                 chosenMeetId = feedList.get(position).get("Meet_Id");
-                Log.d("You selected", chosenMeet);
+                chosenMeetDate = feedList.get(position).get("Date");
+                chosenMeetOpponent = feedList.get(position).get("Opponent");
                 Log.d("Meet_Id", chosenMeetId);
+                Log.d("Meet Date", chosenMeetDate);
+                Log.d("Meet Opponent", chosenMeetOpponent);
+                new RumbleAction(view);
                 return false;
             }
         });
@@ -83,7 +89,7 @@ public class MeetActivity extends ActionBarActivity {
     }
     public boolean onContextItemSelected(MenuItem item) {
         if (item.getTitle() == "Edit") {
-            //goToCreateMeet(this.findViewById(android.R.id.content).getRootView());
+            goToEditMeet(this.findViewById(android.R.id.content).getRootView());
         }
         else if (item.getTitle() == "Delete") {
             deleteMeet(this.findViewById(android.R.id.content).getRootView());
@@ -119,7 +125,7 @@ public class MeetActivity extends ActionBarActivity {
         Cursor cursor = db.rawQuery("SELECT * FROM Meet_TABLE",null);
         if (cursor.moveToFirst())
         {
-            while (cursor.isAfterLast() == false)
+            while (!cursor.isAfterLast())
             {
                 Meet_Id = cursor.getString(cursor.getColumnIndex("Meet_Id"));
                 opponent = cursor.getString(cursor.getColumnIndex("Opponent"));
@@ -149,7 +155,7 @@ public class MeetActivity extends ActionBarActivity {
 
     private AlertDialog beginMeetDialog(final Context context, final View view)
     {
-        AlertDialog dialogBox = new AlertDialog.Builder(this)
+        return new AlertDialog.Builder(this)
 //set message, title, and icon
                 .setTitle("Start Meet")
                 .setMessage("Would you like to begin this meet?")
@@ -169,12 +175,11 @@ public class MeetActivity extends ActionBarActivity {
                     }
                 })
                 .create();
-        return dialogBox;
     }
 
     private AlertDialog deleteMeetDialog(final Context context, final View view)
     {
-        AlertDialog dialogBox = new AlertDialog.Builder(this)
+        return new AlertDialog.Builder(this)
 //set message, title, and icon
                 .setTitle("Delete Meet")
                 .setMessage("Are you sure you want to delete this meet?")
@@ -199,7 +204,6 @@ public class MeetActivity extends ActionBarActivity {
                     }
                 })
                 .create();
-        return dialogBox;
     }
 
     public void goToCreateMeet(View v)
@@ -207,6 +211,13 @@ public class MeetActivity extends ActionBarActivity {
         new RumbleAction(v);
         MeetInfo.clearInfo();
         startActivity(new Intent(this, MeetCreateActivity.class));
+    }
+
+    public void goToEditMeet(View v)
+    {
+        new RumbleAction(v);
+        MeetInfo.clearInfo();
+        startActivity(new Intent(this, MeetEditActivity.class));
     }
 
     public void deleteMeet(View v) //when delete is pressed

@@ -34,7 +34,7 @@ import java.util.List;
 public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
 
     ListView lv;
-    ArrayList selectedSwimmers;
+    ArrayList selectedSwimmers = new ArrayList();
     TextView sName;
     int swimmerIndex = 0;
     ArrayList selectedEvents = new ArrayList();
@@ -83,7 +83,7 @@ public class MeetCreateSwimmersEventsActivity extends ActionBarActivity {
     public void populateList()
     {
         selectedSwimmers = MeetCreateSwimmersActivity.selectedSwimmers; // Stores list of swimmer names
-        //**Get list of selecte d swimmers and add events list under each swimmer
+        //**Get list of selected swimmers and add events list under each swimmer
         selectedEvents.clear();
         sName = (TextView) findViewById(R.id.swimmerTitle);
         sName.setText(selectedSwimmers.get(swimmerIndex).toString());

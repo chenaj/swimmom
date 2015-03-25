@@ -40,7 +40,6 @@ public class StatisticActivity extends ActionBarActivity {
         //////////////
         populateList();
 
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
@@ -52,8 +51,6 @@ public class StatisticActivity extends ActionBarActivity {
                 new RumbleAction(view);
                 AlertDialog diaBox = viewStats(getApplicationContext(), view);
                 diaBox.show();
-
-
             }
         });
     }
@@ -80,7 +77,7 @@ public class StatisticActivity extends ActionBarActivity {
     }*/
     private AlertDialog viewStats(final Context context, final View view)
     {
-        AlertDialog dialogBox = new AlertDialog.Builder(this)
+        return new AlertDialog.Builder(this)
 //set message, title, and icon
                 .setTitle("Statistics")
                 .setMessage("Would you like view " + selected_swimmer+ "'s statistics?")
@@ -88,21 +85,19 @@ public class StatisticActivity extends ActionBarActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
-//do nothing on cancel
-
+//View statistics
                         startActivity(new Intent(context, SwimmerStatisticActivity.class));
                         new RumbleAction(view);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//begin meet
+//do nothing
                         dialog.dismiss();
                         new RumbleAction(view);
                     }
                 })
                 .create();
-        return dialogBox;
     }
      /*  DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
@@ -164,7 +159,7 @@ public class StatisticActivity extends ActionBarActivity {
         Cursor cursor = db.rawQuery("SELECT * FROM Profile_TABLE",null);
         if (cursor.moveToFirst())
         {
-            while (cursor.isAfterLast() == false)
+            while (!cursor.isAfterLast())
             {
                 name = cursor.getString(cursor.getColumnIndex("Name"));
                 swimmerList.add(name); // Add swimmer name to swimmerList

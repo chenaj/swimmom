@@ -36,8 +36,7 @@ import java.util.List;
 
 public class MeetSwimmersEvents extends ActionBarActivity {
 
-    public static String chosenMeetId = MeetActivity.chosenMeetId;
-    public static String chosenMeetDate = MeetActivity.chosenMeetDate;
+    public static String chosenMeetId;
     ArrayList<HashMap<String,String>> swimmerList = new ArrayList(); //list of swimmers swimming in current event Keys (name, time)
     int eventIndex=0;
     ListView lv;
@@ -51,6 +50,9 @@ public class MeetSwimmersEvents extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meet_swimmers_events);
 
+        chosenMeetId = MeetActivity.chosenMeetId;
+        participants.clear();
+        swimmerList.clear();
         finalStats.clear();
         getParticipants();
 

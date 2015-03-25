@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -20,16 +19,21 @@ import java.util.HashMap;
 
 
 public class MeetFinishActivity extends ActionBarActivity {
-    public static ArrayList<HashMap<String,String>> finalStats = MeetSwimmersEvents.finalStats;
-    String meetDate = MeetActivity.chosenMeetDate;
-    String meetID = MeetActivity.chosenMeetId;
-    String meetOpponent = MeetActivity.chosenMeetOpponent;
+    public static ArrayList<HashMap<String,String>> finalStats;
+    String meetDate;
+    String meetID;
+    String meetOpponent;
     ListView lv;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meet_finish);
         new MyActionBar(getSupportActionBar(), "Meet Complete"); // Create action bar
+
+        finalStats = MeetSwimmersEvents.finalStats;
+        meetDate = MeetActivity.chosenMeetDate;
+        meetID = MeetActivity.chosenMeetId;
+        meetOpponent = MeetActivity.chosenMeetOpponent;
 
         Log.d("Meet Date", meetDate);
         Log.d("Meet ID", meetID);
@@ -60,7 +64,7 @@ public class MeetFinishActivity extends ActionBarActivity {
 
     private AlertDialog saveMeetDialog(final Context context, final View view)
     {
-        AlertDialog dialogBox = new AlertDialog.Builder(this)
+        return new AlertDialog.Builder(this)
 //set message, title, and icon
                 .setTitle("Save Meet")
                 .setMessage("Would you like to save this meet?")
@@ -81,7 +85,6 @@ public class MeetFinishActivity extends ActionBarActivity {
                     }
                 })
                 .create();
-        return dialogBox;
     }
 
     public void saveStats()
