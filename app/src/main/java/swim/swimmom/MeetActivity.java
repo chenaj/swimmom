@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -122,7 +123,7 @@ public class MeetActivity extends ActionBarActivity {
         lv = (ListView) findViewById(R.id.meetList);
         DatabaseOperations dop = new DatabaseOperations(this);
         SQLiteDatabase db = dop.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Meet_TABLE",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM Meet_TABLE ORDER BY Date",null);
         if (cursor.moveToFirst())
         {
             while (!cursor.isAfterLast())

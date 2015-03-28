@@ -168,7 +168,7 @@
             android:id="@+id/nextBtn"
             android:textSize="25sp"
             android:textColor="#ffffffff"
-            android:onClick="goToSelectSwimmers"
+            android:onClick="goToEditSwimmers"
             android:width="108dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="7dp" />

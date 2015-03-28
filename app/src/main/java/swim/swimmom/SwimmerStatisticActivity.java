@@ -149,7 +149,6 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
         // cursor = db.rawQuery("SELECT * FROM Statistics_TABLE ORDER BY Event_TIme ", null);
 
 
-
         if(s_event.contains("Select...")) {
             //cursor = db.rawQuery("SELECT * FROM Statistics_TABLE WHERE Name='"+current_swimmer+"' ORDER BY Date DESC ", null);
             new MessagePrinter().longMessage(this, "Please select an event to view");
@@ -180,7 +179,7 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
 
             if (cursor.moveToFirst())
             {
-                while (cursor.isAfterLast() == false) {
+                while (!cursor.isAfterLast()) {
                     event = cursor.getString(cursor.getColumnIndex("Event"));
                     time = cursor.getString(cursor.getColumnIndex("Event_Time"));
                     date = cursor.getString(cursor.getColumnIndex("Date"));

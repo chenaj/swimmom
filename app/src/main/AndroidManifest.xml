@@ -99,6 +99,21 @@
         <activity
             android:name=".MeetEditActivity"
             android:label="Edit Meet"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".MeetEditSwimmersActivity"
+            android:label="@string/title_activity_meet_edit_swimmers"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".MeetEditEventsActivity"
+            android:label="@string/title_activity_meet_edit_events"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".MeetEditFinishActivity"
+            android:label="@string/title_activity_meet_edit_finish"
             android:screenOrientation="portrait">
         </activity>
     </application>

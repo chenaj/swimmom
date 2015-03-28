@@ -8,19 +8,21 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 
-public class MeetSave extends ActionBarActivity {
+public class MeetEditFinishActivity extends ActionBarActivity {
 
     ListView lv;
     ArrayList swimmerList = new ArrayList(); // Stores list of swimmer names
@@ -30,7 +32,7 @@ public class MeetSave extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meet_save);
-        new MyActionBar(getSupportActionBar(), "Verify Meet Info"); // Create action bar
+        new MyActionBar(getSupportActionBar(), "Verify Updated Meet Info"); // Create action bar
 
         populatePage();
     }
@@ -38,7 +40,7 @@ public class MeetSave extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_meet_save, menu);
+        getMenuInflater().inflate(R.menu.menu_meet_edit_finish, menu);
         return true;
     }
 
@@ -47,7 +49,7 @@ public class MeetSave extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MeetCreateSwimmersEventsActivity.class);
+        new MenuOptions().MenuOption(curView,item,this,MeetEditEventsActivity.class);
         return super.onOptionsItemSelected(item);
     }
 
@@ -57,10 +59,12 @@ public class MeetSave extends ActionBarActivity {
         location = (TextView) findViewById(R.id.location);
         date = (TextView) findViewById(R.id.date);
         time = (TextView) findViewById(R.id.time);
+
         opponent.setText(MeetInfo.opponent);
         location.setText(MeetInfo.location);
         date.setText(MeetInfo.date);
         time.setText(MeetInfo.time);
+
 
         swimmerList.clear();
         for(int i=0; i < MeetInfo.swimmers.size(); i++)
@@ -79,26 +83,21 @@ public class MeetSave extends ActionBarActivity {
             //save meet information to database
             DatabaseOperations dop = new DatabaseOperations(this);
             SQLiteDatabase db = dop.getWritableDatabase();
-            String result = dop.insertMeet(db, MeetInfo.opponent, MeetInfo.location, MeetInfo.date, MeetInfo.time);
+            String result = dop.updateMeet(db, MeetActivity.chosenMeetId ,MeetInfo.opponent, MeetInfo.location, MeetInfo.date, MeetInfo.time);
             if (result.equals("Success"))
             {
                 //if meet successfully saved, link swimmers & their events to this meet
                 //insert into participants table using this meets id
-                String meet_id = "";
-                Cursor cursor = db.rawQuery("SELECT Meet_Id FROM Meet_TABLE WHERE date='"+MeetInfo.date+"'",null);
-                if (cursor.moveToFirst()) {
-                    while (!cursor.isAfterLast()) {
-                        meet_id = cursor.getString(cursor.getColumnIndex("Meet_Id"));
-                        cursor.moveToNext(); // Move to next row retrieved
-                    }
-                }
-                cursor.close();
+                String meet_id = MeetActivity.chosenMeetId;
+
                 if(!meet_id.contentEquals(""))
                 {
+
                     //for each swimmer, insert each event they're swimming in
                     for (int row = 0; row < MeetInfo.swimmers.size(); row++)
                     {
                         String swimmer = MeetInfo.swimmers.get(row).get(0);
+                        dop.deleteParticipants(db, meet_id, swimmer); //delete existing record before inserting updated one
                         for (int col = 1; col < MeetInfo.swimmers.get(row).size(); col++)
                         {
                             String event = MeetInfo.swimmers.get(row).get(col);
@@ -107,8 +106,8 @@ public class MeetSave extends ActionBarActivity {
                     }
                 }
                 MeetInfo.swimmers.clear();
-                MeetCreateSwimmersActivity.selectedSwimmers.clear();
-                new MessagePrinter().shortMessage(this, "Meet Created!");
+                MeetEditSwimmersActivity.selectedSwimmers.clear();
+                new MessagePrinter().shortMessage(this, "Meet Updated!");
                 return true;
 
             } else {
@@ -141,7 +140,7 @@ public class MeetSave extends ActionBarActivity {
         return new AlertDialog.Builder(this)
 //set message, title, and icon
                 .setTitle("Cancel Meet")
-                .setMessage("Are you sure you want to cancel creating this meet?")
+                .setMessage("Are you sure you want to cancel updating this meet?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {

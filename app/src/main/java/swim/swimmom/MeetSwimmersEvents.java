@@ -8,8 +8,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,7 +67,6 @@ public class MeetSwimmersEvents extends ActionBarActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg)   {
                 // TODO Auto-generated method stub
                 swimmer = swimmerList.get(position).get("Name");
-
                 Log.d("You clicked on" , swimmer);
                 new RumbleAction(view);
                 showKeypad(getApplicationContext(),view, position);
@@ -78,19 +79,59 @@ public class MeetSwimmersEvents extends ActionBarActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Time Input");
         alert.setMessage(swimmer);
+        alert.setCancelable(true);
 
 // Set an EditText view to get user input
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
         input.setImeOptions(EditorInfo.IME_ACTION_NONE);
+        input.setHint("00:00.00");
         InputFilter[] FilterArray = new InputFilter[1];
         FilterArray[0] = new InputFilter.LengthFilter(6);
         input.setFilters(FilterArray);
         alert.setView(input);
 
+        /*
+        final boolean[] overridingText = {false};
+        final int[] count = {1};
+        input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (overridingText[0])
+                    return;
+
+                if(count[0] == 4)
+                {
+                    overridingText[0] = true;
+                    //input.setSelection(0);
+                    input.setText(editable.toString()+":");
+
+                    overridingText[0] = false;
+                }
+                else if(count[0] == 2)
+                {
+                    overridingText[0] = true;
+                    input.setText(editable.toString()+".");
+                    //input.setSelection(3);
+                    overridingText[0] = false;
+                }
+                count[0]++;
+            }
+        });
+        */
+
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-
         alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Do something with value!
@@ -103,14 +144,6 @@ public class MeetSwimmersEvents extends ActionBarActivity {
                 map.put("Name", swimmer); // Add swimmer name to eventList
                 map.put("Time", value ); // Add event to swimmerList
                 swimmerList.set(position, map);
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
-            }
-        });
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
             }

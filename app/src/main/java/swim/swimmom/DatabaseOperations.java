@@ -176,6 +176,28 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         return "Success";
     }
 
+    public String updateMeet(SQLiteDatabase db, String meetid, String opponent, String location, String date, String time) //INSERT meet
+    {
+        ContentValues cv = new ContentValues();
+        cv.put("Opponent", opponent);
+        cv.put("Location", location);
+        cv.put("Date", date);
+        cv.put("Time", time);
+        try {
+            db.update("Meet_TABLE", cv, "Meet_Id='"+meetid+"'", null);
+        }catch (Exception e){
+            Log.e("*Query error!", "UPDATE FAILED");
+            return "Sorry, an error occurred.. Please try again.";
+        }
+
+        Log.d("*Database operations", "One row updated in meet table!");
+        Log.d("Opponent", opponent);
+        Log.d("Location", location);
+        Log.d("Date", date);
+        Log.d("Time", time);
+        return "Success";
+    }
+
     public void deleteMeet(SQLiteDatabase db, String meetid) //DELETE
     {
         String query = "DELETE FROM Meet_TABLE WHERE Meet_Id='"+meetid+"'";
@@ -201,6 +223,19 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         Log.d("Meet_Id", ""+meetid+"");
         Log.d("Name", name);
         Log.d("Event", event);
+        return "Success";
+    }
+
+    public String deleteParticipants(SQLiteDatabase db, String meetid, String name) //INSERT meet
+    {
+        String query = "DELETE FROM Participants_TABLE WHERE Meet_Id='"+meetid+"' AND Name='"+name+"'";
+        try {
+            db.execSQL(query);
+        }catch (Exception e){
+            Log.e("*Query error!", "DELETE MEET FAILED");
+            return "Sorry, an error occurred.. Please try again.";
+        }
+        Log.d("*Database operations", "One row deleted (Meet_Id='"+meetid+"'!");
         return "Success";
     }
 

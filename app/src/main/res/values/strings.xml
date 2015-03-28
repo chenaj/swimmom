@@ -20,5 +20,8 @@
     <string name="title_activity_meet_swimmers_events">MeetSwimmersEvents</string>
     <string name="title_activity_meet_finish">MeetFinishActivity</string>
     <string name="title_activity_meet_edit">MeetEditActivity</string>
+    <string name="title_activity_meet_edit_swimmers">MeetEditSwimmersActivity</string>
+    <string name="title_activity_meet_edit_events">MeetEditEventsActivity</string>
+    <string name="title_activity_meet_edit_finish">MeetEditFinishActivity</string>
 
 </resources>
