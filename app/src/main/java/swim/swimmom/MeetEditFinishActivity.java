@@ -92,7 +92,10 @@ public class MeetEditFinishActivity extends ActionBarActivity {
 
                 if(!meet_id.contentEquals(""))
                 {
-
+                    for(int i=0; i<MeetEditSwimmersActivity.removedSwimmers.size(); i++)
+                    {
+                        dop.deleteParticipants(db, meet_id, MeetEditSwimmersActivity.removedSwimmers.get(i).toString()); //delete existing record before inserting updated one
+                    }
                     //for each swimmer, insert each event they're swimming in
                     for (int row = 0; row < MeetInfo.swimmers.size(); row++)
                     {

@@ -22,6 +22,7 @@ public class MeetEditSwimmersActivity extends ActionBarActivity {
 
     ArrayList swimmerList = new ArrayList(); // Stores list of swimmer names
     public static ArrayList selectedSwimmers = new ArrayList(); // Swimmers swimming in this meet
+    public static ArrayList removedSwimmers = new ArrayList();
     ListView lv;
 
     @Override
@@ -33,6 +34,7 @@ public class MeetEditSwimmersActivity extends ActionBarActivity {
 
         //find swimmers currently in meet and mark them as checked
         selectedSwimmers.clear();
+        removedSwimmers.clear();
         swimmerList.clear();
         String name;
         DatabaseOperations dop = new DatabaseOperations(this);
@@ -81,9 +83,16 @@ public class MeetEditSwimmersActivity extends ActionBarActivity {
                 // TODO Auto-generated method stub
                 String name = lv.getItemAtPosition(position).toString();
                 if(!selectedSwimmers.contains(name)) // if name is unchecked prior to click
+                {
+                    if(removedSwimmers.contains(name))
+                        removedSwimmers.remove(name);
                     selectedSwimmers.add(name);      // add name of swimmer
-                else
+                }
+                else {
+                    if(selectedSwimmers.contains(name) && !removedSwimmers.contains(name))
+                        removedSwimmers.add(name);
                     selectedSwimmers.remove(name); // if name is already checked remove them
+                }
                 new RumbleAction(view);
             }
         });
@@ -128,7 +137,6 @@ public class MeetEditSwimmersActivity extends ActionBarActivity {
         lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE); //multiple choice list i.e., checked or unchecked
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, swimmerList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
-
     }
 
     public void goToSelectEvents(View v)
