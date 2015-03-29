@@ -5,10 +5,10 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/layoutholder">
+        android:id="@+id/layoutholder"
+        android:orientation="vertical">
 
         <LinearLayout
             android:orientation="vertical"
@@ -46,7 +46,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="bottom"
             android:paddingBottom="30dp"
-            android:background="#ff0088aa">
+            android:background="@drawable/mainpage_bg">
 
             <Button
                 android:layout_width="fill_parent"
