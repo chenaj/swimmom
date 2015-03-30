@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +50,15 @@ public class ProfileAddActivity extends ActionBarActivity implements AdapterView
         // Handle item selection
         new MenuOptions().MenuOption(curView,item,this, ProfileActivity.class);
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            //do your stuff
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void resetForm(View v)

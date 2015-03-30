@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -84,6 +85,15 @@ public class ProfileEditActivity extends ActionBarActivity{
         // Handle item selection
         new MenuOptions().MenuOption(curView,item,this,ProfileActivity.class);
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            //do your stuff
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void goToProfiles(View v) //navigate back to profile page when update is pressed

@@ -13,6 +13,7 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -181,8 +182,42 @@ public class MeetSwimmersEvents extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class);
+        AlertDialog ad = cancelMeetDialog(this);
+        ad.show();
+        //new MenuOptions().MenuOption(curView,item,this,MeetActivity.class);
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            //do your stuff
+            AlertDialog ad = cancelMeetDialog(this);
+            ad.show();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private AlertDialog cancelMeetDialog(final Context context)
+    {
+        return new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Exit Meet")
+                .setMessage("Are you sure you would like to cancel this meet?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//save meet
+                        startActivity(new Intent(context, MeetActivity.class));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//cancel
+                        dialog.dismiss();
+                    }
+                })
+                .create();
     }
 
     public void getParticipants()
@@ -193,7 +228,6 @@ public class MeetSwimmersEvents extends ActionBarActivity {
         SQLiteDatabase db = dop.getWritableDatabase();
 
         //Cursor cursor = db.rawQuery("SELECT * FROM Participants_TABLE WHERE Meet_Id='"+chosenMeetId+"'",null);
-
         String query = "SELECT * FROM Participants_TABLE WHERE Meet_Id='"+chosenMeetId+"'";
         Log.d("Query", query);
         Cursor cursor = db.rawQuery(query,null);
@@ -202,7 +236,6 @@ public class MeetSwimmersEvents extends ActionBarActivity {
         {
             while (!cursor.isAfterLast())
             {
-
                 name = cursor.getString(cursor.getColumnIndex("Name"));
                 event = cursor.getString(cursor.getColumnIndex("Event"));
 
@@ -251,8 +284,17 @@ public class MeetSwimmersEvents extends ActionBarActivity {
     }
 
     public void goToNextEvent(View v){
-        if(eventIndex<eventList.size()-1) {
-
+        if(eventIndex<eventList.size()-1)
+        {
+            //make sure all times are filled in before advancing to next event
+            for (int i=0; i<swimmerList.size();i++)
+            {
+                if(swimmerList.get(i).get("Time").equals("00:00.00"))
+                {
+                    new MessagePrinter().shortMessage(this, "Please fill in empty times");
+                    return;
+                }
+            }
 
             String name, time;
             for (int i=0; i<swimmerList.size();i++)
@@ -266,7 +308,6 @@ public class MeetSwimmersEvents extends ActionBarActivity {
                 map.put("Time", time); // Add event to swimmerList
                 finalStats.add(map);
             }
-
 
             eventIndex++;
             populateList();

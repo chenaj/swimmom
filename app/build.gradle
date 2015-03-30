@@ -8,8 +8,8 @@ android {
         applicationId "swim.swimmom"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 1
-        versionName "0.85"
+        versionCode 2
+        versionName "0.97"
     }
     buildTypes {
         release {

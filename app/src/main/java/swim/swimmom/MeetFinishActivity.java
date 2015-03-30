@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -77,8 +78,41 @@ public class MeetFinishActivity extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class);
+        AlertDialog ad = cancelMeetDialog(this);
+        ad.show();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            //do your stuff
+            AlertDialog ad = cancelMeetDialog(this);
+            ad.show();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private AlertDialog cancelMeetDialog(final Context context)
+    {
+        return new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Exit Meet")
+                .setMessage("Are you sure you would like to cancel this meet?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//save meet
+                        startActivity(new Intent(context, MeetActivity.class));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//cancel
+                        dialog.dismiss();
+                    }
+                })
+                .create();
     }
 
     private void showKeypad (final Context context, final View view, final int position){
@@ -220,6 +254,15 @@ public class MeetFinishActivity extends ActionBarActivity {
 
     public void saveMeet(View v)
     {
+        //make sure all times are filled in before saving meet
+        for (int i=0; i<finalStats.size();i++)
+        {
+            if(finalStats.get(i).get("Time").equals("00:00.00"))
+            {
+                new MessagePrinter().shortMessage(this, "Please fill in empty times");
+                return;
+            }
+        }
         AlertDialog ad = saveMeetDialog(this,v);
         ad.show();
     }

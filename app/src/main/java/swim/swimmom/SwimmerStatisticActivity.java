@@ -1,10 +1,12 @@
 package swim.swimmom;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,6 +104,15 @@ public class SwimmerStatisticActivity extends ActionBarActivity {
         // Handle item selection
         new MenuOptions().MenuOption(curView,item,this,StatisticActivity.class);
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            //do your stuff
+            startActivity(new Intent(this, StatisticActivity.class));
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void resetForm(View v)
