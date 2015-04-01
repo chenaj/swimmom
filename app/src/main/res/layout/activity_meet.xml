@@ -76,7 +76,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:drawableRight="@android:drawable/ic_menu_add"
             android:text="New Meet "
             android:id="@+id/createBtn"
             android:textSize="25sp"

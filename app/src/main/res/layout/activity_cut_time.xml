@@ -67,8 +67,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_add"
-            android:text="New Cut Time"
+            android:drawableRight="@android:drawable/ic_menu_add"
+            android:text="New Cut Time "
             android:id="@+id/addcuttimeBtn"
             android:textSize="25sp"
             android:textColor="#ffffffff"

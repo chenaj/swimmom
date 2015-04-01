@@ -79,6 +79,7 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@android:drawable/ic_menu_add"
         android:text="Swimmer"
+
         android:id="@+id/addProfileBtn"
         android:textSize="25sp"
         android:textColor="#ffffffff"

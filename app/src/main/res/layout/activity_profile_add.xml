@@ -158,7 +158,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_save"
+            android:drawableRight="@android:drawable/ic_menu_save"
             android:text="Save"
             android:id="@+id/button"
             android:textSize="25sp"

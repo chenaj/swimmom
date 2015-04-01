@@ -193,6 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="cancelMeet"
+            android:textColor="#ffffffff"
             android:layout_margin="7dp" />
 
         <Button
@@ -201,6 +202,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="saveMeet"
+            android:textColor="#ffffffff"
             android:layout_margin="7dp" />
 
         </LinearLayout>
