@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +27,10 @@ public class ProfileActivity extends ActionBarActivity{
 
     ArrayList swimmerList = new ArrayList(); // Stores list of swimmer names
     public static String chosenSwimmer = ""; // swimmer chosen for doing editing on
+    private TextView swCounter;
     ListView lv;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -130,6 +134,11 @@ public class ProfileActivity extends ActionBarActivity{
         lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); //multiple choice list i.e., checked or unchecked
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, swimmerList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
+
+        //Prints out the current number of profiles out of 10
+        int tempCount = swimmerList.size();
+        swCounter = (TextView) findViewById(R.id.counter);
+        swCounter.setText(String.valueOf(tempCount) + "/10");
     }
 
     private AlertDialog AskOption(final Context context, final View view)
