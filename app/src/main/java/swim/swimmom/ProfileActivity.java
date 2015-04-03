@@ -25,7 +25,7 @@ import java.util.Collections;
 
 public class ProfileActivity extends ActionBarActivity{
 
-    ArrayList swimmerList = new ArrayList(); // Stores list of swimmer names
+    public ArrayList swimmerList = new ArrayList(); // Stores list of swimmer names
     public static String chosenSwimmer = ""; // swimmer chosen for doing editing on
     private TextView swCounter;
     ListView lv;

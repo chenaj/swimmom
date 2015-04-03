@@ -336,4 +336,13 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         return "Success";
     }
 
+    //Returns number of stuff in a table  -JT 4/2/15
+    public int numContent()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor contentCursor = db.rawQuery("SELECT * FROM Profile_TABLE",null);
+
+        return contentCursor.getCount();
+    }
+
 }
