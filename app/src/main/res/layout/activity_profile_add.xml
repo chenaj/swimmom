@@ -145,7 +145,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:drawableRight="@android:drawable/ic_notification_clear_all"
             android:text="Reset"
             android:id="@+id/clearBtn"
@@ -153,19 +153,23 @@
             android:textColor="#ffffffff"
             android:onClick="resetForm"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="7dp" />
+            android:layout_margin="7dp"
+            android:background="@drawable/ctm_regular"
+            android:paddingLeft="4dp" />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:drawableRight="@android:drawable/ic_menu_save"
             android:text="Save"
-            android:id="@+id/button"
+            android:id="@+id/saveBtn"
             android:textSize="25sp"
             android:textColor="#ffffffff"
             android:onClick="goToProfiles"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="7dp" />
+            android:layout_margin="7dp"
+            android:background="@drawable/ctm_regular"
+            android:paddingLeft="4dp" />
     </LinearLayout>
 
 </RelativeLayout>

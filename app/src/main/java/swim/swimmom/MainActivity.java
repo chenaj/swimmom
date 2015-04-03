@@ -11,7 +11,7 @@ import android.view.View;
 
 public class MainActivity extends ActionBarActivity {
 
-   DatabaseOperations obj;
+    DatabaseOperations obj;
     public boolean isThereProfiles = false;
 
     @Override

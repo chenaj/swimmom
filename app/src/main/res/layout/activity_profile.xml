@@ -86,8 +86,8 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@android:drawable/ic_menu_add"
+        android:layout_height="40dp"
+        android:drawableRight="@android:drawable/ic_menu_add"
         android:text="Swimmer"
 
         android:id="@+id/addProfileBtn"
@@ -95,6 +95,8 @@
         android:textColor="#ffffffff"
         android:onClick="goToProfileAdd"
         android:layout_below="@+id/profileList"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ctm_regular"
+        android:paddingLeft="4dp" />
 
 </RelativeLayout>

@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="swim.swimmom.CutTimeAddActivity">
+    tools:context="swim.swimmom.CutTimeAddActivity"
+    android:gravity="bottom">
 
     <LinearLayout
         android:id="@+id/nameLayout"
@@ -90,7 +91,7 @@
         android:id="@+id/buttonLayout"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="40dp"
         android:layout_below="@+id/eventListLayout"
         android:gravity="center">
 
@@ -101,9 +102,10 @@
             android:drawableRight="@android:drawable/ic_menu_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="150dp"
             android:textColor="#ffffffff"
-            android:onClick="saveCut"/>
+            android:onClick="saveCut"
+            android:background="@drawable/ctm_regular"
+            android:paddingLeft="4dp" />
         </LinearLayout>
 
 </RelativeLayout>

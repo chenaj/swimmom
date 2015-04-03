@@ -58,7 +58,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
@@ -68,11 +68,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableRight="@android:drawable/ic_menu_add"
-            android:text="New Cut Time "
             android:id="@+id/addcuttimeBtn"
             android:textSize="25sp"
             android:textColor="#ffffffff"
-            android:onClick="goToAddCutTimes" />
+            android:onClick="goToAddCutTimes"
+            android:background="@drawable/ctm_regular"
+            android:text="New Cut Time"
+            android:paddingLeft="4dp" />
         </LinearLayout>
 
 
