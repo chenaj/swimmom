@@ -255,13 +255,12 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         Log.d("Table Name", cutName);
 
         db.execSQL(CREATE_Cut_TABLE); //create new table for this cut
-
         String query, event, time;
         for(int row=0; row < cutList.size(); row++)
         {
             event = cutList.get(row).get("Event");
             time = cutList.get(row).get("Time");
-            query  = "INSERT INTO "+cutName+" (Event, Time) VALUES ('" + event + "', '" + time + "')";
+            query  = "INSERT INTO "+cutName+" (Event, Time) VALUES ('"+event+"', '"+time+"')";
             try {
                 db.execSQL(query);
             } catch (Exception e) {
@@ -272,15 +271,38 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         }
 
         if(gender.equals("Boys")) {
-            query = "INSERT INTO BoysCuts_TABLE (Name) VALUES('" + cutName + "')";
+            query = "INSERT INTO BoysCuts_TABLE (Name) VALUES('"+cutName+"')";
             Log.d("Cut stored in ","Boys table");
         }
         else {
-            query = "INSERT INTO GirlsCuts_TABLE (Name) VALUES('" + cutName + "')";
+            query = "INSERT INTO GirlsCuts_TABLE (Name) VALUES('"+cutName+"')";
             Log.d("Cut stored in ","Girls table");
         }
 
-        db.execSQL(query); //create new table for this cut
+        try {
+            db.execSQL(query); //create new table for this cut
+        }catch (Exception e){
+            Log.e("*Query error!", "INSERT FAILED");
+            return "Sorry, an error occurred.. Please try again.";
+        }
+        return "Success";
+    }
+
+    public String deleteCut(SQLiteDatabase db, String cutName, String gender) //UPDATE cut
+    {
+        String query;
+        if(gender.equals("Boys"))
+            query  = "DELETE FROM BoysCuts_TABLE WHERE Name='"+cutName+"'";
+        else
+            query  = "DELETE FROM GirlsCuts_TABLE WHERE Name='"+cutName+"'";
+
+        try {
+            db.execSQL(query);
+        } catch (Exception e) {
+            Log.e("*Query error!", "DELETE FAILED");
+            return "Sorry, an error occurred.. Please try again.";
+        }
+        Log.d("Cut Deleted", cutName);
         return "Success";
     }
 
@@ -303,24 +325,6 @@ public class DatabaseOperations extends SQLiteOpenHelper{
         return "Success";
     }
 
-    public String deleteCut(SQLiteDatabase db, String cutName, String gender) //UPDATE cut
-    {
-        String query;
-        if(gender.equals("Boys"))
-            query  = "DELETE FROM BoysCuts_TABLE WHERE Name='"+cutName+"''";
-        else
-            query  = "DELETE FROM GirlsCuts_TABLE WHERE Name='"+cutName+"''";
-
-        try {
-            db.execSQL(query);
-        } catch (Exception e) {
-            Log.e("*Query error!", "DELETE FAILED");
-            return "Sorry, an error occurred.. Please try again.";
-        }
-        Log.d("Cut Deleted", cutName);
-
-        return "Success";
-    }
     //////////////////statistics
     public String insertStatistics(SQLiteDatabase db, String name, String event, String time, String date, String meet_id, String opponent) //INSERT
     {

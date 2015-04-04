@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-
 public class MainActivity extends ActionBarActivity {
 
     DatabaseOperations obj;
@@ -51,32 +50,27 @@ public class MainActivity extends ActionBarActivity {
     }
     public void goToMeets(View v)
     {
-        if(isThereProfiles == true) {
+        if(isThereProfiles) {
             new RumbleAction(v);
             startActivity(new Intent(this, MeetActivity.class));
         }
         else {
-            new MessagePrinter().longMessage(this, "Please create a profile");
+            new MessagePrinter().longMessage(this, "Please create a profile first");
         }
     }
     public void goToCutTimes(View v)
     {
-        if(isThereProfiles == true) {
             new RumbleAction(v);
             startActivity(new Intent(this, CutTimeActivity.class));
-        }
-        else {
-            new MessagePrinter().longMessage(this, "Please create a profile");
-        }
     }
     public void goToStatistics(View v)
     {
-        if(isThereProfiles == true) {
+        if(isThereProfiles) {
             new RumbleAction(v);
             startActivity(new Intent(this, StatisticActivity.class));
         }
         else {
-            new MessagePrinter().longMessage(this, "Please create a profile");
+            new MessagePrinter().longMessage(this, "Please create a profile first");
         }
     }
 }

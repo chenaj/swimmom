@@ -89,7 +89,7 @@ public class CutTimeAddActivity extends ActionBarActivity implements AdapterView
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        new MenuOptions().MenuOption(curView,item,this,MainActivity.class);
+        new MenuOptions().MenuOption(curView,item,this,CutTimeActivity.class);
         return super.onOptionsItemSelected(item);
     }
 

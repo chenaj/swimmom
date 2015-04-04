@@ -1,5 +1,8 @@
 package swim.swimmom;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,6 +30,7 @@ public class CutTimeActivity extends ActionBarActivity {
     public static String chosenCut = ""; // Cut time chosen for doing editing on
     public static String chosenGender = "";
     ListView lv;
+    String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,19 +139,11 @@ public class CutTimeActivity extends ActionBarActivity {
         }
         cursor.close();
         //Collections.sort(cutList);
-
         lv = (ListView) findViewById(R.id.cutsList);
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, cutList, R.layout.cutrows,
                 new String[]{"Name", "Gender"}, new int[]
                 {R.id.event, R.id.eventTime});
         lv.setAdapter(simpleAdapter);
-
-        /*
-        lv = (ListView) findViewById(R.id.cutsList);
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE); //multiple choice list i.e., checked or unchecked
-        ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cutList);
-        lv.setAdapter(listAdapter); // Apply the adapter to the list view
-        */
     }
 
     public void goToAddCutTimes(View v)
@@ -190,15 +186,40 @@ public class CutTimeActivity extends ActionBarActivity {
         CutInfo.clearInfo();
         CutInfo.cutName = chosenCut;
         CutInfo.gender = chosenGender;
-        DatabaseOperations dop = new DatabaseOperations(this);
-        SQLiteDatabase db = dop.getWritableDatabase();
-        String result = dop.deleteCut(db, CutInfo.cutName, CutInfo.gender);
-        if (result == "Success") {
-            new MessagePrinter().shortMessage(this, "Cut Deleted!");
-            startActivity(new Intent(this, CutTimeActivity.class));
-        } else
-            new MessagePrinter().shortMessage(this, result);
+        AlertDialog diaBox = deleteCutDialog(this, v);
+        diaBox.show();
+    }
 
+    private AlertDialog deleteCutDialog(final Context context, final View view)
+    {
+        return new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Delete Cut")
+                .setMessage("Are you sure you want to delete this cut?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//delete cut
+                        dialog.dismiss();
+                        new RumbleAction(view);
+                        DatabaseOperations dop = new DatabaseOperations(context);
+                        SQLiteDatabase db = dop.getWritableDatabase();
+                        result = dop.deleteCut(db, CutInfo.cutName, CutInfo.gender);
 
+                        if (result.equals("Success")) {
+                            new MessagePrinter().shortMessage(context, "Cut Deleted!");
+                            populateList();
+                        } else
+                            new MessagePrinter().shortMessage(context, result);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//do nothing
+                        dialog.dismiss();
+                        new RumbleAction(view);
+                    }
+                })
+                .create();
     }
 }

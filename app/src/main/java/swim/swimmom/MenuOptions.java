@@ -13,17 +13,24 @@ public class MenuOptions {
 
     public boolean MenuOption(View curView, MenuItem item, Context context, Class parentPage)
     {
-    new RumbleAction(curView);
-    // Handle item selection
+        new RumbleAction(curView);
+        // Handle item selection
         Intent intent;
+        DatabaseOperations obj = new DatabaseOperations(context);
+        boolean isThereProfiles = false;
+
+        //Checks if there is any profiles on app
+        if(obj.numContent() != 0)
+            isThereProfiles = true;
 
     switch (item.getItemId()) {
         case android.R.id.home:
             //onBackPressed();
             new RumbleAction(curView);
-            intent = new Intent (context, parentPage);
+            intent = new Intent(context, parentPage);
             context.startActivity(intent);
             return true;
+
 
         case R.id.mainOption:
             new RumbleAction(curView);
@@ -39,9 +46,14 @@ public class MenuOptions {
 
         case R.id.meetsOption:
             new RumbleAction(curView);
+        if(isThereProfiles){
             intent = new Intent (context, MeetActivity.class);
             context.startActivity(intent);
             return true;
+        }else {
+            new MessagePrinter().longMessage(context, "Please create a profile first");
+            return false;
+        }
 
         case R.id.cutTimesOption:
             new RumbleAction(curView);
@@ -51,9 +63,14 @@ public class MenuOptions {
 
         case R.id.statisticsOption:
             new RumbleAction(curView);
-            intent = new Intent (context, StatisticActivity.class);
-            context.startActivity(intent);
-            return true;
+            if(isThereProfiles) {
+                intent = new Intent(context, StatisticActivity.class);
+                context.startActivity(intent);
+                return true;
+            }else {
+                new MessagePrinter().longMessage(context, "Please create a profile first");
+                return false;
+            }
         default:
             return false;
     }
