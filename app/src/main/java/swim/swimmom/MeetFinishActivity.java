@@ -77,42 +77,15 @@ public class MeetFinishActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
-        // Handle item selection
-        AlertDialog ad = cancelMeetDialog(this);
-        ad.show();
-        return super.onOptionsItemSelected(item);
-    }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            //do your stuff
-            AlertDialog ad = cancelMeetDialog(this);
-            ad.show();
+        if (item.getItemId() == R.id.info)
+        {
+            AlertDialog diaBox = finishInfoDialog(getApplicationContext(), curView);
+            diaBox.show();
         }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    private AlertDialog cancelMeetDialog(final Context context)
-    {
-        return new AlertDialog.Builder(this)
-//set message, title, and icon
-                .setTitle("Exit Meet")
-                .setMessage("Are you sure you would like to cancel this meet?")
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-//save meet
-                        startActivity(new Intent(context, MeetActivity.class));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-//cancel
-                        dialog.dismiss();
-                    }
-                })
-                .create();
+        // Handle item selection
+        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class);
+        return super.onOptionsItemSelected(item);
     }
 
     private void showKeypad (final Context context, final View view, final int position){
@@ -209,7 +182,24 @@ public class MeetFinishActivity extends ActionBarActivity {
         return tempstr.toString();
     }
 
-    private AlertDialog saveMeetDialog(final Context context, final View view)
+    private AlertDialog finishInfoDialog(final Context context, final View view)
+    {
+        return new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Statistics Info")
+                .setMessage("- Swimmer times can be modified here\n\n" +
+                            "- Click on a time to change it")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+    }
+
+
+
+        private AlertDialog saveMeetDialog(final Context context, final View view)
     {
         return new AlertDialog.Builder(this)
 //set message, title, and icon

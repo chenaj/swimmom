@@ -55,6 +55,8 @@ public class StatisticActivity extends ActionBarActivity {
             }
         });
     }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         if (v.getId() == R.id.profileList)
@@ -76,6 +78,22 @@ public class StatisticActivity extends ActionBarActivity {
         }
         return true;
     }*/
+
+    private AlertDialog statInfoDialog(final Context context, final View view)
+    {
+        return new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Statistics Info")
+                .setMessage("- All swimmer stats are stored and viewed here \n\n" +
+                            "- Statistics can be sorted by fastest times or by date")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+    }
+
     private AlertDialog viewStats(final Context context, final View view)
     {
         return new AlertDialog.Builder(this)
@@ -146,6 +164,12 @@ public class StatisticActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
+
+        if (item.getItemId() == R.id.info)
+        {
+            AlertDialog diaBox = statInfoDialog(getApplicationContext(), curView);
+            diaBox.show();
+        }
         // Handle item selection
         new MenuOptions().MenuOption(curView,item,this,MainActivity.class);
         return super.onOptionsItemSelected(item);

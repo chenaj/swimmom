@@ -91,6 +91,12 @@ public class CutTimeActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
+
+        if (item.getItemId() == R.id.info)
+        {
+            AlertDialog diaBox = cutInfoDialog(getApplicationContext(), curView);
+            diaBox.show();
+        }
         // Handle item selection
         new MenuOptions().MenuOption(curView,item,this,MainActivity.class);
         return super.onOptionsItemSelected(item);
@@ -188,6 +194,20 @@ public class CutTimeActivity extends ActionBarActivity {
         CutInfo.gender = chosenGender;
         AlertDialog diaBox = deleteCutDialog(this, v);
         diaBox.show();
+    }
+
+    private AlertDialog cutInfoDialog(final Context context, final View view)
+    {
+        return new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Cut Info")
+                .setMessage("- Cuts can be viewed, edited or deleted by clicking on them")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
     }
 
     private AlertDialog deleteCutDialog(final Context context, final View view)

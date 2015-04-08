@@ -112,6 +112,13 @@ public class MeetActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
+
+        if (item.getItemId() == R.id.info)
+        {
+            AlertDialog diaBox = meetInfoDialog(getApplicationContext(), curView);
+            diaBox.show();
+        }
+
         // Handle item selection
         new MenuOptions().MenuOption(curView,item,this,MainActivity.class);
         return super.onOptionsItemSelected(item);
@@ -162,6 +169,21 @@ public class MeetActivity extends ActionBarActivity {
         ArrayAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, meetList);
         lv.setAdapter(listAdapter); // Apply the adapter to the list view
         */
+    }
+
+    private AlertDialog meetInfoDialog(final Context context, final View view)
+    {
+        return new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Meet Info")
+                .setMessage("- Short click on a meet to begin meet \n\n" +
+                            "- Long click on a meet to edit or delete it")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
     }
 
     private AlertDialog beginMeetDialog(final Context context, final View view)

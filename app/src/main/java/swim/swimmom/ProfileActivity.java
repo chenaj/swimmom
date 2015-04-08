@@ -97,6 +97,12 @@ public class ProfileActivity extends ActionBarActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
+
+        if (item.getItemId() == R.id.info)
+        {
+            AlertDialog diaBox = profileInfoDialog(getApplicationContext(), curView);
+            diaBox.show();
+        }
         // Handle item selection
         new MenuOptions().MenuOption(curView,item,this,MainActivity.class );
         return super.onOptionsItemSelected(item);
@@ -139,6 +145,21 @@ public class ProfileActivity extends ActionBarActivity{
         int tempCount = swimmerList.size();
         swCounter = (TextView) findViewById(R.id.counter);
         swCounter.setText(String.valueOf(tempCount) + "/10");
+    }
+
+    private AlertDialog profileInfoDialog(final Context context, final View view)
+    {
+        return new AlertDialog.Builder(this)
+//set message, title, and icon
+                .setTitle("Profile Info")
+                .setMessage("- Click on a profile to edit or delete it \n\n" +
+                        "- A maximum of 10 profiles can exist at a time")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
     }
 
     private AlertDialog AskOption(final Context context, final View view)

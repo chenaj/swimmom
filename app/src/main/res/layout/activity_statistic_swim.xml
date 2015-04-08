@@ -20,7 +20,6 @@
             android:id="@+id/imageView6"
             android:src="@drawable/statisticsiconlarge"
             android:scaleType="fitCenter" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -30,7 +29,7 @@
         android:id="@+id/linearLayout3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingBottom="10dp"
+        android:layout_marginBottom="17dp"
         android:layout_below="@+id/linearLayout2">
 
         <TableLayout
@@ -61,7 +60,6 @@
                 android:spinnerMode="dropdown" />
 
         </TableRow>
-
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -105,7 +103,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Opponent"
-            android:id="@+id/textView8" />
+            android:id="@+id/textView8"/>
 
         <TextView
             android:layout_width="0dp"

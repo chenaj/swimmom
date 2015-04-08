@@ -4,6 +4,14 @@
     tools:context="swim.swimmom.MeetActivity">
 
     <item
+        android:id="@+id/info"
+        android:title="info"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_menu_info_details"
+        app:showAsAction="always" >
+    </item>
+
+    <item
         android:id="@+id/settings"
         android:title="Jump To"
         android:orderInCategory="100"
@@ -29,4 +37,5 @@
                 android:icon="@drawable/statisticsicon"/>
         </menu>
     </item>
+
 </menu>

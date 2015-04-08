@@ -182,20 +182,8 @@ public class MeetSwimmersEvents extends ActionBarActivity {
         View curView = this.findViewById(android.R.id.content).getRootView();
         new RumbleAction(curView);
         // Handle item selection
-        AlertDialog ad = cancelMeetDialog(this);
-        ad.show();
-        //new MenuOptions().MenuOption(curView,item,this,MeetActivity.class);
+        new MenuOptions().MenuOption(curView,item,this,MeetActivity.class);
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            //do your stuff
-            AlertDialog ad = cancelMeetDialog(this);
-            ad.show();
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
     private AlertDialog cancelMeetDialog(final Context context)
